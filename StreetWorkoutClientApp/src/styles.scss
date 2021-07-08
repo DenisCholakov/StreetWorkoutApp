@@ -1,0 +1,30 @@
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$streetWorkout-primary: mat-palette($mat-blue);
+$streetWorkout-accent: mat-palette($mat-grey, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$streetWorkout-warn: mat-palette($mat-red);
+
+$streetWorkout-theme: mat-light-theme(
+  (
+    color: (
+      primary: $streetWorkout-primary,
+      accent: $streetWorkout-accent,
+      warn: $streetWorkout-warn,
+    ),
+  )
+);
+
+@include angular-material-theme($streetWorkout-theme);
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
