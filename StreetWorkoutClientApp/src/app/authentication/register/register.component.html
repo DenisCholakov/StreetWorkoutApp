@@ -10,9 +10,9 @@
             placeholder="Username:"
             formControlName="username"
           />
-          <mat-error *ngIf="registerForm.controls.errors"
-            >Username is required</mat-error
-          >
+          <mat-error *ngIf="registerForm.controls.username?.errors">{{
+            getError("username")
+          }}</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
@@ -21,6 +21,9 @@
             placeholder="Email:"
             formControlName="email"
           />
+          <mat-error *ngIf="registerForm.controls.username?.errors">{{
+            getError("username")
+          }}</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
@@ -29,6 +32,9 @@
             placeholder="Password:"
             formControlName="password"
           />
+          <mat-error *ngIf="registerForm.controls.username?.errors">{{
+            getError("username")
+          }}</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
@@ -37,6 +43,9 @@
             placeholder="Confirm password:"
             formControlName="confirmPassword"
           />
+          <mat-error *ngIf="registerForm.controls.username?.errors">{{
+            getError("username")
+          }}</mat-error>
         </mat-form-field>
       </div>
       <div class="form-button">

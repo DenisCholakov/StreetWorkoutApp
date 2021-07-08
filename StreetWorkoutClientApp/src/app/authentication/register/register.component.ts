@@ -19,4 +19,14 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  getError(propertyName: string): string {
+    let errors = this.registerForm.get(propertyName)?.errors;
+
+    if (errors?.required) {
+      return 'This field is required';
+    }
+
+    return '';
+  }
 }
