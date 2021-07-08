@@ -15,7 +15,7 @@
               loginForm.controls?.username?.touched &&
               loginForm.controls?.username?.errors
             "
-            >Username is required.</mat-error
+            >{{ getError("password") }}</mat-error
           >
         </mat-form-field>
         <mat-form-field>
@@ -30,7 +30,7 @@
               loginForm.controls?.password?.touched &&
               loginForm.controls?.password?.errors
             "
-            >Password is required.</mat-error
+            >{{ getError("password") }}</mat-error
           >
         </mat-form-field>
       </div>
