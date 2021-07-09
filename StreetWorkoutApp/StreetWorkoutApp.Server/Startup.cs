@@ -24,6 +24,9 @@ namespace StreetWorkoutApp.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddCors();
+
             services.AddDbContext<StreetWorkoutDbContext>(options =>
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"),
                     x => x.MigrationsAssembly("StreetWorkoutApp.Data")));
@@ -62,8 +65,6 @@ namespace StreetWorkoutApp.Server
                     ValidateAudience = false
                 };
             });
-
-            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -71,7 +72,8 @@ namespace StreetWorkoutApp.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChemicalListToolApi v1"));
             }
 
             app.UseHttpsRedirection();
@@ -79,9 +81,9 @@ namespace StreetWorkoutApp.Server
             app.UseRouting();
 
             app.UseCors(options => options
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
