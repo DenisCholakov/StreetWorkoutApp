@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 import * as validationConstants from '../../constants/validation.constants';
 
 @Component({
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required]],
@@ -22,6 +23,10 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  register() {
+    this.authService.register(this.registerForm.value);
+  }
 
   getError(propertyName: string): string {
     let errors = this.registerForm.get(propertyName)?.errors;

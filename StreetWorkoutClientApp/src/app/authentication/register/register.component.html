@@ -1,7 +1,7 @@
 <div class="register-form-wrapper">
   <mat-card class="register-card">
     <mat-card-title>Register</mat-card-title>
-    <form [formGroup]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="input-fields">
         <mat-form-field>
           <input
