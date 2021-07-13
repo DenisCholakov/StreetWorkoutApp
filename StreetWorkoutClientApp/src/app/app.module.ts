@@ -10,9 +10,15 @@ import { LoginComponent, RegisterComponent } from './authentication';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AuthService } from './services/auth.service';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    NavbarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -23,4 +23,12 @@ export class AuthService {
   register(data: IUserRegisterForm): Observable<any> {
     return this.http.post(this.registerPath, data);
   }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 }
