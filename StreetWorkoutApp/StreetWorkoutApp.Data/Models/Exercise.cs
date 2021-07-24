@@ -1,15 +1,32 @@
 ﻿using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 using StreetWorkoutApp.Data.Models.Enums;
+
+using static StreetWorkoutApp.Data.DataValidationConstants;
 
 namespace StreetWorkoutApp.Data.Models
 {
     public class Exercise
     {
+        public Exercise()
+        {
+            this.TrainingsForAcheiving = new HashSet<Training>();
+            this.TrainingsIncludedIn = new HashSet<TrainingExercise>();
+            this.MuscleGroups = new HashSet<MuscleGroup>();
+            this.EquipmentNeeded = new HashSet<Equipment>();
+        }
+
         public int Id { get; set; }
 
-        public string Example { get; set; }
+        [Required]
+        [MaxLength(exerciseNameMaxLength)]
+        public string Name { get; set; }
 
+        public string ExampleUrl { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        [Required]
         public ExerciseLevel ExerciseLevel { get; set; }
 
         public ICollection<Training> TrainingsForAcheiving { get; set; }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace StreetWorkoutApp.Server.Controllers
+namespace StreetWorkoutApp.Server.Features
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public abstract class ApiController : ControllerBase
     {
     }

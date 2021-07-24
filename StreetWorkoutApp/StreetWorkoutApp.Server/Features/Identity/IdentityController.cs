@@ -1,25 +1,27 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using StreetWorkoutApp.Data.Models;
-using StreetWorkoutApp.Server.Models.Identity;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace StreetWorkoutApp.Server.Controllers
+using StreetWorkoutApp.Data.Models;
+using StreetWorkoutApp.Server.Features.Identity.Models;
+using StreetWorkoutApp.Services.Identity;
+
+namespace StreetWorkoutApp.Server.Features.Identity
 {
     public class IdentityController : ApiController
     {
         private readonly UserManager<AppUser> userManager;
+        private readonly IIdentityService identityService;
         private readonly AppSettings appSettings;
 
-        public IdentityController(UserManager<AppUser> userManager, IOptions<AppSettings> appSettings)
+        public IdentityController(
+            UserManager<AppUser> userManager,
+            IIdentityService identityService,
+            IOptions<AppSettings> appSettings)
         {
             this.userManager = userManager;
+            this.identityService = identityService;
             this.appSettings = appSettings.Value;
         }
 
@@ -43,7 +45,7 @@ namespace StreetWorkoutApp.Server.Controllers
         }
 
         [HttpPost(nameof(Login))]
-        public async Task<ActionResult<string>> Login(LoginRequestModel model)
+        public async Task<ActionResult<object>> Login(LoginRequestModel model)
         {
             var user = await this.userManager.FindByNameAsync(model.UserName);
 
@@ -59,22 +61,9 @@ namespace StreetWorkoutApp.Server.Controllers
                 return Unauthorized("wrong password");
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+            var encryptedToken = identityService.GenerateJwtToken(user.Id, user.UserName, this.appSettings.Secret);
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var encryptedToken = tokenHandler.WriteToken(token);
-
-            return encryptedToken;
+            return new LoginResponseModel { Token = encryptedToken };
         }
     }
 }

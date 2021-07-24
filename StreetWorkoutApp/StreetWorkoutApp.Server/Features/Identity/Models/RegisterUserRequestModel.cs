@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StreetWorkoutApp.Server.Models.Identity
+namespace StreetWorkoutApp.Server.Features.Identity.Models
 {
     public class RegisterUserRequestModel
     {

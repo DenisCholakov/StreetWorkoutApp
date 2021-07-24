@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StreetWorkoutApp.Server.Models.Identity
+namespace StreetWorkoutApp.Server.Features.Identity.Models
 {
     public class LoginRequestModel
     {
         [Required]
+        [MinLength(3)]
         public string UserName { get; set; }
 
         [Required]
