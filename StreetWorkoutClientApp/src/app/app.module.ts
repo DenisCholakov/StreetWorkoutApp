@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
