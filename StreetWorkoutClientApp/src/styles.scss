@@ -2,8 +2,8 @@
 
 @include mat-core();
 
-$streetWorkout-primary: mat-palette($mat-blue);
-$streetWorkout-accent: mat-palette($mat-grey, A200, A100, A400);
+$streetWorkout-primary: mat-palette($mat-grey);
+$streetWorkout-accent: mat-palette($mat-brown, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $streetWorkout-warn: mat-palette($mat-red);
@@ -23,6 +23,7 @@ $streetWorkout-theme: mat-light-theme(
 html,
 body {
   height: 100%;
+  background-color: black;
 }
 body {
   margin: 0;

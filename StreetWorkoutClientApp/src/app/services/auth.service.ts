@@ -10,7 +10,7 @@ import { IUserLoginForm, IUserRegisterForm } from '../models';
 })
 export class AuthService {
   private loginPath = environment.apiUrl + 'identity/login';
-  private registerPath = environment.apiUrl + 'register';
+  private registerPath = environment.apiUrl + 'identity/register';
 
   constructor(private http: HttpClient) {}
 
@@ -22,5 +22,14 @@ export class AuthService {
 
   register(data: IUserRegisterForm): Observable<any> {
     return this.http.post(this.registerPath, data);
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+    console.log(token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }

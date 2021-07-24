@@ -1,0 +1,21 @@
+.heading {
+  background-image: url("../../assets/images/home.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+
+  .heading-text {
+    margin-top: 20%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+}
+
+.center-text {
+  text-align: center;
+}

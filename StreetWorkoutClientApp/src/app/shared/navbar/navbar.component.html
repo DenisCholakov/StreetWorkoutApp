@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="navbar">
+  <div class="right-content">
+    <button
+      mat-icon-button
+      class="menu-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a mat-flat-button routerLink="/home" color="primary">Street Workout </a>
+  </div>
+  <div class="left-content" *ngIf="">
+    <a mat-flat-button routerLink="/login" color="primary">Login</a>
+    <a mat-flat-button routerLink="/register" color="primary">Register</a>
+  </div>
+</mat-toolbar>

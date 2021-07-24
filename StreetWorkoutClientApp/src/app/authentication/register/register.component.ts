@@ -25,7 +25,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   register() {
-    this.authService.register(this.registerForm.value);
+    debugger;
+    this.authService
+      .register(this.registerForm.value)
+      .subscribe((data) => console.log(data));
   }
 
   getError(propertyName: string): string {
