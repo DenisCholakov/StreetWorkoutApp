@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
+using StreetWorkoutApp.Services.Equipments;
 using StreetWorkoutApp.Services.Exercises;
 using StreetWorkoutApp.Services.Identity;
 
@@ -64,6 +65,7 @@ namespace StreetWorkoutApp.Server.Infrastructure
         {
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IExercisesService, ExercisesService>();
+            services.AddTransient<IEquipmentService, EquipmentService>();
 
             return services;
         }
