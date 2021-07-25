@@ -24,7 +24,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises
         }
 
 
-        [HttpGet("exercise-details/{exerciseId}")]
+        [HttpGet("details/{exerciseId}")]
         [SwaggerOperation(
             Summary = "Get Details for the selected exercise",
             Description = "Gets Details for the selected exercise",
@@ -40,7 +40,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             
         }
 
-        [HttpPost("add-exercise")]
+        [HttpPost("add")]
         [SwaggerOperation(
             Summary = "Create exercise",
             Description = "Creates a new exercise",
