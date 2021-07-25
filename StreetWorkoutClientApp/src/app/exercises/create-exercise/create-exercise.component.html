@@ -1,1 +1,74 @@
-<p>create-exercise works!</p>
+<div class="login-form-wrapper">
+  <mat-card class="login-card">
+    <mat-card-title>Add new exercise</mat-card-title>
+    <form [formGroup]="exerciseForm" (ngSubmit)="create()">
+      <div class="input-fields">
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="exercise Name:"
+            formControlName="name"
+          />
+          <mat-error
+            *ngIf="
+              exerciseForm.controls?.username?.touched &&
+              exerciseForm.controls?.username?.errors
+            "
+            >{{ getError("name") }}</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Exercise Level</mat-label>
+          <mat-select>
+            <mat-option value="beginner">Beginner</mat-option>
+            <mat-option value="intermediate">Intermediate</mat-option>
+            <mat-option value="advanced">Advanced</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              exerciseForm.controls?.username?.touched &&
+              exerciseForm.controls?.username?.errors
+            "
+            >{{ getError("exerciseLevel") }}</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="add url with image of the exercise"
+            formControlName="imageUrl"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="add url with video example of the exercise"
+            formControlName="exampleUrl"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Included muscle groups</mat-label>
+          <mat-select>
+            <mat-option value="beginner">Beginner</mat-option>
+            <mat-option value="intermediate">Intermediate</mat-option>
+            <mat-option value="advanced">Advanced</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Needed equipment</mat-label>
+          <mat-select>
+            <mat-option value="beginner">Beginner</mat-option>
+            <mat-option value="intermediate">Intermediate</mat-option>
+            <mat-option value="advanced">Advanced</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-button">
+        <button type="submit" mat-raised-button color="primary">Login</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

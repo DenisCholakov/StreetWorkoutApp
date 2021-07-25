@@ -14,6 +14,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { CreateExerciseComponent } from './exercises/create-exercise/create-exercise.component';
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
+import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-
     HomeComponent,
     CreateExerciseComponent,
     ExerciseDetailsComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
