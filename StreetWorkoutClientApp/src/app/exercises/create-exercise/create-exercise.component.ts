@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MuscleGroups } from 'src/app/models';
 
 @Component({
   selector: 'app-create-exercise',
@@ -8,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateExerciseComponent implements OnInit {
   exerciseForm: FormGroup;
+  muscleGroups = MuscleGroups;
+  keys = Object.keys;
 
   constructor(private fb: FormBuilder) {
     this.exerciseForm = this.fb.group({
@@ -26,5 +29,7 @@ export class CreateExerciseComponent implements OnInit {
 
   getError(field: string) {}
 
-  create() {}
+  create() {
+    console.log(this.exerciseForm);
+  }
 }

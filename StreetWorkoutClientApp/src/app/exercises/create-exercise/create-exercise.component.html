@@ -3,7 +3,7 @@
     <mat-card-title>Add new exercise</mat-card-title>
     <form [formGroup]="exerciseForm" (ngSubmit)="create()">
       <div class="input-fields">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <input
             type="text"
             matInput
@@ -18,9 +18,11 @@
             >{{ getError("name") }}</mat-error
           >
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Exercise Level</mat-label>
-          <mat-select>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="exercise level"
+            formControlName="exerciseLevel"
+          >
             <mat-option value="beginner">Beginner</mat-option>
             <mat-option value="intermediate">Intermediate</mat-option>
             <mat-option value="advanced">Advanced</mat-option>
@@ -33,7 +35,7 @@
             >{{ getError("exerciseLevel") }}</mat-error
           >
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <input
             type="text"
             matInput
@@ -41,7 +43,7 @@
             formControlName="imageUrl"
           />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <input
             type="text"
             matInput
@@ -49,17 +51,25 @@
             formControlName="exampleUrl"
           />
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Included muscle groups</mat-label>
-          <mat-select>
-            <mat-option value="beginner">Beginner</mat-option>
-            <mat-option value="intermediate">Intermediate</mat-option>
-            <mat-option value="advanced">Advanced</mat-option>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="included muscle groups"
+            formControlName="muscleGroups"
+            multiple
+          >
+            <mat-option
+              *ngFor="let groupKey of keys(muscleGroups)"
+              value="{{ groupKey }}"
+              >{{ groupKey }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Needed equipment</mat-label>
-          <mat-select>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="needed equipment"
+            formControlName="equipment"
+            multiple
+          >
             <mat-option value="beginner">Beginner</mat-option>
             <mat-option value="intermediate">Intermediate</mat-option>
             <mat-option value="advanced">Advanced</mat-option>

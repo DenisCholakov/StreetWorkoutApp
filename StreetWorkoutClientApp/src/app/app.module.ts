@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { CreateExerciseComponent } from './exercises/create-exercise/create-exercise.component';
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
+import { ExercisesService } from './services/exercises.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.
     FlexLayoutModule,
     HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, ExercisesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
