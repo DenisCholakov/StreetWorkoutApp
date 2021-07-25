@@ -9,7 +9,7 @@ namespace StreetWorkoutApp.Services.Exercises.Models
     {
         public string Name { get; set; }
 
-        public ExerciseLevel ExerciseLevel { get; set; }
+        public ExerciseLevelEnum ExerciseLevel { get; set; }
 
         public string ExampleUrl { get; set; }
 

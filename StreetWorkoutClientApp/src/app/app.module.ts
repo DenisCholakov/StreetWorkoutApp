@@ -12,6 +12,8 @@ import { MaterialModule } from './material/material.module';
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { CreateExerciseComponent } from './exercises/create-exercise/create-exercise.component';
+import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { HomeComponent } from './home/home.component';
     RegisterComponent,
     NavbarComponent,
     HomeComponent,
+    CreateExerciseComponent,
+    ExerciseDetailsComponent,
   ],
   imports: [
     BrowserModule,

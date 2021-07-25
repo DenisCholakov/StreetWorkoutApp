@@ -13,7 +13,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
 
         public string ImageUrl { get; set; }
 
-        public ExerciseLevel ExerciseLevel { get; set; }
+        public ExerciseLevelEnum ExerciseLevel { get; set; }
 
         public ICollection<Training> TrainingsForAcheiving { get; set; }
 

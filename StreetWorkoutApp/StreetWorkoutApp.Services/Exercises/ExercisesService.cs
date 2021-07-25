@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Exercises.Models;
@@ -21,11 +22,6 @@ namespace StreetWorkoutApp.Services.Exercises
         public async Task<ExerciseDetailsServiceModel> CreateExercisee(CreateExerciseServiceModel exercise)
         {
             var exerciseToAdd = this.data.Exercises.FirstOrDefault(x => x.Name == exercise.Name);
-
-            if (exerciseToAdd != null)
-            {
-                return null;
-            }
 
             exerciseToAdd = new Exercise
             {

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace StreetWorkoutApp.Data.Models.Enums
 {
-    public enum TrainingLevel
+    public enum ExerciseLevelEnum
     {
-        Beginner,
-        Medium,
-        Intermediate,
-        Advanced
+        beginner = 1,
+        intermediate,
+        advanced
     }
 }
