@@ -4,6 +4,7 @@ using AutoMapper;
 
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
+using StreetWorkoutApp.Services.Common;
 using StreetWorkoutApp.Services.Equipments;
 using StreetWorkoutApp.Services.Exercises.Models;
 
@@ -14,15 +15,18 @@ namespace StreetWorkoutApp.Services.Exercises
         private readonly StreetWorkoutDbContext data;
         private readonly IMapper mapper;
         private readonly IEquipmentService equipmentService;
+        private readonly ICommonService commonService;
 
         public ExercisesService(
             StreetWorkoutDbContext data, 
             IMapper mapper, 
-            IEquipmentService equipmentService)
+            IEquipmentService equipmentService,
+            ICommonService commonService)
         {
             this.data = data;
             this.mapper = mapper;
             this.equipmentService = equipmentService;
+            this.commonService = commonService;
         }
 
         public async Task<ExerciseDetailsServiceModel> CreateExercisee(CreateExerciseServiceModel exercise)
@@ -37,13 +41,15 @@ namespace StreetWorkoutApp.Services.Exercises
             var equipmentNeeded =await this.equipmentService.GetEquipmentByNames(
                 exercise.EquipmentNeeded.ToList());
 
+            var muscleGroups = await this.commonService.GetMuscleGroupsByNames(exercise.MuscleGroups.ToList());
+
             exerciseToAdd = new Exercise
             {
                 Name = exercise.Name,
                 ExampleUrl = exercise.ExampleUrl ?? "",
                 ImageUrl = exercise.ImageUrl ?? "",
                 ExerciseLevel = exercise.ExerciseLevel,
-                MuscleGroups = exercise.MuscleGroups,
+                MuscleGroups = muscleGroups,
                 EquipmentNeeded = equipmentNeeded
             };
 
