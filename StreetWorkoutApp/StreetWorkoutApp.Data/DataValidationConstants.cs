@@ -1,4 +1,6 @@
-﻿namespace StreetWorkoutApp.Data
+﻿using System.Text.RegularExpressions;
+
+namespace StreetWorkoutApp.Data
 {
     public class DataValidationConstants
     {

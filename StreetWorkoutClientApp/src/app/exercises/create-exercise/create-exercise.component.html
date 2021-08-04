@@ -23,9 +23,11 @@
             placeholder="exercise level"
             formControlName="exerciseLevel"
           >
-            <mat-option value="beginner">Beginner</mat-option>
-            <mat-option value="intermediate">Intermediate</mat-option>
-            <mat-option value="advanced">Advanced</mat-option>
+            <mat-option
+              *ngFor="let key of exerciseLevelsKeys"
+              value="{{ key }}"
+              >{{ exerciseLevels[key] }}</mat-option
+            >
           </mat-select>
           <mat-error
             *ngIf="
@@ -58,7 +60,7 @@
             multiple
           >
             <mat-option
-              *ngFor="let groupKey of keys(muscleGroups)"
+              *ngFor="let groupKey of muscleGroupsKeys"
               value="{{ groupKey }}"
               >{{ groupKey }}</mat-option
             >
@@ -70,14 +72,18 @@
             formControlName="equipment"
             multiple
           >
-            <mat-option value="beginner">Beginner</mat-option>
-            <mat-option value="intermediate">Intermediate</mat-option>
-            <mat-option value="advanced">Advanced</mat-option>
+            <mat-option
+              *ngFor="let equipmentName of neededEquipment"
+              value="{{ equipmentName }}"
+              >{{ equipmentName }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
       <div class="form-button">
-        <button type="submit" mat-raised-button color="primary">Login</button>
+        <button type="submit" mat-raised-button color="primary">
+          Create exercise
+        </button>
       </div>
     </form>
   </mat-card>

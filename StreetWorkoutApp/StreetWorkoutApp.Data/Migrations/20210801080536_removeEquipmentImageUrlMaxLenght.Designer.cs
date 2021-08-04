@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreetWorkoutApp.Data;
 
 namespace StreetWorkoutApp.Data.Migrations
 {
     [DbContext(typeof(StreetWorkoutDbContext))]
-    partial class StreetWorkoutDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210801080536_removeEquipmentImageUrlMaxLenght")]
+    partial class removeEquipmentImageUrlMaxLenght
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,21 +34,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("ExercisesId");
 
                     b.ToTable("EquipmentExercise");
-                });
-
-            modelBuilder.Entity("ExerciseMuscleGroup", b =>
-                {
-                    b.Property<int>("ExercisesForMuscleGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MuscleGroupsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExercisesForMuscleGroupId", "MuscleGroupsId");
-
-                    b.HasIndex("MuscleGroupsId");
-
-                    b.ToTable("ExerciseMuscleGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -180,21 +167,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MuscleGroupTraining", b =>
-                {
-                    b.Property<int>("MuscleGroupsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrainingsForMuscleGroupId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MuscleGroupsId", "TrainingsForMuscleGroupId");
-
-                    b.HasIndex("TrainingsForMuscleGroupId");
-
-                    b.ToTable("MuscleGroupTraining");
-                });
-
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -312,10 +284,20 @@ namespace StreetWorkoutApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ExerciseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TrainingId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("TrainingId");
 
                     b.ToTable("MuscleGroups");
                 });
@@ -385,21 +367,6 @@ namespace StreetWorkoutApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ExerciseMuscleGroup", b =>
-                {
-                    b.HasOne("StreetWorkoutApp.Data.Models.Exercise", null)
-                        .WithMany()
-                        .HasForeignKey("ExercisesForMuscleGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StreetWorkoutApp.Data.Models.MuscleGroup", null)
-                        .WithMany()
-                        .HasForeignKey("MuscleGroupsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -451,19 +418,15 @@ namespace StreetWorkoutApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MuscleGroupTraining", b =>
+            modelBuilder.Entity("StreetWorkoutApp.Data.Models.MuscleGroup", b =>
                 {
-                    b.HasOne("StreetWorkoutApp.Data.Models.MuscleGroup", null)
-                        .WithMany()
-                        .HasForeignKey("MuscleGroupsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("StreetWorkoutApp.Data.Models.Exercise", null)
+                        .WithMany("MuscleGroups")
+                        .HasForeignKey("ExerciseId");
 
                     b.HasOne("StreetWorkoutApp.Data.Models.Training", null)
-                        .WithMany()
-                        .HasForeignKey("TrainingsForMuscleGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("MuscleGroups")
+                        .HasForeignKey("TrainingId");
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Training", b =>
@@ -496,6 +459,8 @@ namespace StreetWorkoutApp.Data.Migrations
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Exercise", b =>
                 {
+                    b.Navigation("MuscleGroups");
+
                     b.Navigation("TrainingsForAcheiving");
 
                     b.Navigation("TrainingsIncludedIn");
@@ -504,6 +469,8 @@ namespace StreetWorkoutApp.Data.Migrations
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Training", b =>
                 {
                     b.Navigation("Exercises");
+
+                    b.Navigation("MuscleGroups");
                 });
 #pragma warning restore 612, 618
         }

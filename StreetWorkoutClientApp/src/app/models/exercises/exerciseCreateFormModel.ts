@@ -1,8 +1,8 @@
 export interface IExerciseCreateFormModel {
   name: string;
-  exersiseLevel: string;
+  exersiseLevel: number;
   imageUrl: string;
   exampleUrl: string;
-  muscleGroups: string;
-  equipment: string;
+  muscleGroups: string[];
+  equipment: string[];
 }

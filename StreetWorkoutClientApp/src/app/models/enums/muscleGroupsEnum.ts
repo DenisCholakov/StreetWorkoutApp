@@ -1,4 +1,4 @@
-export enum MuscleGroups {
+export enum MuscleGroupsEnum {
   Shoulders = 'Shoulders',
   Chest = 'Chest',
   Legs = 'Legs',

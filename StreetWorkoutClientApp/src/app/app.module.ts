@@ -16,6 +16,7 @@ import { CreateExerciseComponent } from './exercises/create-exercise/create-exer
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
 import { ExercisesService } from './services/exercises.service';
+import { CreateEquipmentComponent } from './equipment/create-equipment/create-equipment.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ExercisesService } from './services/exercises.service';
     CreateExerciseComponent,
     ExerciseDetailsComponent,
     PageNotFoundComponent,
+    CreateEquipmentComponent,
   ],
   imports: [
     BrowserModule,

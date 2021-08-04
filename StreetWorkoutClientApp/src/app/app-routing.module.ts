@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent, RegisterComponent } from './authentication';
+import { CreateEquipmentComponent } from './equipment/create-equipment/create-equipment.component';
 import { CreateExerciseComponent } from './exercises/create-exercise/create-exercise.component';
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'equipment-create',
+    component: CreateEquipmentComponent,
   },
   {
     path: 'exercise',

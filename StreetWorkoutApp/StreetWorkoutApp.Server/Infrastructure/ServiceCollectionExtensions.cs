@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Reflection;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +11,7 @@ using Microsoft.OpenApi.Models;
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Common;
-using StreetWorkoutApp.Services.Equipments;
+using StreetWorkoutApp.Services.Equipment;
 using StreetWorkoutApp.Services.Exercises;
 using StreetWorkoutApp.Services.Identity;
 
@@ -86,5 +88,9 @@ namespace StreetWorkoutApp.Server.Infrastructure
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Street Workout API", Version = "v1"});
             });
+
+        public static IServiceCollection AddMapper(this IServiceCollection services)
+            => services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly,
+                    typeof(EquipmentService).GetTypeInfo().Assembly);
     }
 }

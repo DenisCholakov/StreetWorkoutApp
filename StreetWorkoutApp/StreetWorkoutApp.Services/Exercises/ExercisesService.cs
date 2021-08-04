@@ -5,7 +5,7 @@ using AutoMapper;
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Common;
-using StreetWorkoutApp.Services.Equipments;
+using StreetWorkoutApp.Services.Equipment;
 using StreetWorkoutApp.Services.Exercises.Models;
 
 namespace StreetWorkoutApp.Services.Exercises
@@ -38,8 +38,8 @@ namespace StreetWorkoutApp.Services.Exercises
                 return null;
             }
 
-            var equipmentNeeded =await this.equipmentService.GetEquipmentByNames(
-                exercise.EquipmentNeeded.ToList());
+            var equipmentNeeded =await this.equipmentService.GetEquipmentByName(
+                exercise.Equipment.ToList());
 
             var muscleGroups = await this.commonService.GetMuscleGroupsByNames(exercise.MuscleGroups.ToList());
 

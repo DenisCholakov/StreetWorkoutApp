@@ -19,8 +19,8 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
 
         public ICollection<TrainingExercise> TrainingsIncludedIn { get; set; }
 
-        public ICollection<MuscleGroup> MuscleGroups { get; set; }
+        public ICollection<string> MuscleGroups { get; set; }
 
-        public ICollection<string> EquipmentNeeded { get; set; }
+        public ICollection<ExerciseEquipmentModel> Equipment { get; set; }
     }
 }

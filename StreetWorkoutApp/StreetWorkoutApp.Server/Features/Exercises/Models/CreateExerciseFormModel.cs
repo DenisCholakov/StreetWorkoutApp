@@ -13,7 +13,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
 
         [Required]
         [EnumDataType(typeof(ExerciseLevelEnum))]
-        public ExerciseLevelEnum ExerciseLevel { get; set; }
+        public int ExerciseLevel { get; set; }
 
         public string ExampleUrl { get; set; }
 
@@ -21,6 +21,6 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
 
         public ICollection<string> MuscleGroups { get; set; }
 
-        public ICollection<string> EquipmentNeeded { get; set; }
+        public ICollection<string> Equipment { get; set; }
     }
 }

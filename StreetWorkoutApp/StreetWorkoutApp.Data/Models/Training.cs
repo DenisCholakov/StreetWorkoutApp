@@ -17,6 +17,8 @@ namespace StreetWorkoutApp.Data.Models
 
         public bool IsIndoor { get; set; }
 
+        public int? ExerciseId { get; set; }
+
         public Exercise GoalExercise { get; set; }
 
         public TrainingLevelEnum TrainingLevel { get; set; }
