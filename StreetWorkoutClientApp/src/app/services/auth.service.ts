@@ -20,6 +20,10 @@ export class AuthService {
     });
   }
 
+  logout() {
+    localStorage.removeItem('token');
+  }
+
   register(data: IUserRegisterForm): Observable<any> {
     return this.http.post(this.registerPath, data);
   }
@@ -30,5 +34,13 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  isAuthenticated() {
+    if (this.getToken()) {
+      return true;
+    }
+
+    return false;
   }
 }

@@ -10,13 +10,32 @@
     <a mat-flat-button routerLink="/home" color="primary">Street Workout </a>
   </div>
   <div class="left-content">
-    <a mat-flat-button routerLink="/login" color="primary">Login</a>
-    <a mat-flat-button routerLink="/register" color="primary">Register</a>
-    <a mat-flat-button routerLink="/equipment-create" color="primary"
+    <a mat-flat-button *ngIf="!isLoggedIn" routerLink="/login" color="primary"
+      >Login</a
+    >
+    <a
+      mat-flat-button
+      *ngIf="!isLoggedIn"
+      routerLink="/register"
+      color="primary"
+      >Register</a
+    >
+    <a
+      mat-flat-button
+      *ngIf="isLoggedIn"
+      routerLink="/equipment-create"
+      color="primary"
       >Add equipment</a
     >
-    <a mat-flat-button routerLink="/exercise/create" color="primary"
+    <a
+      mat-flat-button
+      *ngIf="isLoggedIn"
+      routerLink="/exercise/create"
+      color="primary"
       >Add exercise</a
+    >
+    <a mat-flat-button *ngIf="isLoggedIn" (click)="logout()" color="primary"
+      >Logout</a
     >
   </div>
 </mat-toolbar>

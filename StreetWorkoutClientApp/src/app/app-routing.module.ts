@@ -6,6 +6,7 @@ import { CreateExerciseComponent } from './exercises/create-exercise/create-exer
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   {
     path: 'equipment-create',
     component: CreateEquipmentComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'exercise',
@@ -41,6 +43,7 @@ const routes: Routes = [
         component: ExerciseDetailsComponent,
       },
     ],
+    canActivate: [AuthGuardService],
   },
   {
     path: '**',

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using System.Linq;
+
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Exercises.Models;
-using System.Linq;
+using dataEntities = StreetWorkoutApp.Data.Models;
 
 namespace StreetWorkoutApp.Services.Exercises.Configurations
 {
@@ -12,6 +14,7 @@ namespace StreetWorkoutApp.Services.Exercises.Configurations
             CreateMap<Exercise, ExerciseDetailsServiceModel>()
                 .ForMember(dest => dest.MuscleGroups,
                     opt => opt.MapFrom(src => src.MuscleGroups.Select(x => x.Name)));
+            CreateMap<dataEntities.Equipment, ExerciseEquipmentServiceModel>();
             CreateMap<ExerciseDetailsServiceModel, Exercise>();
         }
     }

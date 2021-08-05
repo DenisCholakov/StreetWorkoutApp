@@ -12,6 +12,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Configurations
             CreateMap<CreateExerciseFormModel, CreateExerciseServiceModel>();
             CreateMap<ExerciseDetailsServiceModel, ExerciseDetailsModel>()
                 .ForMember(dest => dest.Equipment, opt => opt.MapFrom(src => src.EquipmentNeeded));
+            CreateMap<ExerciseEquipmentServiceModel, ExerciseEquipmentModel>();
         }
     }
 }
