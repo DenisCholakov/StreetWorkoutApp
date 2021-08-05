@@ -13,11 +13,9 @@ import { AuthService } from './auth.service';
 export class ExercisesService {
   private createPath = environment.apiUrl + 'exercises/add';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   create(data: IExerciseCreateFormModel): Observable<IExerciseDetailsModel> {
-    return this.http.post<IExerciseDetailsModel>(this.createPath, data, {
-      headers: { Authorization: `Bearer ${this.authService.getToken()}` },
-    });
+    return this.http.post<IExerciseDetailsModel>(this.createPath, data);
   }
 }

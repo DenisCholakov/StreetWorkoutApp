@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,8 @@ import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
 import { ExercisesService } from './services/exercises.service';
 import { CreateEquipmentComponent } from './equipment/create-equipment/create-equipment.component';
+import { EquipmentService } from './services/equipment.service';
+import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,16 @@ import { CreateEquipmentComponent } from './equipment/create-equipment/create-eq
     FlexLayoutModule,
     HttpClientModule,
   ],
-  providers: [AuthService, ExercisesService],
+  providers: [
+    AuthService,
+    ExercisesService,
+    EquipmentService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
