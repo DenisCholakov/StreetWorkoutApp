@@ -17,3 +17,21 @@
     }
   }
 }
+
+.cards-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  mat-card {
+    width: 100%;
+  }
+}
+
+.image {
+  width: 21rem;
+  height: 13rem; /* adjust as needed */
+  padding: 5px;
+  object-fit: contain;
+}

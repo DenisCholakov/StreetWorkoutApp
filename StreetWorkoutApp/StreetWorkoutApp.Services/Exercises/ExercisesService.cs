@@ -1,12 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using IdentityServer4.Extensions;
+using Microsoft.EntityFrameworkCore;
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Common;
 using StreetWorkoutApp.Services.Equipment;
 using StreetWorkoutApp.Services.Exercises.Models;
+using StreetWorkoutApp.Services.Identity;
 
 namespace StreetWorkoutApp.Services.Exercises
 {
@@ -16,17 +20,20 @@ namespace StreetWorkoutApp.Services.Exercises
         private readonly IMapper mapper;
         private readonly IEquipmentService equipmentService;
         private readonly ICommonService commonService;
+        private readonly IIdentityService identityService;
 
         public ExercisesService(
             StreetWorkoutDbContext data, 
             IMapper mapper, 
             IEquipmentService equipmentService,
-            ICommonService commonService)
+            ICommonService commonService,
+            IIdentityService identityService)
         {
             this.data = data;
             this.mapper = mapper;
             this.equipmentService = equipmentService;
             this.commonService = commonService;
+            this.identityService = identityService;
         }
 
         public async Task<ExerciseDetailsServiceModel> CreateExercisee(CreateExerciseServiceModel exercise)
@@ -64,10 +71,62 @@ namespace StreetWorkoutApp.Services.Exercises
         public async Task<ExerciseDetailsServiceModel> GetExerciseDetails(int exerciseId)
         {
             var exerciseData = this.data.Exercises.FirstOrDefault(ex => ex.Id == exerciseId);
+            data.Entry(exerciseData).Collection(e => e.EquipmentNeeded).Load();
+            data.Entry(exerciseData).Collection(e => e.MuscleGroups).Load();
 
             var exercise = this.mapper.Map<ExerciseDetailsServiceModel>(exerciseData);
 
             return exercise;
+        }
+
+        public async Task<FilteredExercisesServiceResponse> GetFileteredExercises(
+            ExerciseFilterServiceModel filters,
+            int currentPage,
+            int resultsPerPage)
+        {
+            var exercises = this.data.Exercises.Include(e => e.MuscleGroups).ToList();
+
+            exercises = FilterData(filters, exercises);
+
+            var currentPageExercises = exercises
+                .Skip(currentPage * resultsPerPage)
+                .Take(resultsPerPage)
+                .ToList();
+
+            var result = new FilteredExercisesServiceResponse
+            {
+                Exercises = this.mapper.Map<ICollection<ExerciseServiseModel>>(currentPageExercises),
+                AllExercisesCount = exercises.Count()
+            };
+
+            return result;
+        }
+
+        private static List<Exercise> FilterData(ExerciseFilterServiceModel filters, List<Exercise> exercises)
+        {
+            if (!String.IsNullOrWhiteSpace(filters.SearchTerm))
+            {
+                exercises = exercises
+                    .Where(ex => ex.Name
+                        .Contains(filters.SearchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (filters.MyExercises)
+            {
+                exercises = exercises.Where(ex => ex.Users.Any(u => u.UserName == Environment.UserName)).ToList();
+            }
+
+            if (!filters.MuscleGroups.IsNullOrEmpty())
+            {
+                exercises = exercises.Where(ex => ex.MuscleGroups.Any(mg => filters.MuscleGroups.Contains(mg.Name))).ToList();
+            }
+
+            if (filters.ExerciseLevel != 0)
+            {
+                exercises = exercises.Where(ex => ex.ExerciseLevel == filters.ExerciseLevel).ToList();
+            }
+
+            return exercises;
         }
     }
 }

@@ -26,6 +26,8 @@ namespace StreetWorkoutApp.Data.Models
 
         public string ImageUrl { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
         public ExerciseLevelEnum ExerciseLevel { get; set; }
 
@@ -36,5 +38,7 @@ namespace StreetWorkoutApp.Data.Models
         public ICollection<MuscleGroup> MuscleGroups { get; set; }
 
         public ICollection<Equipment> EquipmentNeeded { get; set; }
+
+        public ICollection<AppUser> Users { get; set; }
     }
 }

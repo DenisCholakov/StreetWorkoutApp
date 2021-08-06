@@ -33,26 +33,52 @@
 >
 
 <div class="exercises">
-  <mat-card *ngFor="let exercise of exercises" class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{ exercise.name }}</mat-card-title>
-    </mat-card-header>
-    <img
-      mat-card-image
-      src="{{ exercise.imageUrl }}"
-      alt="Photo of a Shiba Inu"
-    />
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz
-        breeds of dog from Japan. A small, agile dog that copes very well with
-        mountainous terrain, the Shiba Inu was originally bred for hunting.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+  <div
+    class="cards-container"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayout.sm="column"
+    fxLayoutGap="16px grid"
+    *ngIf="exercisesResponse.exercises"
+  >
+    <div
+      *ngFor="let exercise of exercisesResponse.exercises"
+      class="exercise-card"
+      fxFlex="30"
+      fxFlex.md="33"
+    >
+      <div fxFlexFill fxLayoutAlign="center stretch">
+        <mat-card>
+          <div fxLayoutAlign="space-between center">
+            <img
+              class="image"
+              mat-card-image
+              src="{{ exercise.imageUrl }}"
+              alt="image"
+            />
+          </div>
+          <mat-card-title>{{ exercise.name }}</mat-card-title>
+          <mat-card-content>
+            <p>Exercise Level: {{ exerciseLevels[exercise.exerciseLevel] }}</p>
+            <p>Icluded Muscle Groups: {{ exercise.muscleGroups.join(", ") }}</p>
+            <a
+              mat-flat-button
+              routerLink="/exercise/details/{{ exercise.id }}"
+              color="primary"
+              >Exercise details</a
+            >
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="exercise-paginator">
+    <mat-paginator
+      [length]="100"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[6, 12, 26, 50]"
+      (page)="changePageOptions($event)"
+    >
+    </mat-paginator>
+  </div>
 </div>

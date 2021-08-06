@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,7 +7,7 @@ import {
   IExerciseCreateFormModel,
   IExercisesFilterModel,
   IExerciseDetailsModel,
-  IExerciseCardModel,
+  IFilteredExercisesResponse,
 } from '../models';
 
 @Injectable({
@@ -15,6 +15,7 @@ import {
 })
 export class ExercisesService {
   private createPath = environment.apiUrl + 'exercises/add';
+  private getExerciseDetailsPath = environment.apiUrl + 'exercises/details';
   private getFilteredExercisesPath = environment.apiUrl + 'exercises/filter';
 
   constructor(private http: HttpClient) {}
@@ -23,10 +24,25 @@ export class ExercisesService {
     return this.http.post<IExerciseDetailsModel>(this.createPath, data);
   }
 
-  getExercises(data: IExercisesFilterModel): Observable<IExerciseCardModel[]> {
-    return this.http.post<IExerciseCardModel[]>(
+  getExerciseDetails(exerciseId: string): Observable<IExerciseDetailsModel> {
+    return this.http.get<IExerciseDetailsModel>(
+      this.getExerciseDetailsPath + `/${exerciseId}`
+    );
+  }
+
+  getExercises(
+    data: IExercisesFilterModel,
+    resultsPerPage: string,
+    currentPage: string
+  ): Observable<IFilteredExercisesResponse> {
+    let params = new HttpParams();
+    params = params.append('currentPage', currentPage);
+    params = params.append('resultsPerPage', resultsPerPage);
+
+    return this.http.post<IFilteredExercisesResponse>(
       this.getFilteredExercisesPath,
-      data
+      data,
+      { params: params }
     );
   }
 }

@@ -3,6 +3,4 @@ export interface IExercisesFilterModel {
   myExercises: boolean;
   muscleGroups: string[];
   exerciseLevel: string;
-  resultsPerPage: number;
-  pageNumber: number;
 }

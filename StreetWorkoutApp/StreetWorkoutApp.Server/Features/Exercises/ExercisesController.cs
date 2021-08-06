@@ -1,13 +1,15 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 
 
 using StreetWorkoutApp.Server.Features.Exercises.Models;
 using StreetWorkoutApp.Services.Exercises;
 using StreetWorkoutApp.Services.Exercises.Models;
-using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace StreetWorkoutApp.Server.Features.Exercises
 {
@@ -30,7 +32,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             Description = "Gets Details for the selected exercise",
             OperationId = "GetExerciseDetails")]
 
-        public async Task<ActionResult<ExerciseDetailsModel>> GetExerciseDetails([FromQuery] int exerciseId)
+        public async Task<ActionResult<ExerciseDetailsModel>> GetExerciseDetails(int exerciseId)
         {
             var exercise = await this.exercisesService.GetExerciseDetails(exerciseId);
 
@@ -60,6 +62,27 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             var result = this.mapper.Map<ExerciseDetailsModel>(createdExercise);
 
             return Created("", result);
+        }
+
+        [HttpPost("filter")]
+        [SwaggerOperation(
+            Summary = "Get Filtered Exercises",
+            Description = "Get Filtered Exercises",
+            OperationId = "GetFileteredExercises")]
+
+        public async Task<ActionResult<FilteredExercisesResponse>> GetFileteredExercises(
+            [FromQuery][Required] int currentPage,
+            [FromQuery][Required] int resultsPerPage,
+            [FromBody] ExerciseFiltersModel filters)
+        {
+            var serviceFilters = this.mapper.Map<ExerciseFilterServiceModel>(filters);
+
+            var exercises = await this.exercisesService
+                .GetFileteredExercises(serviceFilters, currentPage, resultsPerPage);
+
+            var result = this.mapper.Map<FilteredExercisesResponse>(exercises);
+
+            return Ok(result);
         }
     }
 }

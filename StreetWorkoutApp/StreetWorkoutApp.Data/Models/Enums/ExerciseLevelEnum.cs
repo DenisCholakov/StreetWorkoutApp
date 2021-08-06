@@ -8,6 +8,7 @@ namespace StreetWorkoutApp.Data.Models.Enums
 {
     public enum ExerciseLevelEnum
     {
+        none = 0,
         beginner = 1,
         intermediate,
         advanced

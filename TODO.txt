@@ -1,0 +1,3 @@
+- add paginator values in url
+- optimise paginator and filtering options / add ngRx 
+- add ngRx

@@ -16,6 +16,9 @@ namespace StreetWorkoutApp.Services.Exercises.Configurations
                     opt => opt.MapFrom(src => src.MuscleGroups.Select(x => x.Name)));
             CreateMap<dataEntities.Equipment, ExerciseEquipmentServiceModel>();
             CreateMap<ExerciseDetailsServiceModel, Exercise>();
+            CreateMap<Exercise, ExerciseServiseModel>()
+                .ForMember(dest => dest.MuscleGroups,
+                    opt => opt.MapFrom(src => src.MuscleGroups.Select(x => x.Name)));
         }
     }
 }

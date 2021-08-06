@@ -4,5 +4,6 @@ export * from './exercises/exerciseCreateFormModel';
 export * from './exercises/exerciseDetailsModel';
 export * from './exercises/exerciseFiltersModel';
 export * from './exercises/exerciseCardModel';
+export * from './exercises/filteredExercisesResponse';
 export * from './enums/muscleGroupsEnum';
 export * from './enums/exerciseLevelEnum';
