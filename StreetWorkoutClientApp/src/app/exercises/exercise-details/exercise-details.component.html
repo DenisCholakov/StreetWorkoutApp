@@ -1,8 +1,11 @@
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="exerciseDetails">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ exerciseDetails?.name }}</mat-card-title>
-    <mat-card-subtitle>{{ exerciseDetails?.exerciseLevel }}</mat-card-subtitle>
+    <mat-card-title>{{ exerciseDetails.name }}</mat-card-title>
+    <mat-card-subtitle
+      >Exercise level:
+      {{ exerciseLevels[exerciseDetails.exerciseLevel] }}</mat-card-subtitle
+    >
   </mat-card-header>
   <img
     mat-card-image
@@ -10,11 +13,7 @@
     alt="Photo of the exercise"
   />
   <mat-card-content>
-    <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz
-      breeds of dog from Japan. A small, agile dog that copes very well with
-      mountainous terrain, the Shiba Inu was originally bred for hunting.
-    </p>
+    <p>Exercsie dexcription: {{ exerciseDetails.description }}</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE</button>

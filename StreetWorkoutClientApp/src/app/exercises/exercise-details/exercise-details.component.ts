@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IExerciseDetailsModel } from 'src/app/models';
+import { ExerciseLevelEnum, IExerciseDetailsModel } from 'src/app/models';
 import { ExercisesService } from 'src/app/services/exercises.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { ExercisesService } from 'src/app/services/exercises.service';
 })
 export class ExerciseDetailsComponent implements OnInit, OnDestroy {
   exerciseDetails: IExerciseDetailsModel | undefined;
+  exerciseLevels = ExerciseLevelEnum;
 
   subscriptions: Subscription[] = [];
 
@@ -38,7 +39,10 @@ export class ExerciseDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.exercisesService
         .getExerciseDetails(exerciseId)
-        .subscribe((result) => console.log(result))
+        .subscribe((result) => {
+          this.exerciseDetails = result;
+          console.log(result);
+        })
     );
   }
 }

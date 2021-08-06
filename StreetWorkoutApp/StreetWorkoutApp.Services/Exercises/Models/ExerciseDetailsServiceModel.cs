@@ -10,6 +10,8 @@ namespace StreetWorkoutApp.Services.Exercises.Models
     {
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public string ExamleUrl { get; set; }
 
         public string ImageUrl { get; set; }

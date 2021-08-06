@@ -48,20 +48,18 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             Description = "Creates a new exercise",
             OperationId = "AddExercise")]
 
-        public async Task<ActionResult<ExerciseDetailsModel>> CreateExercise([FromBody] CreateExerciseFormModel exercise)
+        public async Task<ActionResult<int>> CreateExercise([FromBody] CreateExerciseFormModel exercise)
         {
             var exerciseToCreate = this.mapper.Map<CreateExerciseServiceModel>(exercise);
 
-            var createdExercise = await this.exercisesService.CreateExercisee(exerciseToCreate);
+            var createdExerciseId = await this.exercisesService.CreateExercisee(exerciseToCreate);
 
-            if (createdExercise == null)
+            if (createdExerciseId == 0)
             {
                 return Conflict("The exercise you want to create already exists.");
             }
 
-            var result = this.mapper.Map<ExerciseDetailsModel>(createdExercise);
-
-            return Created("", result);
+            return Created("", createdExerciseId);
         }
 
         [HttpPost("filter")]

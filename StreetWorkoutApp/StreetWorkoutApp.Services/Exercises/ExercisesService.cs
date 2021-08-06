@@ -36,13 +36,13 @@ namespace StreetWorkoutApp.Services.Exercises
             this.identityService = identityService;
         }
 
-        public async Task<ExerciseDetailsServiceModel> CreateExercisee(CreateExerciseServiceModel exercise)
+        public async Task<int> CreateExercisee(CreateExerciseServiceModel exercise)
         {
             var exerciseToAdd = this.data.Exercises.FirstOrDefault(x => x.Name == exercise.Name);
 
             if (exerciseToAdd != null)
             {
-                return null;
+                return 0;
             }
 
             var equipmentNeeded =await this.equipmentService.GetEquipmentByName(
@@ -64,9 +64,7 @@ namespace StreetWorkoutApp.Services.Exercises
             await this.data.Exercises.AddAsync(exerciseToAdd);
             await this.data.SaveChangesAsync();
 
-            var result = this.mapper.Map<ExerciseDetailsServiceModel>(exerciseToAdd);
-
-            return result;
+            return exerciseToAdd.Id;
         }
 
         public async Task<ExerciseDetailsServiceModel> GetExerciseDetails(int exerciseId)

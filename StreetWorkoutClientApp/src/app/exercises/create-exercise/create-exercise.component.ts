@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MuscleGroupsEnum, ExerciseLevelEnum } from 'src/app/models';
 import { EquipmentService } from 'src/app/services/equipment.service';
@@ -22,6 +23,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private equipmentService: EquipmentService,
     private exerciseService: ExercisesService
   ) {
@@ -62,7 +64,11 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
 
   create() {
     this.subscriptions.push(
-      this.exerciseService.create(this.exerciseForm.value).subscribe()
+      this.exerciseService
+        .create(this.exerciseForm.value)
+        .subscribe((exerciseId) =>
+          this.router.navigate(['exercise', 'details', `${exerciseId}`])
+        )
     );
   }
 }
