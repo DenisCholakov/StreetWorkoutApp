@@ -1,0 +1,19 @@
+.filters {
+  width: 90%;
+  justify-content: center;
+  margin-left: 4%;
+
+  .filters-form {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+
+    .search-input {
+      width: 50%;
+    }
+
+    mat-checkbox {
+      padding-top: 16px;
+    }
+  }
+}

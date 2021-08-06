@@ -8,7 +8,7 @@ $streetWorkout-accent: mat-palette($mat-brown, A200, A100, A400);
 // The warn palette is optional (defaults to red).
 $streetWorkout-warn: mat-palette($mat-red);
 
-$streetWorkout-theme: mat-light-theme(
+$streetWorkout-theme: mat-dark-theme(
   (
     color: (
       primary: $streetWorkout-primary,

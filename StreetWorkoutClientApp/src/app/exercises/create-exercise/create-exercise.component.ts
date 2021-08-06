@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { MuscleGroupsEnum } from 'src/app/models';
-import { ExerciseLevelEnum } from 'src/app/models/enums/exerciseLevelEnum';
+import { MuscleGroupsEnum, ExerciseLevelEnum } from 'src/app/models';
 import { EquipmentService } from 'src/app/services/equipment.service';
 import { ExercisesService } from 'src/app/services/exercises.service';
 
