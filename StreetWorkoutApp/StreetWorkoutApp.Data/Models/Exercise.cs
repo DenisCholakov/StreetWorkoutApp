@@ -24,8 +24,11 @@ namespace StreetWorkoutApp.Data.Models
 
         public string ExampleUrl { get; set; }
 
+        [Required]
         public string ImageUrl { get; set; }
 
+        [Required]
+        [MaxLength(exerciseDescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]

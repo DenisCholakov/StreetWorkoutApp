@@ -19,6 +19,20 @@
           >
         </mat-form-field>
         <mat-form-field appearance="outline">
+          <textarea
+            matInput
+            placeholder="exercise Description:"
+            formControlName="description"
+          ></textarea>
+          <mat-error
+            *ngIf="
+              exerciseForm.controls?.username?.touched &&
+              exerciseForm.controls?.username?.errors
+            "
+            >{{ getError("name") }}</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-select
             placeholder="exercise level"
             formControlName="exerciseLevel"

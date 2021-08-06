@@ -1,15 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Data.Models.Enums;
+
+using static StreetWorkoutApp.Data.DataValidationConstants;
+using static StreetWorkoutApp.Server.ServerGlobalConstants;
 
 namespace StreetWorkoutApp.Server.Features.Exercises.Models
 {
     public class CreateExerciseFormModel
     {
         [Required]
+        [MaxLength(exerciseNameMaxLength)]
         public string Name { get; set; }
+
+        [Required]
+        [MinLength(exerciseDescriptionMinLength)]
+        [MaxLength(exerciseDescriptionMaxLength)]
+        public string Description { get; set; }
 
         [Required]
         [EnumDataType(typeof(ExerciseLevelEnum))]
@@ -17,6 +25,8 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
 
         public string ExampleUrl { get; set; }
 
+        [Required]
+        [RegularExpression(imageUrlRegexPattern)]
         public string ImageUrl { get; set; }
 
         public ICollection<string> MuscleGroups { get; set; }

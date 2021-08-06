@@ -27,6 +27,14 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   ) {
     this.exerciseForm = this.fb.group({
       name: ['', [Validators.required]],
+      description: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(600),
+          Validators.minLength(50),
+        ],
+      ],
       //add validation for enum
       exerciseLevel: ['', [Validators.required]],
       imageUrl: ['', []],

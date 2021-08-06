@@ -53,8 +53,9 @@ namespace StreetWorkoutApp.Services.Exercises
             exerciseToAdd = new Exercise
             {
                 Name = exercise.Name,
+                Description = exercise.Description,
+                ImageUrl = exercise.ImageUrl,
                 ExampleUrl = exercise.ExampleUrl ?? "",
-                ImageUrl = exercise.ImageUrl ?? "",
                 ExerciseLevel = exercise.ExerciseLevel,
                 MuscleGroups = muscleGroups,
                 EquipmentNeeded = equipmentNeeded
