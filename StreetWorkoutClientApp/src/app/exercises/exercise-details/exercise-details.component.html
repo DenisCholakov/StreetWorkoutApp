@@ -14,9 +14,14 @@
   />
   <mat-card-content>
     <p>Exercsie dexcription: {{ exerciseDetails.description }}</p>
+    <p>Icluded Muscle Groups: {{ exerciseDetails.muscleGroups.join(", ") }}</p>
+    <p>
+      Equipmen needed:
+      {{ exerciseDetails.equipmentNeeded.join(", ") }}
+    </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button>
+    <button mat-button routerLink="/exercise/all">ALL EXERCISES</button>
     <button mat-button>SHARE</button>
   </mat-card-actions>
 </mat-card>

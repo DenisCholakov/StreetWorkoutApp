@@ -21,4 +21,9 @@ mat-card {
     margin-left: 15%;
     text-align: center;
   }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

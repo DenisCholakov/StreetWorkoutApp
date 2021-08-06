@@ -64,6 +64,10 @@ export class AllExercisesComponent implements OnInit, OnDestroy {
     }
   }
 
+  filterExrcises(): void {
+    this.getCurrentExercises();
+  }
+
   private getCurrentExercises() {
     this.subscriptions.push(
       this.exercisesService

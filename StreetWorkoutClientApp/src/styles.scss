@@ -3,7 +3,7 @@
 @include mat-core();
 
 $streetWorkout-primary: mat-palette($mat-grey);
-$streetWorkout-accent: mat-palette($mat-brown, A200, A100, A400);
+$streetWorkout-accent: mat-palette($mat-deep-purple, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $streetWorkout-warn: mat-palette($mat-red);

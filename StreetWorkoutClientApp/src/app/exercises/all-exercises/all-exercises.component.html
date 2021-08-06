@@ -1,5 +1,10 @@
 <mat-card class="filters"
-  ><form [formGroup]="exerciseSearchForm" action="submit" class="filters-form">
+  ><form
+    [formGroup]="exerciseSearchForm"
+    action="submit"
+    class="filters-form"
+    (ngSubmit)="filterExrcises()"
+  >
     <mat-form-field class="search-input">
       <input
         matInput
@@ -29,6 +34,7 @@
         }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Search</button>
   </form></mat-card
 >
 

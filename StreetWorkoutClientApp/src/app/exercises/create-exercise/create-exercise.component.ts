@@ -43,7 +43,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
       exampleUrl: ['', []],
       //add validation for enum
       muscleGroups: ['', []],
-      equipment: ['', []],
+      equipment: [[], []],
     });
   }
   ngOnInit(): void {
