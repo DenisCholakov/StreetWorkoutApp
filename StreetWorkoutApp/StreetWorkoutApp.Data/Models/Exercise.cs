@@ -24,10 +24,15 @@ namespace StreetWorkoutApp.Data.Models
 
         public string ExampleUrl { get; set; }
 
+        [Required]
         public string ImageUrl { get; set; }
 
         [Required]
-        public ExerciseLevel ExerciseLevel { get; set; }
+        [MaxLength(exerciseDescriptionMaxLength)]
+        public string Description { get; set; }
+
+        [Required]
+        public ExerciseLevelEnum ExerciseLevel { get; set; }
 
         public ICollection<Training> TrainingsForAcheiving { get; set; }
 
@@ -36,5 +41,7 @@ namespace StreetWorkoutApp.Data.Models
         public ICollection<MuscleGroup> MuscleGroups { get; set; }
 
         public ICollection<Equipment> EquipmentNeeded { get; set; }
+
+        public ICollection<AppUser> Users { get; set; }
     }
 }

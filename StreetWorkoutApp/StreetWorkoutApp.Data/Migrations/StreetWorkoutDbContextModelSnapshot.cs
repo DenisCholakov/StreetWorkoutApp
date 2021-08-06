@@ -19,6 +19,21 @@ namespace StreetWorkoutApp.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AppUserExercise", b =>
+                {
+                    b.Property<int>("ExercisesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ExercisesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("AppUserExercise");
+                });
+
             modelBuilder.Entity("EquipmentExercise", b =>
                 {
                     b.Property<int>("EquipmentNeededId")
@@ -32,6 +47,21 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("ExercisesId");
 
                     b.ToTable("EquipmentExercise");
+                });
+
+            modelBuilder.Entity("ExerciseMuscleGroup", b =>
+                {
+                    b.Property<int>("ExercisesForMuscleGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MuscleGroupsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExercisesForMuscleGroupId", "MuscleGroupsId");
+
+                    b.HasIndex("MuscleGroupsId");
+
+                    b.ToTable("ExerciseMuscleGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -165,6 +195,21 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MuscleGroupTraining", b =>
+                {
+                    b.Property<int>("MuscleGroupsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainingsForMuscleGroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MuscleGroupsId", "TrainingsForMuscleGroupId");
+
+                    b.HasIndex("TrainingsForMuscleGroupId");
+
+                    b.ToTable("MuscleGroupTraining");
+                });
+
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -237,7 +282,11 @@ namespace StreetWorkoutApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -252,6 +301,11 @@ namespace StreetWorkoutApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
+
                     b.Property<string>("ExampleUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -259,6 +313,7 @@ namespace StreetWorkoutApp.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -278,20 +333,10 @@ namespace StreetWorkoutApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ExerciseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainingId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("TrainingId");
 
                     b.ToTable("MuscleGroups");
                 });
@@ -346,6 +391,21 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.ToTable("TrainingsExercises");
                 });
 
+            modelBuilder.Entity("AppUserExercise", b =>
+                {
+                    b.HasOne("StreetWorkoutApp.Data.Models.Exercise", null)
+                        .WithMany()
+                        .HasForeignKey("ExercisesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StreetWorkoutApp.Data.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EquipmentExercise", b =>
                 {
                     b.HasOne("StreetWorkoutApp.Data.Models.Equipment", null)
@@ -357,6 +417,21 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasOne("StreetWorkoutApp.Data.Models.Exercise", null)
                         .WithMany()
                         .HasForeignKey("ExercisesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ExerciseMuscleGroup", b =>
+                {
+                    b.HasOne("StreetWorkoutApp.Data.Models.Exercise", null)
+                        .WithMany()
+                        .HasForeignKey("ExercisesForMuscleGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StreetWorkoutApp.Data.Models.MuscleGroup", null)
+                        .WithMany()
+                        .HasForeignKey("MuscleGroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -412,22 +487,27 @@ namespace StreetWorkoutApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StreetWorkoutApp.Data.Models.MuscleGroup", b =>
+            modelBuilder.Entity("MuscleGroupTraining", b =>
                 {
-                    b.HasOne("StreetWorkoutApp.Data.Models.Exercise", null)
-                        .WithMany("MuscleGroups")
-                        .HasForeignKey("ExerciseId");
+                    b.HasOne("StreetWorkoutApp.Data.Models.MuscleGroup", null)
+                        .WithMany()
+                        .HasForeignKey("MuscleGroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("StreetWorkoutApp.Data.Models.Training", null)
-                        .WithMany("MuscleGroups")
-                        .HasForeignKey("TrainingId");
+                        .WithMany()
+                        .HasForeignKey("TrainingsForMuscleGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Training", b =>
                 {
                     b.HasOne("StreetWorkoutApp.Data.Models.Exercise", "GoalExercise")
                         .WithMany("TrainingsForAcheiving")
-                        .HasForeignKey("GoalExerciseId");
+                        .HasForeignKey("GoalExerciseId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("GoalExercise");
                 });
@@ -453,8 +533,6 @@ namespace StreetWorkoutApp.Data.Migrations
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Exercise", b =>
                 {
-                    b.Navigation("MuscleGroups");
-
                     b.Navigation("TrainingsForAcheiving");
 
                     b.Navigation("TrainingsIncludedIn");
@@ -463,8 +541,6 @@ namespace StreetWorkoutApp.Data.Migrations
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Training", b =>
                 {
                     b.Navigation("Exercises");
-
-                    b.Navigation("MuscleGroups");
                 });
 #pragma warning restore 612, 618
         }

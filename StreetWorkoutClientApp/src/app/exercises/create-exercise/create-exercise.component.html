@@ -1,0 +1,104 @@
+<div class="login-form-wrapper">
+  <mat-card class="login-card">
+    <mat-card-title>Add new exercise</mat-card-title>
+    <form [formGroup]="exerciseForm" (ngSubmit)="create()">
+      <div class="input-fields">
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            matInput
+            placeholder="exercise Name:"
+            formControlName="name"
+          />
+          <mat-error
+            *ngIf="
+              exerciseForm.controls?.username?.touched &&
+              exerciseForm.controls?.username?.errors
+            "
+            >{{ getError("name") }}</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <textarea
+            matInput
+            placeholder="exercise Description:"
+            formControlName="description"
+          ></textarea>
+          <mat-error
+            *ngIf="
+              exerciseForm.controls?.username?.touched &&
+              exerciseForm.controls?.username?.errors
+            "
+            >{{ getError("name") }}</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="exercise level"
+            formControlName="exerciseLevel"
+          >
+            <mat-option
+              *ngFor="let key of exerciseLevelsKeys"
+              value="{{ key }}"
+              >{{ exerciseLevels[key] }}</mat-option
+            >
+          </mat-select>
+          <mat-error
+            *ngIf="
+              exerciseForm.controls?.username?.touched &&
+              exerciseForm.controls?.username?.errors
+            "
+            >{{ getError("exerciseLevel") }}</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            matInput
+            placeholder="add url with image of the exercise"
+            formControlName="imageUrl"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            matInput
+            placeholder="add url with video example of the exercise"
+            formControlName="exampleUrl"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="included muscle groups"
+            formControlName="muscleGroups"
+            multiple
+          >
+            <mat-option
+              *ngFor="let groupKey of muscleGroupsKeys"
+              value="{{ groupKey }}"
+              >{{ groupKey }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="needed equipment"
+            formControlName="equipment"
+            multiple
+          >
+            <mat-option
+              *ngFor="let equipmentName of neededEquipment"
+              value="{{ equipmentName }}"
+              >{{ equipmentName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-button">
+        <button type="submit" mat-raised-button color="primary">
+          Create exercise
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

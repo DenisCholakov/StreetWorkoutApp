@@ -34,6 +34,12 @@ namespace StreetWorkoutApp.Data
             builder.Entity<TrainingExercise>()
                 .HasKey(x => new { x.TrainingId, x.ExerciseId });
 
+            builder.Entity<Training>()
+                .HasOne(x => x.GoalExercise)
+                .WithMany(x => x.TrainingsForAcheiving)
+                .HasForeignKey(x => x.GoalExerciseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
     }

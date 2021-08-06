@@ -24,7 +24,7 @@ namespace StreetWorkoutApp.Server
                 .AddIdentity()
                 .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration))
                 .AddSwagger()
-                .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies())
+                .AddMapper()
                 .AddApplicationServices()
                 .AddControllers();
 

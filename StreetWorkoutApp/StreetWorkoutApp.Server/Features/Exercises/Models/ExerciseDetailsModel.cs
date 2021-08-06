@@ -9,18 +9,20 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
     {
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public string ExamleUrl { get; set; }
 
         public string ImageUrl { get; set; }
 
-        public ExerciseLevel ExerciseLevel { get; set; }
+        public ExerciseLevelEnum ExerciseLevel { get; set; }
 
         public ICollection<Training> TrainingsForAcheiving { get; set; }
 
         public ICollection<TrainingExercise> TrainingsIncludedIn { get; set; }
 
-        public ICollection<MuscleGroup> MuscleGroups { get; set; }
+        public ICollection<string> MuscleGroups { get; set; }
 
-        public ICollection<string> EquipmentNeeded { get; set; }
+        public ICollection<ExerciseEquipmentModel> Equipment { get; set; }
     }
 }

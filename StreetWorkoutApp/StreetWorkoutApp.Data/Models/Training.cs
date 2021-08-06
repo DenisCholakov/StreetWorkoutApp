@@ -17,12 +17,14 @@ namespace StreetWorkoutApp.Data.Models
 
         public bool IsIndoor { get; set; }
 
+        public int? GoalExerciseId { get; set; }
+
         public Exercise GoalExercise { get; set; }
 
-        public TrainingLevel TrainingLevel { get; set; }
-
-        public ICollection<TrainingExercise> Exercises { get; set; }
+        public TrainingLevelEnum TrainingLevel { get; set; }
 
         public ICollection<MuscleGroup> MuscleGroups { get; set; }
+
+        public ICollection<TrainingExercise> Exercises { get; set; }
     }
 }

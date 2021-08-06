@@ -1,6 +1,8 @@
 .heading {
   background-image: url("../../assets/images/home.jpg");
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   width: 100%;
   min-height: 500px;
   display: flex;
@@ -8,6 +10,7 @@
 
   .heading-text {
     margin-top: 20%;
+    margin-bottom: 5%;
     color: white;
     display: flex;
     flex-direction: column;

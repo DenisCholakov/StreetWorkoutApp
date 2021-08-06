@@ -1,0 +1,37 @@
+.filters {
+  width: 90%;
+  justify-content: center;
+  margin-left: 4%;
+
+  .filters-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .search-input {
+      width: 50%;
+    }
+
+    mat-checkbox {
+      padding-top: 16px;
+    }
+  }
+}
+
+.cards-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  mat-card {
+    width: 100%;
+  }
+}
+
+.image {
+  width: 21rem;
+  height: 13rem; /* adjust as needed */
+  padding: 5px;
+  object-fit: contain;
+}

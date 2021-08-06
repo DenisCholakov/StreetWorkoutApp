@@ -1,0 +1,30 @@
+<div class="login-form-wrapper">
+  <mat-card class="login-card">
+    <mat-card-title>Add equipment</mat-card-title>
+    <form [formGroup]="equipmentForm" (ngSubmit)="create()">
+      <div class="input-fields">
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="Name of the equipment:"
+            formControlName="name"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="equipment image Url"
+            formControlName="imageUrl"
+          />
+        </mat-form-field>
+      </div>
+      <div class="form-button">
+        <button type="submit" mat-raised-button color="primary">
+          Add equipment
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

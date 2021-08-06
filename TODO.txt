@@ -1,0 +1,4 @@
+- add paginator values in url
+- optimise paginator and filtering options / add ngRx 
+- add ngRx
+- add buttons in exercises details for searchin muscle groups

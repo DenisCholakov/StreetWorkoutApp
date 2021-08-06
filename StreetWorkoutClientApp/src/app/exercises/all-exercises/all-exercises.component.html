@@ -1,0 +1,90 @@
+<mat-card class="filters"
+  ><form
+    [formGroup]="exerciseSearchForm"
+    action="submit"
+    class="filters-form"
+    (ngSubmit)="filterExrcises()"
+  >
+    <mat-form-field class="search-input">
+      <input
+        matInput
+        placeholder="search for exercise name:"
+        formControlName="searchTerm"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-checkbox formControlName="myExercises">Only my exercises</mat-checkbox>
+    <mat-form-field>
+      <mat-select
+        placeholder="included muscle groups"
+        formControlName="muscleGroups"
+        multiple
+      >
+        <mat-option
+          *ngFor="let groupKey of muscleGroupsKeys"
+          value="{{ groupKey }}"
+          >{{ groupKey }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="exercise level" formControlName="exerciseLevel">
+        <mat-option *ngFor="let key of exerciseLevelsKeys" value="{{ key }}">{{
+          exerciseLevels[key]
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Search</button>
+  </form></mat-card
+>
+
+<div class="exercises">
+  <div
+    class="cards-container"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayout.sm="column"
+    fxLayoutGap="16px grid"
+    *ngIf="exercisesResponse.exercises"
+  >
+    <div
+      *ngFor="let exercise of exercisesResponse.exercises"
+      class="exercise-card"
+      fxFlex="30"
+      fxFlex.md="33"
+    >
+      <div fxFlexFill fxLayoutAlign="center stretch">
+        <mat-card>
+          <div fxLayoutAlign="space-between center">
+            <img
+              class="image"
+              mat-card-image
+              src="{{ exercise.imageUrl }}"
+              alt="image"
+            />
+          </div>
+          <mat-card-title>{{ exercise.name }}</mat-card-title>
+          <mat-card-content>
+            <p>Exercise Level: {{ exerciseLevels[exercise.exerciseLevel] }}</p>
+            <p>Icluded Muscle Groups: {{ exercise.muscleGroups.join(", ") }}</p>
+            <a
+              mat-flat-button
+              routerLink="/exercise/details/{{ exercise.id }}"
+              color="primary"
+              >Exercise details</a
+            >
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="exercise-paginator">
+    <mat-paginator
+      [length]="100"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[6, 12, 26, 50]"
+      (page)="changePageOptions($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

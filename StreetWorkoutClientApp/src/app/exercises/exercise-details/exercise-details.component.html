@@ -1,0 +1,27 @@
+<mat-card class="example-card" *ngIf="exerciseDetails">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ exerciseDetails.name }}</mat-card-title>
+    <mat-card-subtitle
+      >Exercise level:
+      {{ exerciseLevels[exerciseDetails.exerciseLevel] }}</mat-card-subtitle
+    >
+  </mat-card-header>
+  <img
+    mat-card-image
+    src="{{ exerciseDetails?.imageUrl }}"
+    alt="Photo of the exercise"
+  />
+  <mat-card-content>
+    <p>Exercsie dexcription: {{ exerciseDetails.description }}</p>
+    <p>Icluded Muscle Groups: {{ exerciseDetails.muscleGroups.join(", ") }}</p>
+    <p>
+      Equipmen needed:
+      {{ exerciseDetails.equipmentNeeded.join(", ") }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button routerLink="/exercise/all">ALL EXERCISES</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
