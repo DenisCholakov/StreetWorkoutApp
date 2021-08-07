@@ -1,6 +1,6 @@
 ﻿namespace StreetWorkoutApp.Services.Trainings.Models
 {
-    public class TrainingExerciseServiceModel
+    public class TrainingExerciseCreateServiceModel
     {
         public string ExerciseName { get; set; }
 

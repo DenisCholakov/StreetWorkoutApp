@@ -42,7 +42,7 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             return Created("", createdTrainingId);
         }
 
-        [HttpPost("details/{trainingId}")]
+        [HttpGet("details/{trainingId}")]
         [SwaggerOperation(
             Summary = "Gets the details for current training",
             Description = "Gets the details for current traininge",
@@ -52,6 +52,24 @@ namespace StreetWorkoutApp.Server.Features.Trainings
         {
             var trainingDetails = this.trainingsService.GetTrainingDetails(trainingId);
 
+            if (trainingDetails == null)
+            {
+                return NotFound("Such training does not exist.");
+            }
+
+            var result = this.mapper.Map<TrainingDetailsModel>(trainingDetails);
+
+            return Ok(result);
+        }
+
+        [HttpPost("filter")]
+        [SwaggerOperation(
+            Summary = "Gets given count of filtered trainings for the given page",
+            Description = "Gets given count of filtered trainings for the given page",
+            OperationId = "GetFilteredTrainings")]
+
+        public async Task<ActionResult<TrainingDetailsModel>> GetFilteredTrainings()
+        {
             throw new NotImplementedException();
         }
     }

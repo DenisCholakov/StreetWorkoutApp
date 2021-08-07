@@ -9,6 +9,8 @@ namespace StreetWorkoutApp.Server.Features.Trainings.Models
     {
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public int CyclesCount { get; set; }
 
         public TimeSpan BreakBetweenExercises { get; set; }

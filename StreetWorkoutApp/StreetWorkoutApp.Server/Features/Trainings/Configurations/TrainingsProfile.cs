@@ -9,7 +9,9 @@ namespace StreetWorkoutApp.Server.Features.Trainings.Configurations
         public TrainingsProfile()
         {
             CreateMap<CreateTrainingFormModel, CreateTrainingServiceModel>();
-            CreateMap<TrainingExerciseCreateModel, TrainingExerciseServiceModel>();
+            CreateMap<TrainingExerciseCreateModel, TrainingExerciseCreateServiceModel>();
+            CreateMap<TrainingDetailsServiceModel, TrainingDetailsModel>();
+            CreateMap<TrainingExerciseDetailsServiceModel, TrainingExerciseDetailsModel>();
         }
     }
 }

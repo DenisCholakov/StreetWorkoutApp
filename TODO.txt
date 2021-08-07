@@ -2,3 +2,4 @@
 - optimise paginator and filtering options / add ngRx 
 - add ngRx
 - add buttons in exercises details for searchin muscle groups
+- remove data constants from the api level/ api must know about services services must know about data

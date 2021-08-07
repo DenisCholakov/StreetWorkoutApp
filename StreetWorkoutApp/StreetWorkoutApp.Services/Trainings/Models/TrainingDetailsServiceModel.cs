@@ -9,6 +9,8 @@ namespace StreetWorkoutApp.Services.Trainings.Models
     {
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public int CyclesCount { get; set; }
 
         public TimeSpan BreakBetweenExercises { get; set; }
@@ -25,6 +27,6 @@ namespace StreetWorkoutApp.Services.Trainings.Models
 
         public ICollection<string> MuscleGroups { get; set; }
 
-        public ICollection<string> Exercises { get; set; }
+        public ICollection<TrainingExerciseDetailsServiceModel> Exercises { get; set; }
     }
 }

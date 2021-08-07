@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 using StreetWorkoutApp.Data.Models.Enums;
 
-using static StreetWorkoutApp.Data.DataValidationConstants;
 using static StreetWorkoutApp.Server.ServerGlobalConstants;
 
 namespace StreetWorkoutApp.Server.Features.Exercises.Models
