@@ -20,6 +20,7 @@ import { CreateEquipmentComponent } from './equipment/create-equipment/create-eq
 import { EquipmentService } from './services/equipment.service';
 import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 import { AllExercisesComponent } from './exercises/all-exercises/all-exercises.component';
+import { CreateTrainingComponent } from './trainings/create-training/create-training.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AllExercisesComponent } from './exercises/all-exercises/all-exercises.c
     PageNotFoundComponent,
     CreateEquipmentComponent,
     AllExercisesComponent,
+    CreateTrainingComponent,
   ],
   imports: [
     BrowserModule,

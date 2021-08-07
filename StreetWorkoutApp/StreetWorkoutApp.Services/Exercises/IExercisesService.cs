@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Exercises.Models;
 
 namespace StreetWorkoutApp.Services.Exercises
@@ -15,5 +16,7 @@ namespace StreetWorkoutApp.Services.Exercises
             ExerciseFilterServiceModel filters,
             int currentPage,
             int resultsPerPage);
+
+        Task<Exercise> GetExerciseByName(string exerciseName);
     }
 }

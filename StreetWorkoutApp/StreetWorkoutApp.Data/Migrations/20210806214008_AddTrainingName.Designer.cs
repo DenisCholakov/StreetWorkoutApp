@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreetWorkoutApp.Data;
 
 namespace StreetWorkoutApp.Data.Migrations
 {
     [DbContext(typeof(StreetWorkoutDbContext))]
-    partial class StreetWorkoutDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210806214008_AddTrainingName")]
+    partial class AddTrainingName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -357,11 +359,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.Property<int>("CyclesCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.Property<int?>("GoalExerciseId")
                         .HasColumnType("int");
 
@@ -370,8 +367,7 @@ namespace StreetWorkoutApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrainingLevel")
                         .HasColumnType("int");

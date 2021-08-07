@@ -127,5 +127,12 @@ namespace StreetWorkoutApp.Services.Exercises
 
             return exercises;
         }
+
+        public async Task<Exercise> GetExerciseByName(string exerciseName)
+        {
+            var exercise = await this.data.Exercises.Where(x => exerciseName == x.Name).FirstOrDefaultAsync();
+
+            return exercise;
+        }
     }
 }

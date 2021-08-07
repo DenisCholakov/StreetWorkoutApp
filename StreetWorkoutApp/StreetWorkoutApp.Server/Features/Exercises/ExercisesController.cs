@@ -46,7 +46,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises
         [SwaggerOperation(
             Summary = "Create exercise",
             Description = "Creates a new exercise",
-            OperationId = "AddExercise")]
+            OperationId = "CreateExercise")]
 
         public async Task<ActionResult<int>> CreateExercise([FromBody] CreateExerciseFormModel exercise)
         {

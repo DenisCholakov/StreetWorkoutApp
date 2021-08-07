@@ -9,5 +9,11 @@ namespace StreetWorkoutApp.Data
         public const int exerciseDescriptionMinLength = 50;
         public const int exerciseDescriptionMaxLength = 600;
         #endregion
+
+        #region training
+        public const int trainingNameMaxLength = 30;
+        public const int trainingDescriptionMinLength = 50;
+        public const int trainingDescriptionMaxLength = 1000;
+        #endregion
     }
 }

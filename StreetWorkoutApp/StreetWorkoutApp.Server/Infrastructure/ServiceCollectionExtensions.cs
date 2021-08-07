@@ -14,6 +14,7 @@ using StreetWorkoutApp.Services.Common;
 using StreetWorkoutApp.Services.Equipment;
 using StreetWorkoutApp.Services.Exercises;
 using StreetWorkoutApp.Services.Identity;
+using StreetWorkoutApp.Services.Trainings;
 
 namespace StreetWorkoutApp.Server.Infrastructure
 {
@@ -70,6 +71,7 @@ namespace StreetWorkoutApp.Server.Infrastructure
             services.AddTransient<IExercisesService, ExercisesService>();
             services.AddTransient<IEquipmentService, EquipmentService>();
             services.AddTransient<ICommonService, CommonService>();
+            services.AddTransient<ITrainingsService, TrainingsService>();
 
             return services;
         }
