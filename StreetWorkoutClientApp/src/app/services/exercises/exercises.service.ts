@@ -1,14 +1,14 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import {
   IExerciseCreateFormModel,
   IExercisesFilterModel,
   IExerciseDetailsModel,
   IFilteredExercisesResponse,
-} from '../models';
+} from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +17,17 @@ export class ExercisesService {
   private createPath = environment.apiUrl + 'exercises/add';
   private getExerciseDetailsPath = environment.apiUrl + 'exercises/details';
   private getFilteredExercisesPath = environment.apiUrl + 'exercises/filter';
+  private getAllExerciseNamesPath = environment.apiUrl + 'exercises/all/names';
 
   constructor(private http: HttpClient) {}
 
   create(data: IExerciseCreateFormModel): Observable<IExerciseDetailsModel> {
     debugger;
     return this.http.post<IExerciseDetailsModel>(this.createPath, data);
+  }
+
+  getAllExerciseNames(): Observable<string[]> {
+    return this.http.get<string[]>(this.getAllExerciseNamesPath);
   }
 
   getExerciseDetails(exerciseId: string): Observable<IExerciseDetailsModel> {

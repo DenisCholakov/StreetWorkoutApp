@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EquipmentService } from 'src/app/services/equipment.service';
+import { EquipmentService } from 'src/app/services';
 
 @Component({
   selector: 'app-create-equipment',
@@ -19,6 +19,7 @@ export class CreateEquipmentComponent implements OnInit {
       imageUrl: [
         '',
         [
+          Validators.required,
           Validators.pattern(
             `(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))`
           ),

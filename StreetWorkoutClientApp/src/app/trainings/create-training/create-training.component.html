@@ -1,105 +1,265 @@
-<div class="login-form-wrapper">
-    <mat-card class="login-card">
-      <mat-card-title>Add new exercise</mat-card-title>
-      <form [formGroup]="trainingForm" (ngSubmit)="create()">
-        <div class="input-fields">
-          <mat-form-field appearance="outline">
-            <input
-              type="text"
-              matInput
-              placeholder="exercise Name:"
-              formControlName="name"
-            />
-            <mat-error
+<div class="training-form-wrapper">
+  <mat-card class="create-training-card">
+    <mat-card-title>Add new training</mat-card-title>
+    <form [formGroup]="trainingForm" (ngSubmit)="create()">
+      <div class="input-fields">
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            matInput
+            placeholder="Training Name:"
+            formControlName="name"
+          />
+          <mat-error
+            *ngIf="
+              trainingForm.controls?.name?.touched &&
+              trainingForm.controls?.name?.errors
+            "
+            ><div *ngIf="trainingForm.controls?.name?.errors?.required">
+              Training name is required.
+            </div>
+            <div
               *ngIf="
-              trainingForm.controls?.username?.touched &&
-              trainingForm.controls?.username?.errors
+                trainingForm.controls?.name?.errors?.minlength ||
+                trainingForm.controls?.name?.errors?.maxlength
               "
-              >{{ getError("name") }}</mat-error
             >
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <textarea
-              matInput
-              placeholder="exercise Description:"
-              formControlName="description"
-            ></textarea>
-            <mat-error
+              Training name should be between 5 and 30 characters
+            </div></mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <textarea
+            matInput
+            placeholder="Training Description:"
+            formControlName="description"
+          ></textarea>
+          <mat-error
+            *ngIf="
+              trainingForm.controls?.description?.touched &&
+              trainingForm.controls?.description?.errors
+            "
+            ><div *ngIf="trainingForm.controls?.description?.errors?.required">
+              Training description is required.
+            </div>
+            <div
               *ngIf="
-              trainingForm.controls?.username?.touched &&
-              trainingForm.controls?.username?.errors
+                trainingForm.controls?.description?.errors?.minlength ||
+                trainingForm.controls?.description?.errors?.maxlength
               "
-              >{{ getError("name") }}</mat-error
             >
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-select
-              placeholder="exercise level"
-              formControlName="exerciseLevel"
+              Training description should be between 50 and 1000 characters.
+            </div></mat-error
+          >
+        </mat-form-field>
+        <label>Where the training can be performed:</label>
+        <mat-radio-group appearance="outline">
+          <mat-radio-button [value]="true">Indoor</mat-radio-button>
+          <mat-radio-button [value]="false">Outdoor</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="Goal exercise:"
+            formControlName="goalexercise"
+          >
+            <mat-option
+              *ngFor="let exercise of allExercises"
+              value="{{ exercise }}"
+              >{{ exercise }}</mat-option
             >
-              <mat-option
-                *ngFor="let key of exerciseLevelsKeys"
-                value="{{ key }}"
-                >{{ exerciseLevels[key] }}</mat-option
-              >
-            </mat-select>
-            <mat-error
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <label>Number of cycles</label>
+          <input
+            type="text"
+            matInput
+            placeholder="Number of cycles"
+            formControlName="cyclesCount"
+          />
+          <mat-error
+            *ngIf="
+              trainingForm.controls?.cyclesCount?.touched &&
+              trainingForm.controls?.cyclesCount?.errors
+            "
+            ><div *ngIf="trainingForm.controls?.cyclesCount?.errors?.required">
+              Training should have cycles count.
+            </div>
+            <div
               *ngIf="
-                exerciseForm.controls?.username?.touched &&
-                exerciseForm.controls?.username?.errors
+                trainingForm.controls?.cyclesCount?.errors?.min ||
+                trainingForm.controls?.cyclesCount?.errors?.max
               "
-              >{{ getError("exerciseLevel") }}</mat-error
             >
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input
-              type="text"
-              matInput
-              placeholder="add url with image of the exercise"
-              formControlName="imageUrl"
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input
-              type="text"
-              matInput
-              placeholder="add url with video example of the exercise"
-              formControlName="exampleUrl"
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-select
-              placeholder="included muscle groups"
-              formControlName="muscleGroups"
-              multiple
+              Cycles count must be between 1 and 10.
+            </div></mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <label>Break between exercises</label>
+          <input
+            type="text"
+            matInput
+            placeholder="m:ss"
+            formControlName="breakBetweenExercises"
+          />
+          <mat-error
+            *ngIf="
+              trainingForm.controls?.breakBetweenExercises?.touched &&
+              trainingForm.controls?.breakBetweenExercises?.errors
+            "
+            ><div
+              *ngIf="
+                trainingForm.controls?.breakBetweenExercises?.errors?.required
+              "
             >
-              <mat-option
-                *ngFor="let groupKey of muscleGroupsKeys"
-                value="{{ groupKey }}"
-                >{{ groupKey }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-select
-              placeholder="needed equipment"
-              formControlName="equipment"
-              multiple
+              You need to specify the break between the Exercices.
+            </div>
+            <div
+              *ngIf="
+                trainingForm.controls?.breakBetweenExercises?.errors?.pattern
+              "
             >
-              <mat-option
-                *ngFor="let equipmentName of neededEquipment"
-                value="{{ equipmentName }}"
-                >{{ equipmentName }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="form-button">
-          <button type="submit" mat-raised-button color="primary">
-            Create exercise
+              The break must be in the format 3:00 and the maximum time is three
+              minutes.
+            </div></mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <label>Break between cycles</label>
+          <input
+            type="text"
+            matInput
+            placeholder="m:ss"
+            formControlName="breakBetweenCycles"
+          />
+          <mat-error
+            *ngIf="
+              trainingForm.controls?.breakBetweenCycles?.touched &&
+              trainingForm.controls?.breakBetweenCycles?.errors
+            "
+            ><div
+              *ngIf="
+                trainingForm.controls?.breakBetweenExercises?.errors?.required
+              "
+            >
+              You need to specify the break between the Cycles.
+            </div>
+            <div
+              *ngIf="trainingForm.controls?.breakBetweenCycles?.errors?.pattern"
+            >
+              The break must be in the format 3:00 and the maximum time is three
+              minutes.
+            </div></mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="Training level"
+            formControlName="trainingLevel"
+          >
+            <mat-option
+              *ngFor="let key of trainingLevelKeys"
+              value="{{ key }}"
+              >{{ trainingLevels[key] }}</mat-option
+            >
+          </mat-select>
+          <mat-error
+            *ngIf="
+              trainingForm.controls?.trainingLevel?.touched &&
+              trainingForm.controls?.trainingLevel?.errors
+            "
+            ><div
+              *ngIf="trainingForm.controls?.trainingLevel?.errors?.required"
+            >
+              Training level should be specified.
+            </div></mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select
+            placeholder="included muscle groups"
+            formControlName="muscleGroups"
+            multiple
+          >
+            <mat-option
+              *ngFor="let groupKey of muscleGroupKeys"
+              [value]="groupKey"
+              >{{ groupKey }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <div
+          appearance="outline"
+          formArrayName="exercises"
+          class="exercises-from"
+        >
+          <div *ngFor="let exercise of exercises.controls; let i = index">
+            <div [formGroupName]="i">
+              <mat-form-field appearance="outline">
+                <input
+                  type="text"
+                  placeholder="Exercise name"
+                  matInput
+                  formControlName="exerciseName"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let exercise of allExercises"
+                    value="{{ exercise }}"
+                    >{{ exercise }}</mat-option
+                  >
+                </mat-autocomplete>
+                <mat-error
+                  *ngIf="
+                    trainingForm.controls?.exerciseName?.touched &&
+                    trainingForm.controls?.exerciseName?.errors
+                  "
+                  ><div
+                    *ngIf="
+                      trainingForm.controls?.exerciseName?.errors?.required
+                    "
+                  >
+                    You need to specify the exercise name, that you want to
+                    include.
+                  </div></mat-error
+                >
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <input
+                  type="text"
+                  matInput
+                  placeholder="Training Name:"
+                  formControlName="reps"
+                />
+                <mat-error
+                  *ngIf="
+                    trainingForm.controls?.reps?.touched &&
+                    trainingForm.controls?.reps?.errors
+                  "
+                  ><div *ngIf="trainingForm.controls?.reps?.errors?.required">
+                    You need to specify rrepetitions for eaxh set.
+                  </div></mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+          <button
+            type="submit"
+            mat-raised-button
+            color="accent"
+            (click)="addExerciseInput()"
+          >
+            Add exercise
           </button>
         </div>
-      </form>
-    </mat-card>
-  </div>
-  
+      </div>
+      <div class="form-button">
+        <button type="submit" mat-raised-button color="primary">
+          Create training
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

@@ -1,0 +1,44 @@
+<form [formGroup]="exerciseForm">
+  <mat-form-field appearance="outline">
+    <input
+      type="text"
+      placeholder="Exercise name"
+      matInput
+      formControlName="exerciseName"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let exercise of filteredExercises | async"
+        value="{{ exercise }}"
+        >{{ exercise }}</mat-option
+      >
+    </mat-autocomplete>
+    <mat-error
+      *ngIf="
+        exerciseForm.controls?.exerciseName?.touched &&
+        exerciseForm.controls?.exerciseName?.errors
+      "
+      ><div *ngIf="exerciseForm.controls?.exerciseName?.errors?.required">
+        You need to specify the exercise name, that you want to include.
+      </div></mat-error
+    >
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <input
+      type="text"
+      matInput
+      placeholder="Training Name:"
+      formControlName="reps"
+    />
+    <mat-error
+      *ngIf="
+        exerciseForm.controls?.reps?.touched &&
+        exerciseForm.controls?.reps?.errors
+      "
+      ><div *ngIf="exerciseForm.controls?.reps?.errors?.required">
+        You need to specify rrepetitions for eaxh set.
+      </div></mat-error
+    >
+  </mat-form-field>
+</form>

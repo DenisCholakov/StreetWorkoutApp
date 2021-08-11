@@ -34,9 +34,9 @@ namespace StreetWorkoutApp.Server.Features.Trainings
 
             var createdTrainingId = await this.trainingsService.CreateTraining(training);
 
-            if (createdTrainingId == 0)
+            if (createdTrainingId == -1)
             {
-                return Conflict("The training you want to create already exists.");
+                return BadRequest();
             }
 
             return Created("", createdTrainingId);

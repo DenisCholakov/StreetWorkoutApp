@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-
-import * as validationConstants from '../../constants/validation.constants';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { AuthService, ValidationErrorsService } from 'src/app/services';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +13,13 @@ import * as validationConstants from '../../constants/validation.constants';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  validations = validationConstants;
-
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private validationErrorService: ValidationErrorsService
+  ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -29,13 +34,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  getError(propertyName: string): string {
-    let errors = this.loginForm.get(propertyName)?.errors;
-
-    if (errors?.required) {
-      return this.validations.REQUIRED;
-    }
-
-    return '';
+  getError(errors: ValidationErrors | null): string {
+    return this.validationErrorService.getLoginValidationError(errors);
   }
 }

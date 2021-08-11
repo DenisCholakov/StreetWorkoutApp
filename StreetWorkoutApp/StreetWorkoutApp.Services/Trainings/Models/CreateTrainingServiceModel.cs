@@ -7,6 +7,8 @@ namespace StreetWorkoutApp.Services.Trainings.Models
     {
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public bool IsIndoor { get; set; }
 
         public string GoalExercise { get; set; }
@@ -17,7 +19,7 @@ namespace StreetWorkoutApp.Services.Trainings.Models
 
         public string BreakBetweenCycles { get; set; }
 
-        public TrainingLevelEnum TrainingLevel { get; set; }
+        public int TrainingLevel { get; set; }
 
         public ICollection<string> MuscleGroups { get; set; }
 

@@ -3,12 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 
-import {
-  MuscleGroupsEnum,
-  ExerciseLevelEnum,
-  IFilteredExercisesResponse,
-} from 'src/app/models';
-import { ExercisesService } from 'src/app/services/exercises.service';
+import { MuscleGroupsEnum, ExerciseLevelEnum } from 'src/app/models/enums';
+import { IFilteredExercisesResponse } from 'src/app/models';
+import { ExercisesService } from 'src/app/services/exercises/exercises.service';
 
 @Component({
   selector: 'app-all-exercises',
@@ -76,7 +73,7 @@ export class AllExercisesComponent implements OnInit, OnDestroy {
           `${this.pageSize}`,
           `${this.currentPage}`
         )
-        .subscribe((result) => {
+        .subscribe((result: IFilteredExercisesResponse) => {
           this.exercisesResponse = result;
           console.log(result);
         })

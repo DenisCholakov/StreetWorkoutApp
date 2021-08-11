@@ -10,6 +10,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
     public class CreateExerciseFormModel
     {
         [Required]
+        [MinLength(exerciseNameMinLength)]
         [MaxLength(exerciseNameMaxLength)]
         public string Name { get; set; }
 

@@ -1,0 +1,20 @@
+.create-training-card {
+  .input-fields {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    mat-radio-group {
+      margin-bottom: 0.5rem;
+
+      mat-radio-button {
+        margin-left: 0.5rem;
+      }
+    }
+
+    .exercises-form {
+      display: flex;
+      margin: 0.5rem;
+    }
+  }
+}

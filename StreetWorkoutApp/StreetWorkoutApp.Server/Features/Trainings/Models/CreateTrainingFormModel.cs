@@ -26,14 +26,14 @@ namespace StreetWorkoutApp.Server.Features.Trainings.Models
         public int CyclesCount { get; set; }
 
         [Required]
-        [RegularExpression(timeSpanMaximumThreeMinutes)]
+        [RegularExpression(timeSpanMaximumThreeMinutesRegexPattern)]
         public string BreakBetweenExercises { get; set; }
 
         [Required]
+        [RegularExpression(timeSpanMaximumThreeMinutesRegexPattern)]
         public string BreakBetweenCycles { get; set; }
 
-        [EnumDataType(typeof(TrainingLevelEnum))]
-        public TrainingLevelEnum TrainingLevel { get; set; }
+        public int TrainingLevel { get; set; }
 
         public ICollection<string> MuscleGroups { get; set; }
 

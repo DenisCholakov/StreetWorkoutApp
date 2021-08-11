@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace StreetWorkoutApp.Server
+﻿namespace StreetWorkoutApp.Server
 {
     public class ServerGlobalConstants
     {
         #region regex
         public const string imageUrlRegexPattern = @"(http)?s?:?(\/\/[^""']*\.(?:png|jpg|jpeg|gif|png|svg))";
-        public const string timeSpanMaximumThreeMinutes = @"[0-3]:[0-5][0-9]";
+        public const string emailRegexPattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
+        public const string timeSpanMaximumThreeMinutesRegexPattern = @"[0-3]:[0-5][0-9]";
         #endregion
 
         #region exercise

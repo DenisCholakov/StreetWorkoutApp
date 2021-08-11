@@ -18,5 +18,7 @@ namespace StreetWorkoutApp.Services.Exercises
             int resultsPerPage);
 
         Task<Exercise> GetExerciseByName(string exerciseName);
+
+        Task<ICollection<string>> GetAllExerciseNames();
     }
 }

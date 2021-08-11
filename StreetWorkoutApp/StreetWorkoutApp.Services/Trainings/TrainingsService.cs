@@ -7,6 +7,7 @@ using AutoMapper;
 
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
+using StreetWorkoutApp.Data.Models.Enums;
 using StreetWorkoutApp.Services.Common;
 using StreetWorkoutApp.Services.Exercises;
 using StreetWorkoutApp.Services.Trainings.Models;
@@ -36,21 +37,27 @@ namespace StreetWorkoutApp.Services.Trainings
         {
             if (this.data.Trainings.Any(t => t.Name == training.Name))
             {
-                return 0;
+                return -1;
             }
 
             var goalExercise = await exerciseService.GetExerciseByName(training.GoalExercise);
             var muscleGroups = await commonService.GetMuscleGroupsByNames(training.MuscleGroups.ToList());
 
+            if (!Enum.IsDefined(typeof(TrainingLevelEnum), training.TrainingLevel))
+            {
+                return -1;
+            }
+
             var trainngToAdd = new Training
             {
                 Name = training.Name,
+                Description = training.Description,
                 CyclesCount = training.CyclesCount,
                 BreakBetweenCycles = TimeSpan.ParseExact(training.BreakBetweenCycles, "m':'ss", null),
                 BreakBetweenExercises = TimeSpan.ParseExact(training.BreakBetweenExercises, "m':'ss", null),
                 IsIndoor = training.IsIndoor,
                 GoalExercise = goalExercise,
-                TrainingLevel = training.TrainingLevel,
+                TrainingLevel = (TrainingLevelEnum)training.TrainingLevel,
                 MuscleGroups = muscleGroups
             };
 

@@ -101,6 +101,21 @@ namespace StreetWorkoutApp.Services.Exercises
             return result;
         }
 
+
+        public async Task<Exercise> GetExerciseByName(string exerciseName)
+        {
+            var exercise = await this.data.Exercises.Where(x => exerciseName == x.Name).FirstOrDefaultAsync();
+
+            return exercise;
+        }
+
+        public async Task<ICollection<string>> GetAllExerciseNames()
+        {
+            var exerciseNames = this.data.Exercises.Select(e => e.Name).ToList();
+
+            return exerciseNames;
+        }
+
         private static List<Exercise> FilterData(ExerciseFilterServiceModel filters, List<Exercise> exercises)
         {
             if (!String.IsNullOrWhiteSpace(filters.SearchTerm))
@@ -126,13 +141,6 @@ namespace StreetWorkoutApp.Services.Exercises
             }
 
             return exercises;
-        }
-
-        public async Task<Exercise> GetExerciseByName(string exerciseName)
-        {
-            var exercise = await this.data.Exercises.Where(x => exerciseName == x.Name).FirstOrDefaultAsync();
-
-            return exercise;
         }
     }
 }
