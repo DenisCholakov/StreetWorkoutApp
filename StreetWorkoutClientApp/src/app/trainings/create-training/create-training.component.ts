@@ -1,6 +1,7 @@
 import { ArrayType } from '@angular/compiler';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { TrainingLevelEnum, MuscleGroupsEnum } from 'src/app/models/enums';
 import { ExercisesService, TrainingsService } from 'src/app/services';
@@ -27,6 +28,7 @@ export class CreateTrainingComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private exercisesService: ExercisesService,
     private trainingsService: TrainingsService
   ) {
@@ -97,7 +99,11 @@ export class CreateTrainingComponent implements OnInit, OnDestroy {
   }
 
   create() {
-    this.trainingsService.create(this.trainingForm.value).subscribe();
+    this.trainingsService
+      .create(this.trainingForm.value)
+      .subscribe((id) =>
+        this.router.navigate(['training', 'details', `${id}`])
+      );
   }
 
   private createExercise(): FormGroup {

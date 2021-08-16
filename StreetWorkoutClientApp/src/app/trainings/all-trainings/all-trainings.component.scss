@@ -1,0 +1,46 @@
+.filters {
+  width: 95%;
+  justify-content: center;
+  margin-left: 1.5%;
+
+  .filters-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .search-input {
+      width: 40%;
+    }
+
+    mat-checkbox {
+      padding-top: 16px;
+    }
+
+    mat-radio-button {
+      padding-top: 16px;
+      padding-left: 0.5rem;
+    }
+
+    button {
+      height: 2rem;
+    }
+  }
+}
+
+.cards-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  mat-card {
+    width: 100%;
+  }
+}
+
+.image {
+  width: 21rem;
+  height: 13rem; /* adjust as needed */
+  padding: 5px;
+  object-fit: contain;
+}

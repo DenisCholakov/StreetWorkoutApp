@@ -9,3 +9,6 @@ export * from './trainings/trainingCreateFormModel';
 export * from './trainings/trainingExerciseCreateFormModel';
 export * from './trainings/trainingDetailsModel';
 export * from './trainings/trainingExerciseDetailsModel';
+export * from './trainings/trainingCardModel';
+export * from './trainings/filteredTrainingsResponse';
+export * from './trainings/trainingFiltersModel';

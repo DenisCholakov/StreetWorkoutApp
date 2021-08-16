@@ -24,6 +24,8 @@ import { CreateEquipmentComponent } from './equipment/create-equipment/create-eq
 import { AllExercisesComponent } from './exercises/all-exercises/all-exercises.component';
 import { CreateTrainingComponent } from './trainings/create-training/create-training.component';
 import { AddTrainingExerciseComponent } from './shared/components/add-training-exercise/add-training-exercise.component';
+import { TrainingDetailsComponent } from './trainings/training-details/training-details.component';
+import { AllTrainingsComponent } from './trainings/all-trainings/all-trainings.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AddTrainingExerciseComponent } from './shared/components/add-training-e
     AllExercisesComponent,
     CreateTrainingComponent,
     AddTrainingExerciseComponent,
+    TrainingDetailsComponent,
+    AllTrainingsComponent,
   ],
   imports: [
     BrowserModule,

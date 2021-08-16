@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using AutoMapper;
-
+using IdentityServer4.Extensions;
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Data.Models.Enums;
@@ -78,6 +78,30 @@ namespace StreetWorkoutApp.Services.Trainings
             return trainngToAdd.Id;
         }
 
+        public async Task<FilteredTrainingsServiceResponseModel> GetFilteredTrainings(int currentPage, int resultsPerPage, TrainingFiltersServiceModel filters)
+        {
+            var allTrainigs = this.data.Trainings.Select(t => new TrainingServiceModel
+            {
+                Id = t.Id,
+                Name = t.Name,
+                TrainigLevel = (int)t.TrainingLevel,
+                GoalExerciseName = t.GoalExercise.Name,
+                IsIndoor = t.IsIndoor,
+                MuscleGroups = t.MuscleGroups.Select(mg => mg.Name).ToList(),
+                IncludedExerciseNames = t.Exercises.Select(e => e.Exercise.Name).ToList()
+            }).ToList();
+
+            allTrainigs = FilterTrainings(filters, allTrainigs);
+
+            var trainingsResponse = new FilteredTrainingsServiceResponseModel
+            {
+                Trainings = allTrainigs.Skip(currentPage * resultsPerPage).Take(resultsPerPage).ToList(),
+                AllTrainingsCount = allTrainigs.Count()
+            };
+
+            return trainingsResponse;
+        }
+
         public async Task<TrainingDetailsServiceModel> GetTrainingDetails(int trainingId)
         {
             var training = this.data.Trainings.FirstOrDefault(t => t.Id == trainingId);
@@ -90,6 +114,37 @@ namespace StreetWorkoutApp.Services.Trainings
             var result = this.mapper.Map<TrainingDetailsServiceModel>(training);
 
             return result;
+        }
+
+        private static List<TrainingServiceModel> FilterTrainings(TrainingFiltersServiceModel filters, List<TrainingServiceModel> allTrainigs)
+        {
+            if (!String.IsNullOrWhiteSpace(filters.SearchTerm))
+            {
+                allTrainigs = allTrainigs
+                    .Where(t => t.Name.Contains(filters.SearchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+
+            if (filters.IsIndoor != null)
+            {
+                allTrainigs = allTrainigs.Where(t => t.IsIndoor == filters.IsIndoor).ToList();
+            }
+
+            if (!filters.MuscleGroups.IsNullOrEmpty())
+            {
+                allTrainigs = allTrainigs.Where(t => !filters.MuscleGroups.Intersect(t.MuscleGroups).IsNullOrEmpty()).ToList();
+            }
+
+            if (filters.TrainingLevel != null && Enum.IsDefined(typeof(TrainingLevelEnum), filters.TrainingLevel))
+            {
+                allTrainigs = allTrainigs.Where(t => t.TrainigLevel == filters.TrainingLevel).ToList();
+            }
+
+            if (!String.IsNullOrWhiteSpace(filters.GoalExerciseName))
+            {
+                allTrainigs = allTrainigs.Where(t => t.GoalExerciseName == filters.GoalExerciseName).ToList();
+            }
+
+            return allTrainigs;
         }
     }
 }

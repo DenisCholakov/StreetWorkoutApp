@@ -8,6 +8,8 @@ using StreetWorkoutApp.Server.Features.Trainings.Models;
 using StreetWorkoutApp.Services.Trainings.Models;
 using StreetWorkoutApp.Services.Trainings;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace StreetWorkoutApp.Server.Features.Trainings
 {
@@ -50,7 +52,7 @@ namespace StreetWorkoutApp.Server.Features.Trainings
 
         public async Task<ActionResult<TrainingDetailsModel>> GetTrainingDetails(int trainingId)
         {
-            var trainingDetails = this.trainingsService.GetTrainingDetails(trainingId);
+            var trainingDetails = await this.trainingsService.GetTrainingDetails(trainingId);
 
             if (trainingDetails == null)
             {
@@ -60,17 +62,27 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             var result = this.mapper.Map<TrainingDetailsModel>(trainingDetails);
 
             return Ok(result);
+
         }
 
-        [HttpPost("filter")]
+        [HttpPost("filter/{currentPage}/{resultsPerPage}")]
         [SwaggerOperation(
             Summary = "Gets given count of filtered trainings for the given page",
             Description = "Gets given count of filtered trainings for the given page",
             OperationId = "GetFilteredTrainings")]
 
-        public async Task<ActionResult<TrainingDetailsModel>> GetFilteredTrainings()
+        public async Task<ActionResult<FilteredTrainingsResponseModel>> GetFilteredTrainings(
+            int currentPage,
+            int resultsPerPage,
+            TrainingFiltersModel filters)
         {
-            throw new NotImplementedException();
+            var serviceFilters = this.mapper.Map<TrainingFiltersServiceModel>(filters);
+
+            var trainings = await this.trainingsService.GetFilteredTrainings(currentPage, resultsPerPage, serviceFilters);
+
+            var result = this.mapper.Map<FilteredTrainingsResponseModel>(trainings);
+
+            return Ok(result);
         }
     }
 }

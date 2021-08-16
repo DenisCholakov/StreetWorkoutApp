@@ -34,7 +34,8 @@ namespace StreetWorkoutApp.Server.Infrastructure
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<StreetWorkoutDbContext>();
+            }).AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<StreetWorkoutDbContext>();
 
             return services;
         }
