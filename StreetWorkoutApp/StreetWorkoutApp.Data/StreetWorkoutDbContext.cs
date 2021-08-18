@@ -1,13 +1,8 @@
-﻿using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+
+using StreetWorkoutApp.Data.Extensions;
 using StreetWorkoutApp.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StreetWorkoutApp.Data
 {
@@ -28,6 +23,8 @@ namespace StreetWorkoutApp.Data
 
         public DbSet<TrainingExercise> TrainingsExercises { get; set; }
 
+        public DbSet<Trainer> Trainers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -39,6 +36,15 @@ namespace StreetWorkoutApp.Data
                 .WithMany(x => x.TrainingsForAcheiving)
                 .HasForeignKey(x => x.GoalExerciseId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Trainer>()
+                .HasMany(x => x.CreatedTrainings)
+                .WithOne(x => x.Creator)
+                .HasForeignKey(x => x.CreatorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.SeedRolesAndUsers();
+            builder.SeedData();
 
             base.OnModelCreating(builder);
         }

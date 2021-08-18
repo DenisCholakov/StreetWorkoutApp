@@ -84,5 +84,26 @@ namespace StreetWorkoutApp.Server.Features.Trainings
 
             return Ok(result);
         }
+
+        [HttpDelete("delete/{trainingId}")]
+        [SwaggerOperation(
+            Summary = "Deletes the training with the given Id",
+            Description = "GDeletes the training with the given Id",
+            OperationId = "DeleteTraining")]
+
+        public async Task<ActionResult<TrainingDetailsModel>> DeleteTraining(int trainingId)
+        {
+            var trainingDetails = await this.trainingsService.DeleteTraining(trainingId);
+
+            if (trainingDetails == null)
+            {
+                return NotFound("Such training does not exist.");
+            }
+
+            var result = this.mapper.Map<TrainingDetailsModel>(trainingDetails);
+
+            return Ok(result);
+
+        }
     }
 }

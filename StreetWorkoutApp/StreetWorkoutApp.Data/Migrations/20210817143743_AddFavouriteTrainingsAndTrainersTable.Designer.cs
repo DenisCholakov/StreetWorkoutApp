@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreetWorkoutApp.Data;
 
 namespace StreetWorkoutApp.Data.Migrations
 {
     [DbContext(typeof(StreetWorkoutDbContext))]
-    partial class StreetWorkoutDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210817143743_AddFavouriteTrainingsAndTrainersTable")]
+    partial class AddFavouriteTrainingsAndTrainersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,53 +64,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("ExercisesId");
 
                     b.ToTable("EquipmentExercise");
-
-                    b.HasData(
-                        new
-                        {
-                            EquipmentNeededId = 1,
-                            ExercisesId = 1
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 2
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 3
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 4
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 6
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 7
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 8
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 9
-                        },
-                        new
-                        {
-                            EquipmentNeededId = 3,
-                            ExercisesId = 10
-                        });
                 });
 
             modelBuilder.Entity("ExerciseMuscleGroup", b =>
@@ -124,183 +79,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("MuscleGroupsId");
 
                     b.ToTable("ExerciseMuscleGroup");
-
-                    b.HasData(
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 1,
-                            MuscleGroupsId = 1
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 1,
-                            MuscleGroupsId = 2
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 1,
-                            MuscleGroupsId = 9
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 2,
-                            MuscleGroupsId = 1
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 2,
-                            MuscleGroupsId = 7
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 2,
-                            MuscleGroupsId = 8
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 3,
-                            MuscleGroupsId = 1
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 3,
-                            MuscleGroupsId = 2
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 3,
-                            MuscleGroupsId = 6
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 3,
-                            MuscleGroupsId = 7
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 4,
-                            MuscleGroupsId = 1
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 4,
-                            MuscleGroupsId = 3
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 4,
-                            MuscleGroupsId = 4
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 4,
-                            MuscleGroupsId = 9
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 5,
-                            MuscleGroupsId = 1
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 5,
-                            MuscleGroupsId = 2
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 5,
-                            MuscleGroupsId = 4
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 5,
-                            MuscleGroupsId = 5
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 6,
-                            MuscleGroupsId = 8
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 6,
-                            MuscleGroupsId = 9
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 6,
-                            MuscleGroupsId = 10
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 7,
-                            MuscleGroupsId = 6
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 7,
-                            MuscleGroupsId = 7
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 7,
-                            MuscleGroupsId = 8
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 7,
-                            MuscleGroupsId = 9
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 8,
-                            MuscleGroupsId = 1
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 8,
-                            MuscleGroupsId = 6
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 8,
-                            MuscleGroupsId = 8
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 8,
-                            MuscleGroupsId = 9
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 9,
-                            MuscleGroupsId = 1
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 9,
-                            MuscleGroupsId = 7
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 9,
-                            MuscleGroupsId = 8
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 9,
-                            MuscleGroupsId = 9
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 10,
-                            MuscleGroupsId = 8
-                        },
-                        new
-                        {
-                            ExercisesForMuscleGroupId = 10,
-                            MuscleGroupsId = 9
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -328,22 +106,6 @@ namespace StreetWorkoutApp.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "f7ff7003-9468-49f5-979a-8138bcf8d480",
-                            ConcurrencyStamp = "aa0c05f0-ebf6-4ba8-b5f0-e05b798e1e6a",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "f3b35b36-e0ad-479b-9855-35a6a785173c",
-                            ConcurrencyStamp = "40a4d759-a0fd-4742-ac08-91c24d18a77c",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -463,23 +225,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("TrainingsForMuscleGroupId");
 
                     b.ToTable("MuscleGroupTraining");
-
-                    b.HasData(
-                        new
-                        {
-                            MuscleGroupsId = 7,
-                            TrainingsForMuscleGroupId = 1
-                        },
-                        new
-                        {
-                            MuscleGroupsId = 8,
-                            TrainingsForMuscleGroupId = 1
-                        },
-                        new
-                        {
-                            MuscleGroupsId = 9,
-                            TrainingsForMuscleGroupId = 1
-                        });
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.AppUser", b =>
@@ -545,40 +290,6 @@ namespace StreetWorkoutApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b2b201e9-8c95-4d19-89c3-28184f48b1d5",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "52a1d00c-4f03-4749-b437-41c98047908e",
-                            Email = "admin@admin.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEuWZTciHQ1QuJtE5LM7R+vLtetWSuowW8b3VpZ0MdYq53ighqcuyompPWbrU9fdAQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "9254b2c1-ebff-4cab-af09-30047df56720",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = "f8406549-4a2e-4401-9fb8-d06992ef6afd",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b9c0ed80-3817-4cc2-a005-d09e3790ec39",
-                            Email = "test@test.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "TEST@TEST.COM",
-                            NormalizedUserName = "TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJpubPuauAQj7Y5Y2ln4qMJHNXJGDumtCrMahiP8/i1meqBH4v8Sn5pG7tE6Ccb2Ig==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "425298d9-2de6-4af1-afe2-6092cfb6681c",
-                            TwoFactorEnabled = false,
-                            UserName = "test"
-                        });
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Equipment", b =>
@@ -598,32 +309,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Equipments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ImageUrl = "https://m.media-amazon.com/images/I/81CIL-7+n3L._AC_SX425_.jpg",
-                            Name = "Dumbells"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ImageUrl = "https://rukminim1.flixcart.com/image/416/416/k37mg7k0/pilates-ring/9/t/g/wooden-gymnastics-roman-rings-wxws-original-imafh2yxqpahjwjx.jpeg?q=70",
-                            Name = "Rings"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ImageUrl = "https://i.pinimg.com/564x/d5/e4/53/d5e45313b036eb890d6e918a3428be8b.jpg",
-                            Name = "Pull Up Bar"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ImageUrl = "https://kengurupro.eu/wp-content/uploads/2021/01/P-003-1.jpg",
-                            Name = "Parallels"
-                        });
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Exercise", b =>
@@ -653,106 +338,14 @@ namespace StreetWorkoutApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Exercises");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatorId = 1,
-                            Description = "This exercise is performed on rings. The performer must go on top of the rings and open his arms as wide as possible.",
-                            ExerciseLevel = 3,
-                            ImageUrl = "https://image.shutterstock.com/image-illustration/gymnast-performing-iron-cross-on-260nw-1586582845.jpg",
-                            Name = "Iron cross"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatorId = 1,
-                            Description = "A front lever is performed by lowering from an inverted hang until the body is completely horizontal and straight with the front of the body facing upwards",
-                            ExerciseLevel = 3,
-                            ImageUrl = "https://image.shutterstock.com/image-vector/muscular-man-doing-front-lever-260nw-1687648483.jpg",
-                            Name = "Fron lever"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatorId = 1,
-                            Description = "A back lever is performed by lowering from an inverted hang until the body is completely horizontal and straight with the front of the body facing backwards.",
-                            ExerciseLevel = 2,
-                            ImageUrl = "https://flighttrainingfitness.files.wordpress.com/2018/06/back-lever.png",
-                            Name = "Back lever"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatorId = 1,
-                            Description = "A pullup is a challenging upper body exercise where you grip an overhead bar and lift your body until your chin is above that bar.",
-                            ExerciseLevel = 1,
-                            ImageUrl = "https://i.stack.imgur.com/AY9Xl.png",
-                            Name = "Pull up"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatorId = 1,
-                            Description = "Conditioning exercise performed in a prone position by raising and lowering the body with the straightening and bending of the arms while keeping the back straight and supporting the body on the hands and toes.",
-                            ExerciseLevel = 1,
-                            ImageUrl = "https://physicalculturestudy.com/wp-content/uploads/2018/01/pushup.png",
-                            Name = "Push up"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatorId = 1,
-                            Description = "Hanging from a bar by your extended arms, you raise your legs parallel to the ground.",
-                            ExerciseLevel = 1,
-                            ImageUrl = "https://www.gymguider.com/wp-content/uploads/2017/07/Hanging_Leg_Raise.jpg",
-                            Name = "Hanging leg raises 90"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatorId = 1,
-                            Description = "Hanging from a bar lift your toes to the bar and start rotating your legs to each side. One rep is moving your toes once to the left and once to the right.",
-                            ExerciseLevel = 1,
-                            ImageUrl = "https://www.mensjournal.com/wp-content/uploads/2019/01/hangingwindshieldwipers.jpg?w=700&quality=86&strip=all",
-                            Name = "Whipers"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatorId = 1,
-                            Description = "Hanging from a bar lift your toes to the bar and hold for 2 seconds, then slowly lower your legs.",
-                            ExerciseLevel = 1,
-                            ImageUrl = "https://cdn-xi3mbccdkztvoept8hl.netdna-ssl.com/wp-content/uploads/watermarked/Hanging_Leg_Raises_to_Bar-1.png",
-                            Name = "Leg raises to bar"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatorId = 1,
-                            Description = "Hanging from a bar lift your body in the front lever position and then slowly bring it back to hanging position",
-                            ExerciseLevel = 2,
-                            ImageUrl = "https://i.pinimg.com/736x/dd/f0/da/ddf0daa00c840e4020f6edc31ad29f89.jpg",
-                            Name = "Front lever raises"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatorId = 1,
-                            Description = "Hanging from a bar lift your knees up to ypur chest and then bring them back.",
-                            ExerciseLevel = 1,
-                            ImageUrl = "http://1bodyweighttraining.com/wp-content/uploads/2018/04/hanging-knee-raises.png",
-                            Name = "Knee raises"
-                        });
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.MuscleGroup", b =>
@@ -768,78 +361,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MuscleGroups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Shoulders"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Chest"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Biceps"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Traps"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Triceps"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Upper Back"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Lower Back"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Abs"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Forearms"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Quadriceps"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Name = "HamStrings"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Name = "Calves"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Name = "Glutes"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Name = "Neck"
-                        });
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Trainer", b =>
@@ -853,21 +374,9 @@ namespace StreetWorkoutApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Trainers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            UserId = "b2b201e9-8c95-4d19-89c3-28184f48b1d5",
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.Training", b =>
@@ -915,20 +424,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("GoalExerciseId");
 
                     b.ToTable("Trainings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BreakBetweenCycles = new TimeSpan(0, 0, 1, 0, 0),
-                            BreakBetweenExercises = new TimeSpan(0, 0, 0, 10, 0),
-                            CreatorId = 1,
-                            CyclesCount = 5,
-                            Description = "This is a trainigng for abs. It's really useable for front lever. The trainings should be performed outside.",
-                            IsIndoor = false,
-                            Name = "Abs routine",
-                            TrainingLevel = 1
-                        });
                 });
 
             modelBuilder.Entity("StreetWorkoutApp.Data.Models.TrainingExercise", b =>
@@ -947,32 +442,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("ExerciseId");
 
                     b.ToTable("TrainingsExercises");
-
-                    b.HasData(
-                        new
-                        {
-                            TrainingId = 1,
-                            ExerciseId = 6,
-                            Reps = 10
-                        },
-                        new
-                        {
-                            TrainingId = 1,
-                            ExerciseId = 7,
-                            Reps = 10
-                        },
-                        new
-                        {
-                            TrainingId = 1,
-                            ExerciseId = 8,
-                            Reps = 10
-                        },
-                        new
-                        {
-                            TrainingId = 1,
-                            ExerciseId = 10,
-                            Reps = 30
-                        });
                 });
 
             modelBuilder.Entity("AppUserExercise", b =>
@@ -1117,7 +586,7 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasOne("StreetWorkoutApp.Data.Models.Trainer", "Creator")
                         .WithMany("CreatedTrainings")
                         .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StreetWorkoutApp.Data.Models.Exercise", "GoalExercise")

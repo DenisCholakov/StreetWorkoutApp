@@ -10,7 +10,7 @@
 
         #region exercise
         public const int exerciseNameMinLength = 3;
-        public const int exerciseNameMaxLength = 20;
+        public const int exerciseNameMaxLength = 30;
         public const int exerciseDescriptionMinLength = 50;
         public const int exerciseDescriptionMaxLength = 600;
         #endregion

@@ -7,6 +7,8 @@ namespace StreetWorkoutApp.Services.Common
 {
     public interface ICommonService
     {
+        Task<ICollection<string>> GetMuscleGroupNames();
+
         Task<ICollection<MuscleGroup>> GetMuscleGroupsByNames(List<string> names);
     }
 }

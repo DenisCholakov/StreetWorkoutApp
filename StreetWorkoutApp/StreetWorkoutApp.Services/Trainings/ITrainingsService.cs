@@ -15,5 +15,7 @@ namespace StreetWorkoutApp.Services.Trainings
             int currentPage,
             int resultsPerPage,
             TrainingFiltersServiceModel filters);
+
+        Task<bool> DeleteTraining(int trainingId);
     }
 }

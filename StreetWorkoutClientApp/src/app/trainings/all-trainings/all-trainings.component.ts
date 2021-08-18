@@ -4,8 +4,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 
 import { IFilteredTrainingsResponse } from 'src/app/models';
-import { MuscleGroupsEnum, TrainingLevelEnum } from 'src/app/models/enums';
+import { TrainingLevelEnum } from 'src/app/models/enums';
 import { ExercisesService, TrainingsService } from 'src/app/services';
+import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
   selector: 'app-all-trainings',
@@ -13,9 +14,8 @@ import { ExercisesService, TrainingsService } from 'src/app/services';
   styleUrls: ['./all-trainings.component.scss'],
 })
 export class AllTrainingsComponent implements OnInit, OnDestroy {
-  muscleGroups = MuscleGroupsEnum;
+  muscleGroups: string[] = [];
   trainingLevels = TrainingLevelEnum;
-  muscleGroupsKeys: string[] = [];
   trainingLevelsKeys: any[] = [];
   allExercises: string[] = [];
 
@@ -30,7 +30,8 @@ export class AllTrainingsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private exercisesService: ExercisesService,
-    private trainingsService: TrainingsService
+    private trainingsService: TrainingsService,
+    private commonService: CommonService
   ) {
     this.trainingSearchForm = this.fb.group({
       searchTerm: [''],
@@ -43,13 +44,18 @@ export class AllTrainingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.muscleGroupsKeys = Object.keys(this.muscleGroups);
     this.trainingLevelsKeys = Object.keys(this.trainingLevels).filter(Number);
 
     this.subscriptions.push(
       this.exercisesService
         .getAllExerciseNames()
         .subscribe((result) => (this.allExercises = result))
+    );
+
+    this.subscriptions.push(
+      this.commonService
+        .getMuscleGroups()
+        .subscribe((result) => (this.muscleGroups = result))
     );
 
     this.GetTrainings();

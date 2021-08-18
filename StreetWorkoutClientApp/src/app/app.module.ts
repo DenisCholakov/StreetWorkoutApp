@@ -26,6 +26,7 @@ import { CreateTrainingComponent } from './trainings/create-training/create-trai
 import { AddTrainingExerciseComponent } from './shared/components/add-training-exercise/add-training-exercise.component';
 import { TrainingDetailsComponent } from './trainings/training-details/training-details.component';
 import { AllTrainingsComponent } from './trainings/all-trainings/all-trainings.component';
+import { CommonService } from './services/common/common.service';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AllTrainingsComponent } from './trainings/all-trainings/all-trainings.c
     AuthService,
     ExercisesService,
     EquipmentService,
+    CommonService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

@@ -127,7 +127,7 @@ namespace StreetWorkoutApp.Services.Exercises
 
             if (filters.MyExercises)
             {
-                exercises = exercises.Where(ex => ex.Users.Any(u => u.UserName == Environment.UserName)).ToList();
+                exercises = exercises.Where(ex => ex.BookmarkedUsers.Any(u => u.UserName == Environment.UserName)).ToList();
             }
 
             if (!filters.MuscleGroups.IsNullOrEmpty())

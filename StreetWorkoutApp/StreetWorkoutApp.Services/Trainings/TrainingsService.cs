@@ -146,5 +146,10 @@ namespace StreetWorkoutApp.Services.Trainings
 
             return allTrainigs;
         }
+
+        public Task<bool> DeleteTraining(int trainingId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

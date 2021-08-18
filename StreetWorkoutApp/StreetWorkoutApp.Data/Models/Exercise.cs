@@ -27,6 +27,11 @@ namespace StreetWorkoutApp.Data.Models
         [Required]
         public string ImageUrl { get; set; }
 
+        public int CreatorId { get; set; }
+
+        [Required]
+        public Trainer Creator { get; set; }
+
         [Required]
         [MaxLength(exerciseDescriptionMaxLength)]
         public string Description { get; set; }
@@ -34,14 +39,14 @@ namespace StreetWorkoutApp.Data.Models
         [Required]
         public ExerciseLevelEnum ExerciseLevel { get; set; }
 
-        public ICollection<Training> TrainingsForAcheiving { get; set; }
+        public ICollection<Training> TrainingsForAcheiving { get; set; } = new HashSet<Training>();
 
-        public ICollection<TrainingExercise> TrainingsIncludedIn { get; set; }
+        public ICollection<TrainingExercise> TrainingsIncludedIn { get; set; } = new HashSet<TrainingExercise>();
 
-        public ICollection<MuscleGroup> MuscleGroups { get; set; }
+        public ICollection<MuscleGroup> MuscleGroups { get; set; } = new HashSet<MuscleGroup>();
 
-        public ICollection<Equipment> EquipmentNeeded { get; set; }
+        public ICollection<Equipment> EquipmentNeeded { get; set; } = new HashSet<Equipment>();
 
-        public ICollection<AppUser> Users { get; set; }
+        public ICollection<AppUser> BookmarkedUsers { get; set; } = new HashSet<AppUser>();
     }
 }

@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 
-import { MuscleGroupsEnum, ExerciseLevelEnum } from 'src/app/models/enums';
+import { ExerciseLevelEnum } from 'src/app/models/enums';
 import { IFilteredExercisesResponse } from 'src/app/models';
 import { ExercisesService } from 'src/app/services/exercises/exercises.service';
+import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
   selector: 'app-all-exercises',
@@ -13,9 +14,8 @@ import { ExercisesService } from 'src/app/services/exercises/exercises.service';
   styleUrls: ['./all-exercises.component.scss'],
 })
 export class AllExercisesComponent implements OnInit, OnDestroy {
-  muscleGroups = MuscleGroupsEnum;
+  muscleGroups: string[] = [];
   exerciseLevels = ExerciseLevelEnum;
-  muscleGroupsKeys: string[] = [];
   exerciseLevelsKeys: any[] = [];
   exercisesResponse: IFilteredExercisesResponse = {
     exercises: [],
@@ -29,7 +29,8 @@ export class AllExercisesComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private exercisesService: ExercisesService
+    private exercisesService: ExercisesService,
+    private commonService: CommonService
   ) {
     this.exerciseSearchForm = this.fb.group({
       searchTerm: [''],
@@ -40,8 +41,14 @@ export class AllExercisesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.muscleGroupsKeys = Object.keys(this.muscleGroups);
     this.exerciseLevelsKeys = Object.keys(this.exerciseLevels).filter(Number);
+
+    this.subscriptions.push(
+      this.commonService
+        .getMuscleGroups()
+        .subscribe((result) => (this.muscleGroups = result))
+    );
+
     this.getCurrentExercises();
   }
 

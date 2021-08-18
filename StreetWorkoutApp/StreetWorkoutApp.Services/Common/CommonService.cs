@@ -22,5 +22,10 @@ namespace StreetWorkoutApp.Services.Common
 
             return muscleGroups;
         }
+
+        public async Task<ICollection<string>> GetMuscleGroupNames()
+        {
+            return this.data.MuscleGroups.Select(mg => mg.Name).ToList();
+        }
     }
 }

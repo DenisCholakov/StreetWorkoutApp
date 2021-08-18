@@ -12,6 +12,6 @@ namespace StreetWorkoutApp.Data.Models
 
         public string ImageUrl { get; set; }
 
-        public ICollection<Exercise> Exercises { get; set; }
+        public ICollection<Exercise> Exercises { get; set; } = new HashSet<Exercise>();
     }
 }

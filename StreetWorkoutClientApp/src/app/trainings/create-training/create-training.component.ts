@@ -3,8 +3,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { TrainingLevelEnum, MuscleGroupsEnum } from 'src/app/models/enums';
+import { TrainingLevelEnum } from 'src/app/models/enums';
 import { ExercisesService, TrainingsService } from 'src/app/services';
+import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
   selector: 'app-create-training',
@@ -17,10 +18,9 @@ export class CreateTrainingComponent implements OnInit, OnDestroy {
   allExercises: string[] = [];
   filteredExercises!: Observable<string[]>;
   trainingLevels = TrainingLevelEnum;
-  muscleGroups = MuscleGroupsEnum;
+  muscleGroups: string[] = [];
   // find a way to remove any
   trainingLevelKeys: any[] = [];
-  muscleGroupKeys: any[] = [];
 
   trainingControls: ArrayType[] = [];
   trainingForm: FormGroup;
@@ -30,7 +30,8 @@ export class CreateTrainingComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private exercisesService: ExercisesService,
-    private trainingsService: TrainingsService
+    private trainingsService: TrainingsService,
+    private commonService: CommonService
   ) {
     this.trainingForm = this.fb.group({
       name: [
@@ -75,12 +76,17 @@ export class CreateTrainingComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.trainingLevelKeys = Object.keys(this.trainingLevels).filter(Number);
-    this.muscleGroupKeys = Object.keys(this.muscleGroups);
 
     this.subscriptions.push(
       this.exercisesService
         .getAllExerciseNames()
         .subscribe((result) => (this.allExercises = result))
+    );
+
+    this.subscriptions.push(
+      this.commonService
+        .getMuscleGroups()
+        .subscribe((result) => (this.muscleGroups = result))
     );
   }
 
