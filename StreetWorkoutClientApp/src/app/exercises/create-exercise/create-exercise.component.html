@@ -111,9 +111,9 @@
             multiple
           >
             <mat-option
-              *ngFor="let groupKey of muscleGroupsKeys"
-              value="{{ groupKey }}"
-              >{{ groupKey }}</mat-option
+              *ngFor="let group of muscleGroups"
+              value="{{ group }}"
+              >{{ group }}</mat-option
             >
           </mat-select>
         </mat-form-field>

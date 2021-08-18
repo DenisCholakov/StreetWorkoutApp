@@ -7,7 +7,6 @@ import { ValidationErrors } from '@angular/forms';
 export class ValidationErrorsService {
   constructor() {}
   getLoginValidationError(errors: ValidationErrors | null): string {
-    debugger;
     return '';
   }
 

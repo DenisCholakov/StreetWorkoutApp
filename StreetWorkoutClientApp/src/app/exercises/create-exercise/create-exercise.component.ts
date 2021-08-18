@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MuscleGroupsEnum, ExerciseLevelEnum } from 'src/app/models/enums';
-import { EquipmentService, ExercisesService } from 'src/app/services';
+import { ExerciseLevelEnum } from 'src/app/models/enums';
+import {
+  EquipmentService,
+  ExercisesService,
+  CommonService,
+} from 'src/app/services';
 
 @Component({
   selector: 'app-create-exercise',
@@ -16,9 +15,8 @@ import { EquipmentService, ExercisesService } from 'src/app/services';
   styleUrls: ['./create-exercise.component.scss'],
 })
 export class CreateExerciseComponent implements OnInit, OnDestroy {
-  muscleGroups = MuscleGroupsEnum;
+  muscleGroups: string[] = [];
   exerciseLevels = ExerciseLevelEnum;
-  muscleGroupsKeys: string[] = [];
   exerciseLevelsKeys: any[] = [];
   neededEquipment: string[] = [];
 
@@ -29,7 +27,8 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private equipmentService: EquipmentService,
-    private exerciseService: ExercisesService
+    private exerciseService: ExercisesService,
+    private commonService: CommonService
   ) {
     this.exerciseForm = this.fb.group({
       name: [
@@ -64,12 +63,17 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    this.muscleGroupsKeys = Object.keys(this.muscleGroups);
     this.exerciseLevelsKeys = Object.keys(this.exerciseLevels).filter(Number);
     this.subscriptions.push(
       this.equipmentService
         .getAllNames()
         .subscribe((x) => (this.neededEquipment = x))
+    );
+
+    this.subscriptions.push(
+      this.commonService
+        .getMuscleGroups()
+        .subscribe((result) => (this.muscleGroups = result))
     );
   }
 

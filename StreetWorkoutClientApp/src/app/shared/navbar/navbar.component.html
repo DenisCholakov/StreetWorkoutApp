@@ -22,31 +22,39 @@
     <a mat-flat-button routerLink="/home" color="primary">Street Workout </a>
   </div>
   <div class="left-content">
-    <a mat-flat-button *ngIf="!isLoggedIn" routerLink="/login" color="primary"
+    <a
+      mat-flat-button
+      *ngIf="!(isLoggedIn$ | async)"
+      routerLink="/login"
+      color="primary"
       >Login</a
     >
     <a
       mat-flat-button
-      *ngIf="!isLoggedIn"
+      *ngIf="!(isLoggedIn$ | async)"
       routerLink="/register"
       color="primary"
       >Register</a
     >
     <a
       mat-flat-button
-      *ngIf="isLoggedIn"
+      *ngIf="isLoggedIn$ | async"
       routerLink="/equipment-create"
       color="primary"
       >Add equipment</a
     >
     <a
       mat-flat-button
-      *ngIf="isLoggedIn"
+      *ngIf="isLoggedIn$ | async"
       routerLink="/exercise/create"
       color="primary"
       >Add exercise</a
     >
-    <a mat-flat-button *ngIf="isLoggedIn" (click)="logout()" color="primary"
+    <a
+      mat-flat-button
+      *ngIf="isLoggedIn$ | async"
+      (click)="logout()"
+      color="primary"
       >Logout</a
     >
   </div>

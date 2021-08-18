@@ -5,6 +5,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService, ValidationErrorsService } from 'src/app/services';
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService,
     private validationErrorService: ValidationErrorsService
   ) {
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe((data) => {
       this.authService.saveToken(data['token']);
     });
+    this.router.navigate(['home']);
   }
 
   getError(errors: ValidationErrors | null): string {
