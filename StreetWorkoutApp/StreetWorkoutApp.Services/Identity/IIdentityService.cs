@@ -1,4 +1,7 @@
-﻿namespace StreetWorkoutApp.Services.Identity
+﻿using StreetWorkoutApp.Data.Models;
+using System.Threading.Tasks;
+
+namespace StreetWorkoutApp.Services.Identity
 {
     public interface IIdentityService
     {

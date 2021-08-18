@@ -10,9 +10,11 @@ using StreetWorkoutApp.Services.Trainings;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StreetWorkoutApp.Server.Features.Trainings
 {
+    [Authorize]
     public class TrainingsController : ApiController
     {
         private readonly IMapper mapper;
@@ -24,6 +26,7 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             this.trainingsService = trainingsService;
         }
 
+        [Authorize(Roles = "Admin,Trainer")]
         [HttpPost("add")]
         [SwaggerOperation(
             Summary = "Create exercise",

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Data.Models.Enums;
 
-using static StreetWorkoutApp.Data.Models.UserRoles;
+using userRoles = StreetWorkoutApp.Data.Models.UserRoles;
 
 namespace StreetWorkoutApp.Data.Extensions
 {
@@ -15,8 +15,10 @@ namespace StreetWorkoutApp.Data.Extensions
     {
         private const string adminRoleId = "f7ff7003-9468-49f5-979a-8138bcf8d480";
         private const string userRoleId = "f3b35b36-e0ad-479b-9855-35a6a785173c";
+        private const string trainerRoleId = "7942e80f-1f4d-4da4-8fb0-66616a9d7966";
         private const string administratorId = "b2b201e9-8c95-4d19-89c3-28184f48b1d5";
         private const string userId = "f8406549-4a2e-4401-9fb8-d06992ef6afd";
+        private const string trainerId = "5a1b8332-873e-4c5f-af06-2ccdf04616dc";
 
         private static List<MuscleGroup> muscleGroups = new List<MuscleGroup>
             {
@@ -47,8 +49,9 @@ namespace StreetWorkoutApp.Data.Extensions
         public static void SeedRolesAndUsers(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Id = adminRoleId, Name = Admin, NormalizedName = Admin.ToUpper() },
-                new IdentityRole { Id = userRoleId, Name = User, NormalizedName = User.ToUpper() });
+                new IdentityRole { Id = adminRoleId, Name = userRoles.Admin, NormalizedName = userRoles.Admin.ToUpper() },
+                new IdentityRole { Id = userRoleId, Name = userRoles.User, NormalizedName = userRoles.User.ToUpper() },
+                new IdentityRole { Id = trainerRoleId, Name = userRoles.Trainer, NormalizedName = userRoles.Trainer.ToUpper() });
 
             var hasher = new PasswordHasher<AppUser>();
 
@@ -70,6 +73,15 @@ namespace StreetWorkoutApp.Data.Extensions
                     Email = "test@test.com",
                     NormalizedEmail = "test@test.com".ToUpper(),
                     PasswordHash = hasher.HashPassword(null, "testtest")
+                },
+                new AppUser
+                {
+                    Id = trainerId,
+                    UserName = "trainer",
+                    NormalizedUserName = "TRAINER",
+                    Email = "trainer@trainer.com",
+                    NormalizedEmail = "trainer@trainer.com".ToUpper(),
+                    PasswordHash = hasher.HashPassword(null, "trainertrainer")
                 });
 
             modelBuilder.Entity<Trainer>().HasData(
@@ -78,7 +90,21 @@ namespace StreetWorkoutApp.Data.Extensions
                     Id = 1,
                     UserId = administratorId,
                     UserName = "admin"
+                },
+                new Trainer
+                {
+                    Id = 2,
+                    UserId = trainerId,
+                    UserName = "trainer"
                 });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string> { RoleId = adminRoleId, UserId = administratorId },
+                new IdentityUserRole<string> { RoleId = trainerRoleId, UserId = administratorId },
+                new IdentityUserRole<string> { RoleId = userRoleId, UserId = administratorId },
+                new IdentityUserRole<string> { RoleId = trainerRoleId, UserId = trainerId },
+                new IdentityUserRole<string> { RoleId = userRoleId, UserId = trainerId },
+                new IdentityUserRole<string> { RoleId = userRoleId, UserId = userId });
         }
 
         public static void SeedData(this ModelBuilder modelBuilder)

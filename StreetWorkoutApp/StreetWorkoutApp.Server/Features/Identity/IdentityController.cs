@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -12,15 +13,18 @@ namespace StreetWorkoutApp.Server.Features.Identity
     public class IdentityController : ApiController
     {
         private readonly UserManager<AppUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IIdentityService identityService;
         private readonly AppSettings appSettings;
 
         public IdentityController(
             UserManager<AppUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             IIdentityService identityService,
             IOptions<AppSettings> appSettings)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
             this.identityService = identityService;
             this.appSettings = appSettings.Value;
         }
@@ -63,7 +67,10 @@ namespace StreetWorkoutApp.Server.Features.Identity
 
             var encryptedToken = identityService.GenerateJwtToken(user.Id, user.UserName, this.appSettings.Secret);
 
-            return new LoginResponseModel { Token = encryptedToken };
+            var userRole = (await this.userManager.GetRolesAsync(user)).FirstOrDefault();
+
+
+            return new LoginResponseModel { Token = encryptedToken, UserRole = userRole };
         }
     }
 }

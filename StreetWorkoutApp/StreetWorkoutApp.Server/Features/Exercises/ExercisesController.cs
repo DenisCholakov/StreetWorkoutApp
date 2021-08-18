@@ -55,6 +55,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             return Ok(exerciseNames);
         }
 
+        [Authorize(Roles = "Admin,Trainer")]
         [HttpPost("add")]
         [SwaggerOperation(
             Summary = "Create exercise",

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -8,9 +7,11 @@ using StreetWorkoutApp.Server.Features.Equipment.Models;
 using AutoMapper;
 using StreetWorkoutApp.Services.Equipment.Models;
 using StreetWorkoutApp.Services.Equipment;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StreetWorkoutApp.Server.Features.Equipment
 {
+    [Authorize]
     public class EquipmentController : ApiController
     {
         private readonly IEquipmentService equipmentService;
@@ -35,6 +36,7 @@ namespace StreetWorkoutApp.Server.Features.Equipment
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin,Trainer")]
         [HttpPost("add-equipment")]
         [SwaggerOperation(
             Summary = "Adds new equipment to the database",

@@ -1,20 +1,25 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
+
+using userRoleConstants = StreetWorkoutApp.Data.Models.UserRoles;
 
 namespace StreetWorkoutApp.Services.Identity
 {
     public class IdentityService : IIdentityService
     {
-        private readonly UserManager<AppUser> userManager;
+        private readonly StreetWorkoutDbContext data;
 
-        public IdentityService(UserManager<AppUser> userManager)
+        public IdentityService(StreetWorkoutDbContext data)
         {
-            this.userManager = userManager;
+            this.data = data;
         }
 
         public string GenerateJwtToken(string userId, string userName, string secret)

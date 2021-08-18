@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreetWorkoutApp.Data;
 
 namespace StreetWorkoutApp.Data.Migrations
 {
     [DbContext(typeof(StreetWorkoutDbContext))]
-    partial class StreetWorkoutDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210818171138_addTrainerSeeding")]
+    partial class addTrainerSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -333,21 +335,21 @@ namespace StreetWorkoutApp.Data.Migrations
                         new
                         {
                             Id = "f7ff7003-9468-49f5-979a-8138bcf8d480",
-                            ConcurrencyStamp = "7200be1e-b63d-4fc0-ab40-9edf913c5e47",
+                            ConcurrencyStamp = "5143d913-5dd7-4ad5-8a32-f21f7ea2c516",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "f3b35b36-e0ad-479b-9855-35a6a785173c",
-                            ConcurrencyStamp = "cf98932f-798d-46d6-8d86-72b66460949d",
+                            ConcurrencyStamp = "504da085-c560-4cfe-93ad-ed38af0769a7",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "7942e80f-1f4d-4da4-8fb0-66616a9d7966",
-                            ConcurrencyStamp = "41d71539-cb66-43f6-a1a7-e7a6c8588119",
+                            ConcurrencyStamp = "deac80e4-ddac-4abb-a028-72df8be16af4",
                             Name = "Trainer",
                             NormalizedName = "TRAINER"
                         });
@@ -436,38 +438,6 @@ namespace StreetWorkoutApp.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "b2b201e9-8c95-4d19-89c3-28184f48b1d5",
-                            RoleId = "f7ff7003-9468-49f5-979a-8138bcf8d480"
-                        },
-                        new
-                        {
-                            UserId = "b2b201e9-8c95-4d19-89c3-28184f48b1d5",
-                            RoleId = "7942e80f-1f4d-4da4-8fb0-66616a9d7966"
-                        },
-                        new
-                        {
-                            UserId = "b2b201e9-8c95-4d19-89c3-28184f48b1d5",
-                            RoleId = "f3b35b36-e0ad-479b-9855-35a6a785173c"
-                        },
-                        new
-                        {
-                            UserId = "5a1b8332-873e-4c5f-af06-2ccdf04616dc",
-                            RoleId = "7942e80f-1f4d-4da4-8fb0-66616a9d7966"
-                        },
-                        new
-                        {
-                            UserId = "5a1b8332-873e-4c5f-af06-2ccdf04616dc",
-                            RoleId = "f3b35b36-e0ad-479b-9855-35a6a785173c"
-                        },
-                        new
-                        {
-                            UserId = "f8406549-4a2e-4401-9fb8-d06992ef6afd",
-                            RoleId = "f3b35b36-e0ad-479b-9855-35a6a785173c"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -590,15 +560,15 @@ namespace StreetWorkoutApp.Data.Migrations
                         {
                             Id = "b2b201e9-8c95-4d19-89c3-28184f48b1d5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fce071a4-802c-4eab-bbe0-51e6e0d80f38",
+                            ConcurrencyStamp = "9f4a8614-98c8-4f6f-a949-a32a650d9681",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBXhhxBMFb7Cj4eZoP5xAuZaoBKgZM43Q0Kru/MhsXzVc/YFylJGu7vx8IcMpUarEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFzkfsgwCpHq/SQCU+N0aHFcohxNNSQj7uSKjcNshFMVQnPR3SU7PbFu+cdvVCHnMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1fabafbf-97ad-4e6e-ab3a-8ecda9d75ad8",
+                            SecurityStamp = "62ac7351-61d5-4477-9927-72c505b1dceb",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -606,15 +576,15 @@ namespace StreetWorkoutApp.Data.Migrations
                         {
                             Id = "f8406549-4a2e-4401-9fb8-d06992ef6afd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5fb3f86-56eb-435d-a1c8-8f71210ef533",
+                            ConcurrencyStamp = "0c4297eb-ef2e-49d8-9749-927ca12bae37",
                             Email = "test@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.COM",
                             NormalizedUserName = "TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDVgPr+dChejdAe/rRClWZpji6wYNzwKYQJSRVPLVklJg2oL/vquA4iwicYmsXytCw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKstjlKOYUDqRgCTRa3Pdth42tS1nn7U50qGJy5ObVUCCBjpiTuFe2irdggfpBEInA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5a1ef75e-be5a-483d-bb3a-e755dfbc11a3",
+                            SecurityStamp = "1a8f00cd-a278-4f0d-94f5-09f791813dfd",
                             TwoFactorEnabled = false,
                             UserName = "test"
                         },
@@ -622,15 +592,15 @@ namespace StreetWorkoutApp.Data.Migrations
                         {
                             Id = "5a1b8332-873e-4c5f-af06-2ccdf04616dc",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "26372303-e8d7-47e1-951d-e6dc72a17177",
+                            ConcurrencyStamp = "d7611d7a-3cba-45c5-be81-c0680a1c0ee6",
                             Email = "trainer@trainer.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TRAINER@TRAINER.COM",
                             NormalizedUserName = "TRAINER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMDXvCkV2UwIk5YSWGrrzz+cFK4LnXWZiSR4QpPdliQxhluoKgBXDpYyAcvB92LTBg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEITMYBRO2JX+vyloXhDptOOpbK4VAVAvw8aBmQVcSRf5WDyZh60Q9rUK2SBgAccLrQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "61a488fb-42ff-4076-bba7-c0f89a252985",
+                            SecurityStamp = "21908bf4-6ce5-4f10-9bb6-2b394a649c9e",
                             TwoFactorEnabled = false,
                             UserName = "trainer"
                         });

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.loginForm.value).subscribe((data) => {
-      this.authService.saveToken(data['token']);
+      this.authService.saveToken(data['token'], data['userRole']);
     });
     this.router.navigate(['home']);
   }
