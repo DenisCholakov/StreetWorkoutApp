@@ -8,6 +8,7 @@ using AutoMapper;
 using StreetWorkoutApp.Services.Equipment.Models;
 using StreetWorkoutApp.Services.Equipment;
 using Microsoft.AspNetCore.Authorization;
+using StreetWorkoutApp.Server.Infrastructure;
 
 namespace StreetWorkoutApp.Server.Features.Equipment
 {
@@ -36,7 +37,6 @@ namespace StreetWorkoutApp.Server.Features.Equipment
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin,Trainer")]
         [HttpPost("add-equipment")]
         [SwaggerOperation(
             Summary = "Adds new equipment to the database",
@@ -47,7 +47,7 @@ namespace StreetWorkoutApp.Server.Features.Equipment
         {
             var equipmentToAdd = mapper.Map<EquipmentServiceModel>(equipment);
 
-            await this.equipmentService.CreateEquipment(equipmentToAdd);
+            await this.equipmentService.CreateEquipment(equipmentToAdd, this.User.GetId());
 
             return Ok("created");
         }

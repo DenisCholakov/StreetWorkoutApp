@@ -10,6 +10,7 @@ using StreetWorkoutApp.Server.Features.Exercises.Models;
 using StreetWorkoutApp.Services.Exercises;
 using StreetWorkoutApp.Services.Exercises.Models;
 using System.ComponentModel.DataAnnotations;
+using StreetWorkoutApp.Server.Infrastructure;
 
 namespace StreetWorkoutApp.Server.Features.Exercises
 {
@@ -55,7 +56,6 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             return Ok(exerciseNames);
         }
 
-        [Authorize(Roles = "Admin,Trainer")]
         [HttpPost("add")]
         [SwaggerOperation(
             Summary = "Create exercise",
@@ -66,9 +66,9 @@ namespace StreetWorkoutApp.Server.Features.Exercises
         {
             var exerciseToCreate = this.mapper.Map<CreateExerciseServiceModel>(exercise);
 
-            var createdExerciseId = await this.exercisesService.CreateExercisee(exerciseToCreate);
+            var createdExerciseId = await this.exercisesService.CreateExercisee(exerciseToCreate, this.User.GetId());
 
-            if (createdExerciseId == 0)
+            if (createdExerciseId == -1)
             {
                 return Conflict("The exercise you want to create already exists.");
             }
@@ -95,6 +95,25 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             var result = this.mapper.Map<FilteredExercisesResponse>(exercises);
 
             return Ok(result);
+        }
+
+        [HttpDelete("delete/{exerciseId}")]
+        [SwaggerOperation(
+            Summary = "Deletes an exercise",
+            Description = "Deletes an exercise created by the logged trainer. Also the admin can delete every exercise",
+            OperationId = "DeleteExercise")]
+
+        public async Task<ActionResult<bool>> DeleteExercise(int exerciseId)
+        {
+
+            var isDeleted = await this.exercisesService.DeleteExercise(exerciseId, this.User.GetId());
+
+            if (!isDeleted)
+            {
+                return Conflict("The exercise you want to Delete was not found!");
+            }
+
+            return Ok();
         }
     }
 }

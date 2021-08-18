@@ -33,11 +33,18 @@ namespace StreetWorkoutApp.Services.Trainings
             this.commonService = commonService;
         }
 
-        public async Task<int> CreateTraining(CreateTrainingServiceModel training)
+        public async Task<int> CreateTraining(CreateTrainingServiceModel training, string userId)
         {
             if (this.data.Trainings.Any(t => t.Name == training.Name))
             {
                 return -1;
+            }
+
+            var creator = this.data.Trainers.FirstOrDefault(t => t.UserId == userId);
+
+            if (creator == null)
+            {
+                throw new InvalidOperationException("The user that is trying to create a training is not a trainser.");
             }
 
             var goalExercise = await exerciseService.GetExerciseByName(training.GoalExercise);
@@ -56,6 +63,7 @@ namespace StreetWorkoutApp.Services.Trainings
                 BreakBetweenCycles = TimeSpan.ParseExact(training.BreakBetweenCycles, "m':'ss", null),
                 BreakBetweenExercises = TimeSpan.ParseExact(training.BreakBetweenExercises, "m':'ss", null),
                 IsIndoor = training.IsIndoor,
+                Creator = creator,
                 GoalExercise = goalExercise,
                 TrainingLevel = (TrainingLevelEnum)training.TrainingLevel,
                 MuscleGroups = muscleGroups
@@ -147,7 +155,7 @@ namespace StreetWorkoutApp.Services.Trainings
             return allTrainigs;
         }
 
-        public Task<bool> DeleteTraining(int trainingId)
+        public Task<bool> DeleteTraining(int trainingId, string userId)
         {
             throw new NotImplementedException();
         }

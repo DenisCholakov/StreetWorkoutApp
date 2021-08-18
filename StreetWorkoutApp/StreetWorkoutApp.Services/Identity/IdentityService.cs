@@ -41,10 +41,5 @@ namespace StreetWorkoutApp.Services.Identity
             
             return tokenHandler.WriteToken(token);
         }
-
-        public string GetLoggedUserId()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

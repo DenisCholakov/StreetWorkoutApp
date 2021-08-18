@@ -7,7 +7,7 @@ namespace StreetWorkoutApp.Services.Trainings
 {
     public interface ITrainingsService
     {
-        Task<int> CreateTraining(CreateTrainingServiceModel training);
+        Task<int> CreateTraining(CreateTrainingServiceModel training, string userId);
 
         Task<TrainingDetailsServiceModel> GetTrainingDetails(int trainingId);
 
@@ -16,6 +16,6 @@ namespace StreetWorkoutApp.Services.Trainings
             int resultsPerPage,
             TrainingFiltersServiceModel filters);
 
-        Task<bool> DeleteTraining(int trainingId);
+        Task<bool> DeleteTraining(int trainingId, string userId);
     }
 }

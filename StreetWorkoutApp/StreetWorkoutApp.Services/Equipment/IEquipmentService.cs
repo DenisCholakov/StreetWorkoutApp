@@ -12,7 +12,7 @@ namespace StreetWorkoutApp.Services.Equipment
 
         Task<ICollection<string>> GetAllEquipmentNames();
 
-        Task CreateEquipment(EquipmentServiceModel equipment);
+        Task CreateEquipment(EquipmentServiceModel equipment, string userId);
 
         Task<ICollection<dataEntities.Equipment>> GetEquipmentByName(ICollection<string> names);
     }

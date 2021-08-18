@@ -6,6 +6,7 @@ using AutoMapper;
 using StreetWorkoutApp.Data;
 using dataEntities = StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Equipment.Models;
+using System;
 
 namespace StreetWorkoutApp.Services.Equipment
 {
@@ -19,8 +20,15 @@ namespace StreetWorkoutApp.Services.Equipment
             this.data = data;
             this.mapper = mapper;
         }
-        public async Task CreateEquipment(EquipmentServiceModel equipment)
+        public async Task CreateEquipment(EquipmentServiceModel equipment, string userId)
         {
+            var creator = this.data.Trainers.FirstOrDefault(t => t.UserId == userId);
+
+            if (creator == null)
+            {
+                throw new InvalidOperationException("The user is not a trainer!");
+            }
+
             var equipmentToAdd = this.mapper.Map<dataEntities.Equipment>(equipment);
 
             await this.data.Equipments.AddAsync(equipmentToAdd);

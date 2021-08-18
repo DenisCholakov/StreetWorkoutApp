@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using IdentityServer4.Extensions;
-using Microsoft.EntityFrameworkCore;
+
 using StreetWorkoutApp.Data;
 using StreetWorkoutApp.Data.Models;
 using StreetWorkoutApp.Services.Common;
 using StreetWorkoutApp.Services.Equipment;
 using StreetWorkoutApp.Services.Exercises.Models;
-using StreetWorkoutApp.Services.Identity;
 
 namespace StreetWorkoutApp.Services.Exercises
 {
@@ -20,29 +20,26 @@ namespace StreetWorkoutApp.Services.Exercises
         private readonly IMapper mapper;
         private readonly IEquipmentService equipmentService;
         private readonly ICommonService commonService;
-        private readonly IIdentityService identityService;
 
         public ExercisesService(
             StreetWorkoutDbContext data, 
             IMapper mapper, 
             IEquipmentService equipmentService,
-            ICommonService commonService,
-            IIdentityService identityService)
+            ICommonService commonService)
         {
             this.data = data;
             this.mapper = mapper;
             this.equipmentService = equipmentService;
             this.commonService = commonService;
-            this.identityService = identityService;
         }
 
-        public async Task<int> CreateExercisee(CreateExerciseServiceModel exercise)
+        public async Task<int> CreateExercisee(CreateExerciseServiceModel exercise, string userId)
         {
             var exerciseToAdd = this.data.Exercises.FirstOrDefault(x => x.Name == exercise.Name);
 
             if (exerciseToAdd != null)
             {
-                return 0;
+                return -1;
             }
 
             var equipmentNeeded =await this.equipmentService.GetEquipmentByName(
@@ -50,12 +47,20 @@ namespace StreetWorkoutApp.Services.Exercises
 
             var muscleGroups = await this.commonService.GetMuscleGroupsByNames(exercise.MuscleGroups.ToList());
 
+            var creator = this.data.Trainers.FirstOrDefault(t => t.UserId == userId);
+
+            if (creator == null)
+            {
+                throw new Exception("The user trying to create the training is not a trainer!");
+            }
+
             exerciseToAdd = new Exercise
             {
                 Name = exercise.Name,
                 Description = exercise.Description,
                 ImageUrl = exercise.ImageUrl,
                 ExampleUrl = exercise.ExampleUrl ?? "",
+                Creator = creator,
                 ExerciseLevel = exercise.ExerciseLevel,
                 MuscleGroups = muscleGroups,
                 EquipmentNeeded = equipmentNeeded
@@ -65,6 +70,43 @@ namespace StreetWorkoutApp.Services.Exercises
             await this.data.SaveChangesAsync();
 
             return exerciseToAdd.Id;
+        }
+
+
+        public async Task<bool> DeleteExercise(int exerciseId, string userId)
+        {
+            if (!this.data.Trainers.Any(t => t.UserId == userId))
+            {
+                throw new InvalidOperationException("The user that is trying to delete this training is not a trainser.");
+            }
+
+            var exerciseToDelete = this.data.Exercises.FirstOrDefault(e => e.Id == exerciseId);
+
+            if (exerciseToDelete == null)
+            {
+                return false;
+            }
+
+            var trainingsIncludedIn = this.data.Trainings
+                .Select(t => t.Exercises)
+                .Where(t => t.Any(te => te.ExerciseId == exerciseId))
+                .ToList();
+
+            foreach (var trainingExercises in trainingsIncludedIn)
+            {
+                var toRemove = trainingExercises.FirstOrDefault(te => te.ExerciseId == exerciseId);
+                trainingExercises.Remove(toRemove);
+            }
+
+            foreach (var equipment in exerciseToDelete.EquipmentNeeded)
+            {
+                exerciseToDelete.EquipmentNeeded.Remove(equipment);
+            }
+
+            this.data.Exercises.Remove(exerciseToDelete);
+            await this.data.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<ExerciseDetailsServiceModel> GetExerciseDetails(int exerciseId)

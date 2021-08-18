@@ -8,7 +8,9 @@ namespace StreetWorkoutApp.Services.Exercises
 {
     public interface IExercisesService
     {
-        Task<int> CreateExercisee(CreateExerciseServiceModel exercise);
+        Task<int> CreateExercisee(CreateExerciseServiceModel exercise, string userId);
+
+        Task<bool> DeleteExercise(int exerciseId, string userId);
 
         Task<ExerciseDetailsServiceModel> GetExerciseDetails(int exerciseId);
 

@@ -15,6 +15,7 @@ import {
 })
 export class ExercisesService {
   private createPath = environment.apiUrl + 'exercises/add';
+  private deletePath = environment.apiUrl + 'exercises/delete';
   private getExerciseDetailsPath = environment.apiUrl + 'exercises/details';
   private getFilteredExercisesPath = environment.apiUrl + 'exercises/filter';
   private getAllExerciseNamesPath = environment.apiUrl + 'exercises/all/names';
@@ -22,8 +23,11 @@ export class ExercisesService {
   constructor(private http: HttpClient) {}
 
   create(data: IExerciseCreateFormModel): Observable<IExerciseDetailsModel> {
-    debugger;
     return this.http.post<IExerciseDetailsModel>(this.createPath, data);
+  }
+
+  delete(exerciseId: string): Observable<boolean> {
+    return this.http.delete<boolean>(this.deletePath + `/${exerciseId}`);
   }
 
   getAllExerciseNames(): Observable<string[]> {

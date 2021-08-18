@@ -17,11 +17,11 @@
     <p>Icluded Muscle Groups: {{ exerciseDetails.muscleGroups.join(", ") }}</p>
     <p>
       Equipmen needed:
-      {{ exerciseDetails.equipmentNeeded.join(", ") }}
+      {{ equipment.join(", ") }}
     </p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button routerLink="/exercise/all">ALL EXERCISES</button>
-    <button mat-button>SHARE</button>
+    <button mat-button (click)="deleteExercise()">DELETE</button>
   </mat-card-actions>
 </mat-card>

@@ -14,3 +14,4 @@
 - include training-exercise component - for this we should find a way to pass the forGroup from the child component to the parent
 - find a way to combine all filters when filtering nad filter only once for all the filters not once for each filter
 - add image to the training
+- add claims for each role for easier authorization

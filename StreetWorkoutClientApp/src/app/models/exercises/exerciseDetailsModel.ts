@@ -1,4 +1,5 @@
 import { ExerciseLevelEnum } from '../enums/exerciseLevelEnum';
+import { IEquipment } from '../equipment';
 
 export interface IExerciseDetailsModel {
   name: string;
@@ -9,5 +10,5 @@ export interface IExerciseDetailsModel {
   trainingsForAcheiving: string[];
   trainingsIncludedIn: string[];
   muscleGroups: string[];
-  equipmentNeeded: string[];
+  equipment: IEquipment[];
 }

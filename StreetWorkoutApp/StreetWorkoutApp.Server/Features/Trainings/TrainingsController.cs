@@ -11,6 +11,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using StreetWorkoutApp.Server.Infrastructure;
 
 namespace StreetWorkoutApp.Server.Features.Trainings
 {
@@ -26,7 +27,6 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             this.trainingsService = trainingsService;
         }
 
-        [Authorize(Roles = "Admin,Trainer")]
         [HttpPost("add")]
         [SwaggerOperation(
             Summary = "Create exercise",
@@ -37,7 +37,7 @@ namespace StreetWorkoutApp.Server.Features.Trainings
         {
             var training = this.mapper.Map<CreateTrainingServiceModel>(trainingModel);
 
-            var createdTrainingId = await this.trainingsService.CreateTraining(training);
+            var createdTrainingId = await this.trainingsService.CreateTraining(training, this.User.GetId());
 
             if (createdTrainingId == -1)
             {
@@ -96,7 +96,7 @@ namespace StreetWorkoutApp.Server.Features.Trainings
 
         public async Task<ActionResult<TrainingDetailsModel>> DeleteTraining(int trainingId)
         {
-            var trainingDetails = await this.trainingsService.DeleteTraining(trainingId);
+            var trainingDetails = await this.trainingsService.DeleteTraining(trainingId, this.User.GetId());
 
             if (trainingDetails == null)
             {

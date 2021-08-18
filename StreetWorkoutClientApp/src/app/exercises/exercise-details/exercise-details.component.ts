@@ -13,7 +13,9 @@ import { ExercisesService } from 'src/app/services';
 })
 export class ExerciseDetailsComponent implements OnInit, OnDestroy {
   exerciseDetails: IExerciseDetailsModel | undefined;
+  equipment: string[] = [];
   exerciseLevels = ExerciseLevelEnum;
+  exerciseId: string = '';
 
   subscriptions: Subscription[] = [];
 
@@ -24,6 +26,8 @@ export class ExerciseDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.exerciseId = this.route.snapshot.paramMap.get('id') ?? '';
+
     this.getExerciseDetails();
   }
 
@@ -31,19 +35,32 @@ export class ExerciseDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((x) => x.unsubscribe);
   }
 
-  private getExerciseDetails() {
-    const exerciseId: string = this.route.snapshot.paramMap.get('id') ?? '';
+  deleteExercise() {
+    debugger;
+    if (this.exerciseId === '') {
+      this.router.navigate(['exercise', 'all']);
+    }
 
+    this.subscriptions.push(
+      this.exercisesService
+        .delete(this.exerciseId)
+        .subscribe((result) => console.log(result))
+    );
+
+    this.router.navigate(['exercise', 'all']);
+  }
+
+  private getExerciseDetails() {
     // check if needed
-    if (exerciseId === '') {
+    if (this.exerciseId === '') {
       this.router.navigate(['exercise', 'all']);
     }
     this.subscriptions.push(
       this.exercisesService
-        .getExerciseDetails(exerciseId)
+        .getExerciseDetails(this.exerciseId)
         .subscribe((result) => {
           this.exerciseDetails = result;
-          console.log(result);
+          this.equipment = result.equipment.map((x) => x.name);
         })
     );
   }
