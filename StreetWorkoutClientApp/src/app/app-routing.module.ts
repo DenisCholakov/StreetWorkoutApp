@@ -7,7 +7,10 @@ import { CreateExerciseComponent } from './exercises/create-exercise/create-exer
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services';
+import { AllTrainingsComponent } from './trainings/all-trainings/all-trainings.component';
+import { CreateTrainingComponent } from './trainings/create-training/create-training.component';
+import { TrainingDetailsComponent } from './trainings/training-details/training-details.component';
 
 const routes: Routes = [
   {
@@ -46,6 +49,24 @@ const routes: Routes = [
       {
         path: 'all',
         component: AllExercisesComponent,
+      },
+    ],
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'training',
+    children: [
+      {
+        path: 'create',
+        component: CreateTrainingComponent,
+      },
+      {
+        path: 'details/:id',
+        component: TrainingDetailsComponent,
+      },
+      {
+        path: 'all',
+        component: AllTrainingsComponent,
       },
     ],
     canActivate: [AuthGuardService],

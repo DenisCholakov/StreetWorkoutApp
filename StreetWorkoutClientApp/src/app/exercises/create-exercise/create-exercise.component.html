@@ -12,10 +12,20 @@
           />
           <mat-error
             *ngIf="
-              exerciseForm.controls?.username?.touched &&
-              exerciseForm.controls?.username?.errors
+              exerciseForm.controls?.name?.touched &&
+              exerciseForm.controls?.name?.errors
             "
-            >{{ getError("name") }}</mat-error
+            ><div *ngIf="exerciseForm.controls?.name?.errors?.required">
+              Exercise name is required.
+            </div>
+            <div
+              *ngIf="
+                exerciseForm.controls?.name?.errors?.minLength ||
+                exerciseForm.controls?.name?.errors?.maxLength
+              "
+            >
+              Exercise name must be between 3 and 20 characters
+            </div></mat-error
           >
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -26,10 +36,21 @@
           ></textarea>
           <mat-error
             *ngIf="
-              exerciseForm.controls?.username?.touched &&
-              exerciseForm.controls?.username?.errors
+              exerciseForm.controls?.description?.touched &&
+              exerciseForm.controls?.description?.errors
             "
-            >{{ getError("name") }}</mat-error
+          >
+            <div *ngIf="exerciseForm.controls?.description?.errors?.required">
+              Exercise description is required.
+            </div>
+            <div
+              *ngIf="
+                exerciseForm.controls?.description?.errors?.minLength ||
+                exerciseForm.controls?.description?.errors?.maxLength
+              "
+            >
+              Exercise description must be between 50 and 600 characters
+            </div></mat-error
           >
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -45,10 +66,14 @@
           </mat-select>
           <mat-error
             *ngIf="
-              exerciseForm.controls?.username?.touched &&
-              exerciseForm.controls?.username?.errors
+              exerciseForm.controls?.exerciseLevel?.touched &&
+              exerciseForm.controls?.exerciseLevel?.errors
             "
-            >{{ getError("exerciseLevel") }}</mat-error
+            ><div
+              *ngIf="exerciseForm.controls?.exerciseLevel?.errors?.required"
+            >
+              Exersise Level should be selected.
+            </div></mat-error
           >
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -59,6 +84,18 @@
             formControlName="imageUrl"
           />
         </mat-form-field>
+        <mat-error
+          *ngIf="
+            exerciseForm.controls?.imageUrl?.touched &&
+            exerciseForm.controls?.imageUrl?.errors
+          "
+          ><div *ngIf="exerciseForm.controls?.imageUrl?.errors?.required">
+            Image of the exercise is required.
+          </div>
+          <div *ngIf="exerciseForm.controls?.imageUrl?.errors?.pattern">
+            The image url is not in the valid format..
+          </div></mat-error
+        >
         <mat-form-field appearance="outline">
           <input
             type="text"

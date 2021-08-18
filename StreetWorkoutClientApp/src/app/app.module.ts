@@ -9,17 +9,24 @@ import { AppComponent } from './app.component';
 import { LoginComponent, RegisterComponent } from './authentication';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { AuthService } from './services/auth.service';
+import {
+  AuthService,
+  ExercisesService,
+  EquipmentService,
+  TokenInterceptorService,
+} from './services';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { CreateExerciseComponent } from './exercises/create-exercise/create-exercise.component';
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
-import { ExercisesService } from './services/exercises.service';
 import { CreateEquipmentComponent } from './equipment/create-equipment/create-equipment.component';
-import { EquipmentService } from './services/equipment.service';
-import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 import { AllExercisesComponent } from './exercises/all-exercises/all-exercises.component';
+import { CreateTrainingComponent } from './trainings/create-training/create-training.component';
+import { AddTrainingExerciseComponent } from './shared/components/add-training-exercise/add-training-exercise.component';
+import { TrainingDetailsComponent } from './trainings/training-details/training-details.component';
+import { AllTrainingsComponent } from './trainings/all-trainings/all-trainings.component';
+import { CommonService } from './services/common/common.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +40,10 @@ import { AllExercisesComponent } from './exercises/all-exercises/all-exercises.c
     PageNotFoundComponent,
     CreateEquipmentComponent,
     AllExercisesComponent,
+    CreateTrainingComponent,
+    AddTrainingExerciseComponent,
+    TrainingDetailsComponent,
+    AllTrainingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +59,7 @@ import { AllExercisesComponent } from './exercises/all-exercises/all-exercises.c
     AuthService,
     ExercisesService,
     EquipmentService,
+    CommonService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

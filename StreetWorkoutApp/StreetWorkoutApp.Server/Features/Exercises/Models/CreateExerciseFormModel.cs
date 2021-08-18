@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 using StreetWorkoutApp.Data.Models.Enums;
 
-using static StreetWorkoutApp.Data.DataValidationConstants;
 using static StreetWorkoutApp.Server.ServerGlobalConstants;
 
 namespace StreetWorkoutApp.Server.Features.Exercises.Models
@@ -11,6 +10,7 @@ namespace StreetWorkoutApp.Server.Features.Exercises.Models
     public class CreateExerciseFormModel
     {
         [Required]
+        [MinLength(exerciseNameMinLength)]
         [MaxLength(exerciseNameMaxLength)]
         public string Name { get; set; }
 

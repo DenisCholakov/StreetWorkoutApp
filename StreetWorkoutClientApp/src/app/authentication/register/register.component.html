@@ -10,9 +10,19 @@
             placeholder="Username:"
             formControlName="username"
           />
-          <mat-error *ngIf="registerForm.controls.username?.errors">{{
-            getError("username")
-          }}</mat-error>
+          <mat-error
+            *ngIf="
+              registerForm.controls.username?.touched ||
+              registerForm.controls.username?.errors
+            "
+          >
+            <div *ngIf="registerForm.controls.username?.errors?.required">
+              The Username is required.
+            </div>
+            <div *ngIf="registerForm.controls.username?.errors?.minLength">
+              The Username must be at least 5 characters
+            </div>
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input

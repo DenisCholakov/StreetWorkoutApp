@@ -15,7 +15,7 @@
               loginForm.controls?.username?.touched &&
               loginForm.controls?.username?.errors
             "
-            >{{ getError("username") }}</mat-error
+            >{{ getError(loginForm.errors) }}</mat-error
           >
         </mat-form-field>
         <mat-form-field>
@@ -30,7 +30,7 @@
               loginForm.controls?.password?.touched &&
               loginForm.controls?.password?.errors
             "
-            >{{ getError("password") }}</mat-error
+            >{{ getError(loginForm.errors) }}</mat-error
           >
         </mat-form-field>
       </div>

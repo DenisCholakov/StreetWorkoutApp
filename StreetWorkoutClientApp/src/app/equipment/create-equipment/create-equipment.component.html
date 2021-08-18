@@ -1,5 +1,5 @@
-<div class="login-form-wrapper">
-  <mat-card class="login-card">
+<div class="form-wrapper">
+  <mat-card class="card">
     <mat-card-title>Add equipment</mat-card-title>
     <form [formGroup]="equipmentForm" (ngSubmit)="create()">
       <div class="input-fields">
@@ -10,6 +10,16 @@
             placeholder="Name of the equipment:"
             formControlName="name"
           />
+          <mat-error
+            *ngIf="
+              equipmentForm.controls.name?.touched &&
+              equipmentForm.controls.name?.errors
+            "
+          >
+            <div *ngIf="equipmentForm.controls.name?.errors?.required">
+              Equipment name is required.
+            </div>
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
@@ -18,6 +28,19 @@
             placeholder="equipment image Url"
             formControlName="imageUrl"
           />
+          <mat-error
+            *ngIf="
+              equipmentForm.controls.imageUrl?.touched &&
+              equipmentForm.controls.imageUrl?.errors
+            "
+          >
+            <div *ngIf="equipmentForm.controls.imageUrl?.errors?.required">
+              An image of the equipment is required.
+            </div>
+            <div *ngIf="equipmentForm.controls.imageUrl?.errors?.pattern">
+              The equipment image url is not in the correct format.
+            </div>
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="form-button">

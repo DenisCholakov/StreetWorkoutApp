@@ -1,0 +1,105 @@
+<mat-card class="filters"
+  ><form
+    [formGroup]="trainingSearchForm"
+    action="submit"
+    class="filters-form"
+    (ngSubmit)="filterExrcises()"
+  >
+    <mat-form-field class="search-input">
+      <input
+        matInput
+        placeholder="search for training name:"
+        formControlName="searchTerm"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-radio-group appearance="outline" formControlName="isIndoor">
+      <mat-radio-button [value]="true">Indoor</mat-radio-button>
+      <mat-radio-button [value]="false">Outdoor</mat-radio-button>
+    </mat-radio-group>
+    <mat-checkbox formControlName="myTrainings">Only my trainings</mat-checkbox>
+    <mat-form-field>
+      <mat-select
+        placeholder="included muscle groups"
+        formControlName="muscleGroups"
+        multiple
+      >
+        <mat-option *ngFor="let group of muscleGroups" value="{{ group }}">{{
+          group
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="training level" formControlName="trainingLevel">
+        <mat-option *ngFor="let key of trainingLevelsKeys" value="{{ key }}">{{
+          trainingLevels[key]
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        placeholder="goal exercise"
+        formControlName="goalExerciseName"
+      >
+        <mat-option *ngFor="let name of allExercises" [value]="name">{{
+          name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Search</button>
+  </form></mat-card
+>
+
+<div class="exercises">
+  <div
+    class="cards-container"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayout.sm="column"
+    fxLayoutGap="16px grid"
+    *ngIf="trainingsRepsone?.trainings"
+  >
+    <div
+      *ngFor="let training of trainingsRepsone?.trainings"
+      class="exercise-card"
+      fxFlex="30"
+      fxFlex.md="33"
+    >
+      <div fxFlexFill fxLayoutAlign="center stretch">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ training.name }}</mat-card-title>
+            <mat-card-subtitle
+              ><div *ngIf="training.isIndoor">Indoor</div>
+              <div *ngIf="!training.isIndoor">Outdoor</div></mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <p>Training Level: {{ trainingLevels[training.trainingLevel] }}</p>
+            <p>Goal Exercise: {{ training.goalExerciseName }}</p>
+            <p>Icluded Muscle Groups: {{ training.muscleGroups.join(", ") }}</p>
+            <p>
+              Included exercises:
+              {{ training.includedExerciseNames.join(", ") }}
+            </p>
+            <a
+              mat-flat-button
+              routerLink="/training/details/{{ training.id }}"
+              color="primary"
+              >Training details</a
+            >
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="exercise-paginator">
+    <mat-paginator
+      [length]="100"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[6, 12, 26, 50]"
+      (page)="changePageOptions($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -2,8 +2,8 @@
 {
     public enum TrainingLevelEnum
     {
+        None = 0,
         Beginner = 1,
-        Medium,
         Intermediate,
         Advanced
     }

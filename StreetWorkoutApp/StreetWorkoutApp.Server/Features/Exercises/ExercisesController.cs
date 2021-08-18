@@ -42,11 +42,24 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             
         }
 
+        [HttpGet("all/names")]
+        [SwaggerOperation(
+            Summary = "Get the names of all existing exercises",
+            Description = "Get the names of all existing exercises",
+            OperationId = "GetExerciseDetails")]
+
+        public async Task<ActionResult<ExerciseDetailsModel>> GetAllExerciseNames(int exerciseId)
+        {
+            var exerciseNames = await this.exercisesService.GetAllExerciseNames();
+
+            return Ok(exerciseNames);
+        }
+
         [HttpPost("add")]
         [SwaggerOperation(
             Summary = "Create exercise",
             Description = "Creates a new exercise",
-            OperationId = "AddExercise")]
+            OperationId = "CreateExercise")]
 
         public async Task<ActionResult<int>> CreateExercise([FromBody] CreateExerciseFormModel exercise)
         {

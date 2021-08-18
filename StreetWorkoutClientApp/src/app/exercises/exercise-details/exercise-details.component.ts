@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ExerciseLevelEnum, IExerciseDetailsModel } from 'src/app/models';
-import { ExercisesService } from 'src/app/services/exercises.service';
+
+import { ExerciseLevelEnum } from 'src/app/models/enums';
+import { IExerciseDetailsModel } from 'src/app/models';
+import { ExercisesService } from 'src/app/services';
 
 @Component({
   selector: 'app-exercise-details',

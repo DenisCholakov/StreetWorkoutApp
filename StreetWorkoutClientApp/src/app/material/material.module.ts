@@ -9,6 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -23,6 +25,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatMenuModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatRadioModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -35,6 +39,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatMenuModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatRadioModule,
+    MatAutocompleteModule,
   ],
 })
 export class MaterialModule {}

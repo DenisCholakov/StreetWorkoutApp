@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import * as validationConstants from '../../constants/validation.constants';
+import { AuthService } from 'src/app/services';
 
 @Component({
   selector: 'app-register',
@@ -9,16 +8,20 @@ import * as validationConstants from '../../constants/validation.constants';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  validations = validationConstants;
-
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.registerForm = this.fb.group({
-      username: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[w-.]+@([w-]+.)+[w-]{2,4}$'),
+        ],
+      ],
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
 
@@ -31,12 +34,6 @@ export class RegisterComponent implements OnInit {
   }
 
   getError(propertyName: string): string {
-    let errors = this.registerForm.get(propertyName)?.errors;
-
-    if (errors?.required) {
-      return this.validations.REQUIRED;
-    }
-
     return '';
   }
 }

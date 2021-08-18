@@ -11,6 +11,7 @@ namespace StreetWorkoutApp.Server.Features.Equipment.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         [RegularExpression(imageUrlRegexPattern)]
         public string ImageUrl { get; set; }
     }
