@@ -7,21 +7,24 @@
       {{ exerciseLevels[exerciseDetails.exerciseLevel] }}</mat-card-subtitle
     >
   </mat-card-header>
-  <img
-    mat-card-image
-    src="{{ exerciseDetails?.imageUrl }}"
-    alt="Photo of the exercise"
-  />
+  <div class="image-container">
+    <img
+      mat-card-image
+      src="{{ exerciseDetails?.imageUrl }}"
+      alt="Photo of the exercise"
+    />
+  </div>
   <mat-card-content>
-    <p>Exercsie dexcription: {{ exerciseDetails.description }}</p>
-    <p>Icluded Muscle Groups: {{ exerciseDetails.muscleGroups.join(", ") }}</p>
+    <p>Exercsie description: {{ exerciseDetails.description }}</p>
+    <p>Included Muscle Groups: {{ exerciseDetails.muscleGroups.join(", ") }}</p>
     <p>
       Equipmen needed:
       {{ equipment.join(", ") }}
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button routerLink="/exercise/all">ALL EXERCISES</button>
-    <button mat-button (click)="deleteExercise()">DELETE</button>
+    <button mat-button routerLink="/exercise/all">All Exercises</button>
+    <button mat-button (click)="editExercise()">Edit</button>
+    <button mat-button (click)="deleteExercise()">Delete</button>
   </mat-card-actions>
 </mat-card>

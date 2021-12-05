@@ -8,12 +8,16 @@ namespace StreetWorkoutApp.Services.Equipment
 {
     public interface IEquipmentService
     {
-        Task<ICollection<EquipmentServiceModel>> GetAllEquipment();
+        ICollection<EquipmentServiceModel> GetAllEquipment();
 
-        Task<ICollection<string>> GetAllEquipmentNames();
+        ICollection<string> GetAllEquipmentNames();
 
-        Task CreateEquipment(EquipmentServiceModel equipment, string userId);
+        ICollection<dataEntities.Equipment> AddEquipmentToTraining(
+            dataEntities.Exercise exercise,
+            ICollection<string> equipmentNames);
 
-        Task<ICollection<dataEntities.Equipment>> GetEquipmentByName(ICollection<string> names);
+        Task CreateEquipmentAsync(EquipmentServiceModel equipment, string userId);
+
+        ICollection<dataEntities.Equipment> GetEquipmentByName(ICollection<string> names);
     }
 }

@@ -33,7 +33,7 @@ namespace StreetWorkoutApp.Services.Exercises
             this.commonService = commonService;
         }
 
-        public async Task<int> CreateExercisee(CreateExerciseServiceModel exercise, string userId)
+        public async Task<int> CreateExerciseAsync(CreateExerciseServiceModel exercise, string userId)
         {
             var exerciseToAdd = this.data.Exercises.FirstOrDefault(x => x.Name == exercise.Name);
 
@@ -42,10 +42,10 @@ namespace StreetWorkoutApp.Services.Exercises
                 return -1;
             }
 
-            var equipmentNeeded =await this.equipmentService.GetEquipmentByName(
+            var equipmentNeeded = this.equipmentService.GetEquipmentByName(
                 exercise.Equipment.ToList());
 
-            var muscleGroups = await this.commonService.GetMuscleGroupsByNames(exercise.MuscleGroups.ToList());
+            var muscleGroups = this.commonService.GetMuscleGroupsByNames(exercise.MuscleGroups.ToList());
 
             var creator = this.data.Trainers.FirstOrDefault(t => t.UserId == userId);
 
@@ -73,14 +73,45 @@ namespace StreetWorkoutApp.Services.Exercises
         }
 
 
-        public async Task<bool> DeleteExercise(int exerciseId, string userId)
+        public async Task<int> EditExerciseAsync(CreateExerciseServiceModel model, int exerciseId, string userId)
         {
-            if (!this.data.Trainers.Any(t => t.UserId == userId))
+            var exercsie = await this.data.Exercises.FirstOrDefaultAsync(x => x.Id == exerciseId);
+
+            if (exercsie == null)
             {
-                throw new InvalidOperationException("The user that is trying to delete this training is not a trainser.");
+                throw new InvalidOperationException("The exercise you want to edit, does not exist.");
             }
 
+            var trainer = await this.data.Trainers.FirstOrDefaultAsync(x => x.UserId == userId);
+
+            if (trainer == null || exercsie.CreatorId != trainer.Id)
+            {
+                throw new InvalidOperationException("Sorry, but you are not allowed to edit this exercsie.");
+            }
+
+            exercsie.Name = model.Name;
+            exercsie.Description = model.Description;
+            exercsie.ExerciseLevel = model.ExerciseLevel;
+            exercsie.ExampleUrl = model.ExampleUrl;
+            exercsie.ImageUrl = model.ImageUrl;
+            exercsie.MuscleGroups = this.commonService.GetMuscleGroupsByNames(model.MuscleGroups.ToList());
+
+            this.EditEquipment(exercsie, model.Equipment);
+
+            await this.data.SaveChangesAsync();
+
+            return exercsie.Id;
+        }
+
+        public async Task<bool> DeleteExerciseAsync(int exerciseId, string userId)
+        {
+            var trainer = await this.data.Trainers.FirstOrDefaultAsync(t => t.UserId == userId);
             var exerciseToDelete = this.data.Exercises.FirstOrDefault(e => e.Id == exerciseId);
+
+            if (trainer == null || trainer.Id != exerciseToDelete.CreatorId)
+            {
+                throw new InvalidOperationException("The user that is trying to delete this training does not have the rights to do it.");
+            }            
 
             if (exerciseToDelete == null)
             {
@@ -98,9 +129,13 @@ namespace StreetWorkoutApp.Services.Exercises
                 trainingExercises.Remove(toRemove);
             }
 
-            foreach (var equipment in exerciseToDelete.EquipmentNeeded)
+            var equipmentUsedForexercise = this.data.Equipments
+                .Include(e => e.Exercises)
+                .Where(e => e.Exercises.Contains(exerciseToDelete)).ToList();
+
+            foreach (var equipment in equipmentUsedForexercise)
             {
-                exerciseToDelete.EquipmentNeeded.Remove(equipment);
+                equipment.Exercises.Remove(exerciseToDelete);
             }
 
             this.data.Exercises.Remove(exerciseToDelete);
@@ -109,7 +144,7 @@ namespace StreetWorkoutApp.Services.Exercises
             return true;
         }
 
-        public async Task<ExerciseDetailsServiceModel> GetExerciseDetails(int exerciseId)
+        public ExerciseDetailsServiceModel GetExerciseDetails(int exerciseId)
         {
             var exerciseData = this.data.Exercises.FirstOrDefault(ex => ex.Id == exerciseId);
             data.Entry(exerciseData).Collection(e => e.EquipmentNeeded).Load();
@@ -120,7 +155,7 @@ namespace StreetWorkoutApp.Services.Exercises
             return exercise;
         }
 
-        public async Task<FilteredExercisesServiceResponse> GetFileteredExercises(
+        public FilteredExercisesServiceResponse GetFileteredExercises(
             ExerciseFilterServiceModel filters,
             int currentPage,
             int resultsPerPage)
@@ -144,18 +179,31 @@ namespace StreetWorkoutApp.Services.Exercises
         }
 
 
-        public async Task<Exercise> GetExerciseByName(string exerciseName)
+        public async Task<Exercise> GetExerciseByNameAsync(string exerciseName)
         {
             var exercise = await this.data.Exercises.Where(x => exerciseName == x.Name).FirstOrDefaultAsync();
 
             return exercise;
         }
 
-        public async Task<ICollection<string>> GetAllExerciseNames()
+        public ICollection<string> GetAllExerciseNames()
         {
             var exerciseNames = this.data.Exercises.Select(e => e.Name).ToList();
 
             return exerciseNames;
+        }
+
+        private void EditEquipment(Exercise exercise, ICollection<string> modelEquipment)
+        {
+            var equipmentToAdd = this.equipmentService.AddEquipmentToTraining(exercise, modelEquipment);
+
+            foreach (var equipment in exercise.EquipmentNeeded)
+            {
+                if (!equipmentToAdd.Contains(equipment))
+                {
+                    exercise.EquipmentNeeded.Remove(equipment);
+                }
+            }
         }
 
         private static List<Exercise> FilterData(ExerciseFilterServiceModel filters, List<Exercise> exercises)

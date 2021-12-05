@@ -7,15 +7,15 @@ namespace StreetWorkoutApp.Services.Trainings
 {
     public interface ITrainingsService
     {
-        Task<int> CreateTraining(CreateTrainingServiceModel training, string userId);
+        Task<int> CreateTrainingAsync(CreateTrainingServiceModel training, string userId);
 
-        Task<TrainingDetailsServiceModel> GetTrainingDetails(int trainingId);
+        TrainingDetailsServiceModel GetTrainingDetails(int trainingId);
 
-        Task<FilteredTrainingsServiceResponseModel> GetFilteredTrainings(
+        FilteredTrainingsServiceResponseModel GetFilteredTrainings(
             int currentPage,
             int resultsPerPage,
             TrainingFiltersServiceModel filters);
 
-        Task<bool> DeleteTraining(int trainingId, string userId);
+        Task<bool> DeleteTrainingAsync(int trainingId, string userId);
     }
 }

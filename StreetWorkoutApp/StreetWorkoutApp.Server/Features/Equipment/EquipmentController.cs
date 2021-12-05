@@ -30,9 +30,9 @@ namespace StreetWorkoutApp.Server.Features.Equipment
             Description = "Gets a list with the names of all the quipment in the database",
             OperationId = "GetEquipment")]
 
-        public async Task<ActionResult<ICollection<string>>> GetEquipmentNames()
+        public ActionResult<ICollection<string>> GetEquipmentNames()
         {
-            var result = await this.equipmentService.GetAllEquipmentNames();
+            var result = this.equipmentService.GetAllEquipmentNames();
 
             return Ok(result);
         }
@@ -41,13 +41,13 @@ namespace StreetWorkoutApp.Server.Features.Equipment
         [SwaggerOperation(
             Summary = "Adds new equipment to the database",
             Description = "Adds new equipment to the database",
-            OperationId = "CreateEquipment")]
+            OperationId = "CreateEquipmentAsync")]
 
-        public async Task<ActionResult> CreateEquipment([FromBody] CreateEquipmentFormModel equipment)
+        public async Task<ActionResult> CreateEquipmentAsync([FromBody] CreateEquipmentFormModel equipment)
         {
             var equipmentToAdd = mapper.Map<EquipmentServiceModel>(equipment);
 
-            await this.equipmentService.CreateEquipment(equipmentToAdd, this.User.GetId());
+            await this.equipmentService.CreateEquipmentAsync(equipmentToAdd, this.User.GetId());
 
             return Ok("created");
         }

@@ -15,6 +15,7 @@ import {
 })
 export class ExercisesService {
   private createPath = environment.apiUrl + 'exercises/add';
+  private editPath = environment.apiUrl + 'exercises/edit';
   private deletePath = environment.apiUrl + 'exercises/delete';
   private getExerciseDetailsPath = environment.apiUrl + 'exercises/details';
   private getFilteredExercisesPath = environment.apiUrl + 'exercises/filter';
@@ -22,8 +23,12 @@ export class ExercisesService {
 
   constructor(private http: HttpClient) {}
 
-  create(data: IExerciseCreateFormModel): Observable<IExerciseDetailsModel> {
-    return this.http.post<IExerciseDetailsModel>(this.createPath, data);
+  create(data: IExerciseCreateFormModel): Observable<number> {
+    return this.http.post<number>(this.createPath, data);
+  }
+
+  edit(data: IExerciseCreateFormModel, exerciseId: string): Observable<number> {
+    return this.http.put<number>(this.editPath + `/${exerciseId}`, data);
   }
 
   delete(exerciseId: string): Observable<boolean> {

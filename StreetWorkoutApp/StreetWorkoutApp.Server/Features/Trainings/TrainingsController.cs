@@ -33,11 +33,31 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             Description = "Creates a new exercise",
             OperationId = "CreateTraining")]
 
-        public async Task<ActionResult<int>> CreateTraining([FromBody] CreateTrainingFormModel trainingModel)
+        public async Task<ActionResult<int>> CreateTrainingAsync([FromBody] CreateTrainingFormModel trainingModel)
         {
             var training = this.mapper.Map<CreateTrainingServiceModel>(trainingModel);
 
-            var createdTrainingId = await this.trainingsService.CreateTraining(training, this.User.GetId());
+            var createdTrainingId = await this.trainingsService.CreateTrainingAsync(training, this.User.GetId());
+
+            if (createdTrainingId == -1)
+            {
+                return BadRequest();
+            }
+
+            return Created("", createdTrainingId);
+        }
+
+        [HttpPut("edit")]
+        [SwaggerOperation(
+            Summary = "Create exercise",
+            Description = "Creates a new exercise",
+            OperationId = "CreateTraining")]
+
+        public async Task<ActionResult<int>> EditTrainingAsync([FromBody] CreateTrainingFormModel trainingModel)
+        {
+            var training = this.mapper.Map<CreateTrainingServiceModel>(trainingModel);
+
+            var createdTrainingId = await this.trainingsService.CreateTrainingAsync(training, this.User.GetId());
 
             if (createdTrainingId == -1)
             {
@@ -53,9 +73,9 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             Description = "Gets the details for current traininge",
             OperationId = "GetTrainingDetails")]
 
-        public async Task<ActionResult<TrainingDetailsModel>> GetTrainingDetails(int trainingId)
+        public ActionResult<TrainingDetailsModel> GetTrainingDetails(int trainingId)
         {
-            var trainingDetails = await this.trainingsService.GetTrainingDetails(trainingId);
+            var trainingDetails = this.trainingsService.GetTrainingDetails(trainingId);
 
             if (trainingDetails == null)
             {
@@ -74,14 +94,14 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             Description = "Gets given count of filtered trainings for the given page",
             OperationId = "GetFilteredTrainings")]
 
-        public async Task<ActionResult<FilteredTrainingsResponseModel>> GetFilteredTrainings(
+        public ActionResult<FilteredTrainingsResponseModel> GetFilteredTrainings(
             int currentPage,
             int resultsPerPage,
             TrainingFiltersModel filters)
         {
             var serviceFilters = this.mapper.Map<TrainingFiltersServiceModel>(filters);
 
-            var trainings = await this.trainingsService.GetFilteredTrainings(currentPage, resultsPerPage, serviceFilters);
+            var trainings = this.trainingsService.GetFilteredTrainings(currentPage, resultsPerPage, serviceFilters);
 
             var result = this.mapper.Map<FilteredTrainingsResponseModel>(trainings);
 
@@ -94,11 +114,11 @@ namespace StreetWorkoutApp.Server.Features.Trainings
             Description = "GDeletes the training with the given Id",
             OperationId = "DeleteTraining")]
 
-        public async Task<ActionResult<TrainingDetailsModel>> DeleteTraining(int trainingId)
+        public async Task<ActionResult<TrainingDetailsModel>> DeleteTrainingAsync(int trainingId)
         {
-            var trainingDetails = await this.trainingsService.DeleteTraining(trainingId, this.User.GetId());
+            var trainingDetails = await this.trainingsService.DeleteTrainingAsync(trainingId, this.User.GetId());
 
-            if (trainingDetails == null)
+            if (trainingDetails)
             {
                 return NotFound("Such training does not exist.");
             }

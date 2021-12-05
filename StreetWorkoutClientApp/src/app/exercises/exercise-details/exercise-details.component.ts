@@ -50,6 +50,10 @@ export class ExerciseDetailsComponent implements OnInit, OnDestroy {
     this.router.navigate(['exercise', 'all']);
   }
 
+  editExercise() {
+    this.router.navigate(['exercise', 'edit', `${this.exerciseId}`]);
+  }
+
   private getExerciseDetails() {
     // check if needed
     if (this.exerciseId === '') {

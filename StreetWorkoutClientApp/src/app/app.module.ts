@@ -27,6 +27,7 @@ import { AddTrainingExerciseComponent } from './shared/components/add-training-e
 import { TrainingDetailsComponent } from './trainings/training-details/training-details.component';
 import { AllTrainingsComponent } from './trainings/all-trainings/all-trainings.component';
 import { CommonService } from './services/common/common.service';
+import { EditExerciseComponent } from './exercises/edit-exercise/edit-exercise.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CommonService } from './services/common/common.service';
     AddTrainingExerciseComponent,
     TrainingDetailsComponent,
     AllTrainingsComponent,
+    EditExerciseComponent,
   ],
   imports: [
     BrowserModule,

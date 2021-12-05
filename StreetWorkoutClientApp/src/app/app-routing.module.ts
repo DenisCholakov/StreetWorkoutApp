@@ -4,6 +4,7 @@ import { LoginComponent, RegisterComponent } from './authentication';
 import { CreateEquipmentComponent } from './equipment/create-equipment/create-equipment.component';
 import { AllExercisesComponent } from './exercises/all-exercises/all-exercises.component';
 import { CreateExerciseComponent } from './exercises/create-exercise/create-exercise.component';
+import { EditExerciseComponent } from './exercises/edit-exercise/edit-exercise.component';
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { PageNotFoundComponent } from './handlers/page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
@@ -43,6 +44,10 @@ const routes: Routes = [
         path: 'create',
         component: CreateExerciseComponent,
         canActivate: [TrainerGuardService],
+      },
+      {
+        path: 'edit/:id',
+        component: EditExerciseComponent,
       },
       {
         path: 'details/:id',

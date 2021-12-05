@@ -22,9 +22,9 @@ namespace StreetWorkoutApp.Server.Features.Common
             Description = "Gets a list with the names of all muscle groups in the database",
             OperationId = "GetMuscleGroupNames")]
 
-        public async Task<ActionResult<ICollection<string>>> GetMuscleGroupNames()
+        public ActionResult<ICollection<string>> GetMuscleGroupNames()
         {
-            var result = await this.commonService.GetMuscleGroupNames();
+            var result = this.commonService.GetMuscleGroupNames();
 
             return Ok(result);
         }

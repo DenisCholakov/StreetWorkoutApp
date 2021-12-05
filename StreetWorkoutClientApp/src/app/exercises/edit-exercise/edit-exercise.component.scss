@@ -1,0 +1,29 @@
+.login-form-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login-card {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column; // align main axis
+    align-items: center; // cross axis
+    justify-content: center; // main axis
+
+    .input-fields .mat-form-field {
+      width: 100%;
+    }
+
+    .form-button {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        margin-left: 1%;
+      }
+    }
+  }
+}

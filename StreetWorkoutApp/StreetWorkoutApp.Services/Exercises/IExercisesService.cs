@@ -8,19 +8,21 @@ namespace StreetWorkoutApp.Services.Exercises
 {
     public interface IExercisesService
     {
-        Task<int> CreateExercisee(CreateExerciseServiceModel exercise, string userId);
+        Task<int> CreateExerciseAsync(CreateExerciseServiceModel exercise, string userId);
 
-        Task<bool> DeleteExercise(int exerciseId, string userId);
+        Task<int> EditExerciseAsync(CreateExerciseServiceModel model, int exerciseId, string userId);
 
-        Task<ExerciseDetailsServiceModel> GetExerciseDetails(int exerciseId);
+        Task<bool> DeleteExerciseAsync(int exerciseId, string userId);
 
-        Task<FilteredExercisesServiceResponse> GetFileteredExercises(
+        ExerciseDetailsServiceModel GetExerciseDetails(int exerciseId);
+
+        FilteredExercisesServiceResponse GetFileteredExercises(
             ExerciseFilterServiceModel filters,
             int currentPage,
             int resultsPerPage);
 
-        Task<Exercise> GetExerciseByName(string exerciseName);
+        Task<Exercise> GetExerciseByNameAsync(string exerciseName);
 
-        Task<ICollection<string>> GetAllExerciseNames();
+        ICollection<string> GetAllExerciseNames();
     }
 }

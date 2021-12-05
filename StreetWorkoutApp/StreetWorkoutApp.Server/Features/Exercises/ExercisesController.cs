@@ -33,9 +33,9 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             Description = "Gets Details for the selected exercise",
             OperationId = "GetExerciseDetails")]
 
-        public async Task<ActionResult<ExerciseDetailsModel>> GetExerciseDetails(int exerciseId)
+        public ActionResult<ExerciseDetailsModel> GetExerciseDetails(int exerciseId)
         {
-            var exercise = await this.exercisesService.GetExerciseDetails(exerciseId);
+            var exercise = this.exercisesService.GetExerciseDetails(exerciseId);
 
             var result = this.mapper.Map<ExerciseDetailsModel>(exercise);
 
@@ -49,9 +49,9 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             Description = "Get the names of all existing exercises",
             OperationId = "GetExerciseDetails")]
 
-        public async Task<ActionResult<ExerciseDetailsModel>> GetAllExerciseNames(int exerciseId)
+        public ActionResult<ExerciseDetailsModel> GetAllExerciseNames(int exerciseId)
         {
-            var exerciseNames = await this.exercisesService.GetAllExerciseNames();
+            var exerciseNames = this.exercisesService.GetAllExerciseNames();
 
             return Ok(exerciseNames);
         }
@@ -62,11 +62,31 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             Description = "Creates a new exercise",
             OperationId = "CreateExercise")]
 
-        public async Task<ActionResult<int>> CreateExercise([FromBody] CreateExerciseFormModel exercise)
+        public async Task<ActionResult<int>> CreateExerciseAsync(CreateExerciseFormModel exercise)
         {
             var exerciseToCreate = this.mapper.Map<CreateExerciseServiceModel>(exercise);
 
-            var createdExerciseId = await this.exercisesService.CreateExercisee(exerciseToCreate, this.User.GetId());
+            var createdExerciseId = await this.exercisesService.CreateExerciseAsync(exerciseToCreate, this.User.GetId());
+
+            if (createdExerciseId == -1)
+            {
+                return Conflict("The exercise you want to create already exists.");
+            }
+
+            return Created("", createdExerciseId);
+        }
+
+        [HttpPut("edit/{exerciseId}")]
+        [SwaggerOperation(
+            Summary = "Edit existing exercise",
+            Description = "Edit an existing exercise",
+            OperationId = "EditExercsieAsync")]
+
+        public async Task<ActionResult<int>> EditExercsieAsync(CreateExerciseFormModel exercise, int exerciseId)
+        {
+            var editModel = this.mapper.Map<CreateExerciseServiceModel>(exercise);
+
+            var createdExerciseId = await this.exercisesService.EditExerciseAsync(editModel, exerciseId, this.User.GetId());
 
             if (createdExerciseId == -1)
             {
@@ -82,14 +102,14 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             Description = "Get Filtered Exercises",
             OperationId = "GetFileteredExercises")]
 
-        public async Task<ActionResult<FilteredExercisesResponse>> GetFileteredExercises(
+        public ActionResult<FilteredExercisesResponse> GetFileteredExercises(
             [FromQuery][Required] int currentPage,
             [FromQuery][Required] int resultsPerPage,
             [FromBody] ExerciseFiltersModel filters)
         {
             var serviceFilters = this.mapper.Map<ExerciseFilterServiceModel>(filters);
 
-            var exercises = await this.exercisesService
+            var exercises = this.exercisesService
                 .GetFileteredExercises(serviceFilters, currentPage, resultsPerPage);
 
             var result = this.mapper.Map<FilteredExercisesResponse>(exercises);
@@ -103,10 +123,10 @@ namespace StreetWorkoutApp.Server.Features.Exercises
             Description = "Deletes an exercise created by the logged trainer. Also the admin can delete every exercise",
             OperationId = "DeleteExercise")]
 
-        public async Task<ActionResult<bool>> DeleteExercise(int exerciseId)
+        public async Task<ActionResult<bool>> DeleteExerciseAsync(int exerciseId)
         {
 
-            var isDeleted = await this.exercisesService.DeleteExercise(exerciseId, this.User.GetId());
+            var isDeleted = await this.exercisesService.DeleteExerciseAsync(exerciseId, this.User.GetId());
 
             if (!isDeleted)
             {

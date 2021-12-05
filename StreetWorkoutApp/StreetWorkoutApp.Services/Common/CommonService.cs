@@ -16,14 +16,14 @@ namespace StreetWorkoutApp.Services.Common
             this.data = data;
         }
 
-        public async Task<ICollection<MuscleGroup>> GetMuscleGroupsByNames(List<string> names)
+        public ICollection<MuscleGroup> GetMuscleGroupsByNames(List<string> names)
         {
             var muscleGroups = this.data.MuscleGroups.Where(mg => names.Contains(mg.Name)).ToList();
 
             return muscleGroups;
         }
 
-        public async Task<ICollection<string>> GetMuscleGroupNames()
+        public ICollection<string> GetMuscleGroupNames()
         {
             return this.data.MuscleGroups.Select(mg => mg.Name).ToList();
         }

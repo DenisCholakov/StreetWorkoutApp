@@ -33,7 +33,7 @@ namespace StreetWorkoutApp.Services.Trainings
             this.commonService = commonService;
         }
 
-        public async Task<int> CreateTraining(CreateTrainingServiceModel training, string userId)
+        public async Task<int> CreateTrainingAsync(CreateTrainingServiceModel training, string userId)
         {
             if (this.data.Trainings.Any(t => t.Name == training.Name))
             {
@@ -47,8 +47,8 @@ namespace StreetWorkoutApp.Services.Trainings
                 throw new InvalidOperationException("The user that is trying to create a training is not a trainser.");
             }
 
-            var goalExercise = await exerciseService.GetExerciseByName(training.GoalExercise);
-            var muscleGroups = await commonService.GetMuscleGroupsByNames(training.MuscleGroups.ToList());
+            var goalExercise = await exerciseService.GetExerciseByNameAsync(training.GoalExercise);
+            var muscleGroups = commonService.GetMuscleGroupsByNames(training.MuscleGroups.ToList());
 
             if (!Enum.IsDefined(typeof(TrainingLevelEnum), training.TrainingLevel))
             {
@@ -71,7 +71,7 @@ namespace StreetWorkoutApp.Services.Trainings
 
             foreach (var exercise in training.Exercises)
             {
-                var exerciseToAdd = await this.exerciseService.GetExerciseByName(exercise.ExerciseName);
+                var exerciseToAdd = await this.exerciseService.GetExerciseByNameAsync(exercise.ExerciseName);
 
                 trainngToAdd.Exercises.Add(new TrainingExercise
                 {
@@ -86,7 +86,7 @@ namespace StreetWorkoutApp.Services.Trainings
             return trainngToAdd.Id;
         }
 
-        public async Task<FilteredTrainingsServiceResponseModel> GetFilteredTrainings(int currentPage, int resultsPerPage, TrainingFiltersServiceModel filters)
+        public FilteredTrainingsServiceResponseModel GetFilteredTrainings(int currentPage, int resultsPerPage, TrainingFiltersServiceModel filters)
         {
             var allTrainigs = this.data.Trainings.Select(t => new TrainingServiceModel
             {
@@ -110,7 +110,7 @@ namespace StreetWorkoutApp.Services.Trainings
             return trainingsResponse;
         }
 
-        public async Task<TrainingDetailsServiceModel> GetTrainingDetails(int trainingId)
+        public TrainingDetailsServiceModel GetTrainingDetails(int trainingId)
         {
             var training = this.data.Trainings.FirstOrDefault(t => t.Id == trainingId);
 
@@ -155,7 +155,7 @@ namespace StreetWorkoutApp.Services.Trainings
             return allTrainigs;
         }
 
-        public Task<bool> DeleteTraining(int trainingId, string userId)
+        public Task<bool> DeleteTrainingAsync(int trainingId, string userId)
         {
             throw new NotImplementedException();
         }
